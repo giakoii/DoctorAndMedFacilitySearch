@@ -88,7 +88,14 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
-            <a href="#" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Book Appointment</a>
+            @if(!User.Identity.IsAuthenticated)
+            {
+                <a asp-page="/User/Login" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Book Appointment</a>
+            }
+            else
+            {
+                <a href="logout.html" class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Logout</a>
+            }
         </div>
     </nav>
 
@@ -103,7 +110,7 @@
                     <h1 class="display-1 text-capitalize text-white mb-4">Best Solution For Painful Life</h1>
                     <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                     </p>
-                    <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Book Appointment</a>
+                    <a class="btn btn-primary rounded-pill text-white py-3 px-5" asp-page="/User/Login">Book Appointment</a>
                 </div>
             </div>
         </div>
@@ -115,7 +122,7 @@
                     <h1 class="display-1 text-capitalize text-white mb-4">Best Solution For Painful Life</h1>
                     <p class="mb-5 fs-5 animated slideInDown">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                     </p>
-                    <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Book Appointment</a>
+                    <a class="btn btn-primary rounded-pill text-white py-3 px-5" asp-page="/User/Login">Book Appointment</a>
                 </div>
             </div>
         </div>

@@ -43,8 +43,8 @@ public interface IBaseRepository<T, TU, TSelect> where T : class where TSelect :
     int SaveChanges(string userName, bool needLogicalDelete = false);
     
     Task<int> SaveChangesAsync(string userName, bool needLogicalDelete = false);
-
-    public void ExecuteInTransaction(Action action);
     
-    public Task ExecuteInTransactionAsync(Func<Task> action);
+    TResult ExecuteInTransaction<TResult>(Func<TResult> action);
+
+    Task<TResult> ExecuteInTransactionAsync<TResult>(Func<Task<TResult>> action);
 }
