@@ -208,46 +208,62 @@ public class BaseRepository<TEntity, Type, TView> : IBaseRepository<TEntity, Typ
     /// <typeparam name="TResult"></typeparam>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public TResult ExecuteInTransaction<TResult>(Func<TResult> action)
+    public bool ExecuteInTransaction(Func<bool> action)
     {
+        // Begin transaction
         using var transaction = _context.Database.BeginTransaction();
         try
         {
-            TResult result = action(); 
-            _context.SaveChanges();
-            transaction.Commit();
+            var result = action();
+            // Execute action
+            if (result)
+            {
+                transaction.Commit();
+            }
+            else
+            {
+                transaction.Rollback();
+            }
+
             return result;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             transaction.Rollback();
-            Console.WriteLine(e);
-            throw new Exception(e.Message);
+            throw;
         }
+
+        return action();
     }
 
     /// <summary>
     /// Execute multiple operations within a transaction asynchronously.
     /// </summary>
     /// <param name="action"></param>
-    /// <typeparam name="TResult"></typeparam>
     /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public async Task<TResult> ExecuteInTransactionAsync<TResult>(Func<Task<TResult>> action)
+    public async Task<bool> ExecuteInTransactionAsync(Func<Task<bool>> action)
     {
+        // Begin transaction
         await using var transaction = await _context.Database.BeginTransactionAsync();
         try
         {
-            TResult result = await action();
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
+            bool result = await action();
+            // Execute action
+            if (result)
+            {
+                await transaction.CommitAsync();
+            }
+            else
+            {
+                await transaction.RollbackAsync();
+            }
+
             return result;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             await transaction.RollbackAsync();
-            Console.WriteLine(e);
-            throw new Exception(e.Message);
+            throw;
         }
     }
 }
