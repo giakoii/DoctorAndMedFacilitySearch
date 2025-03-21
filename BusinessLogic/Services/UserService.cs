@@ -9,15 +9,17 @@ namespace BusinessLogic.Services;
 public class UserService : BaseService<User, int, VwUser>, IUserService
 {
     private readonly IMapper _mapper;
+    private readonly IRoleService _roleService;
     
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository"></param>
     /// <param name="mapper"></param>
-    public UserService(IBaseRepository<User, int, VwUser> repository, IMapper mapper) : base(repository)
+    public UserService(IBaseRepository<User, int, VwUser> repository, IMapper mapper, IRoleService roleService) : base(repository)
     {
         _mapper = mapper;
+        _roleService = roleService;
     }
 
     /// <summary>
@@ -61,6 +63,13 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
                 return false;
             }
             
+            // Get role
+            var role = await _roleService.GetByIdAsync(registerViewModel.RoleId);
+            if (role == null)
+            {
+                return false;
+            }
+                        
             // Add new user
             var newUser = new User
             {
@@ -68,13 +77,10 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
                 Email = registerViewModel.Email,
                 PhoneNumber = registerViewModel.PhoneNumber,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerViewModel.Password),
-                RoleId = (byte) ConstantEnum.Role.Patient,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                IsActive = true
+                RoleId = registerViewModel.RoleId,
             };
             await _repository.AddAsync(newUser);
-            SaveChanges(registerViewModel.Email);
+            await SaveChangesAsync(registerViewModel.Email);
             return true;
         });
     }

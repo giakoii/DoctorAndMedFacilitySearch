@@ -21,4 +21,7 @@ public class RegisterViewModel
     [Required(ErrorMessage = "Confirm password is required")]
     [Compare("Password", ErrorMessage = "Confirm password does not match")]
     public string ConfirmPassword { get; set; }
+    
+    [Required(ErrorMessage = "Role is required")]
+    public byte RoleId { get; set; }
 }

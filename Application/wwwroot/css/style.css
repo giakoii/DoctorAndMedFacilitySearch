@@ -203,6 +203,9 @@
     outline: none;
     transition: .5s;
 }
+:root {
+    --dark: #343a40;
+}
 
 .sticky-top.navbar-light .navbar-nav .nav-link {
     padding: 20px 0;
@@ -1156,6 +1159,9 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+:root {
+    --bs-body: #6c757d;
 }
 .footer .footer-item a {
     line-height: 35px;
