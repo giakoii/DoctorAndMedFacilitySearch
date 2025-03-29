@@ -3,15 +3,17 @@ using System.Collections.Generic;
 
 namespace DataAccessObject.Models;
 
-public partial class VwUser
+public partial class VwDoctorSchedule
 {
-    public int UserId { get; set; }
+    public int DoctorScheduleId { get; set; }
 
-    public string FullName { get; set; } = null!;
+    public int DoctorId { get; set; }
 
-    public string Email { get; set; } = null!;
+    public DateTime StartTime { get; set; }
 
-    public int RoleId { get; set; }
+    public DateTime EndTime { get; set; }
+
+    public int MaxPatients { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

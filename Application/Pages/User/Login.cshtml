@@ -74,19 +74,14 @@
 <body>
 <div class="login-container">
     <h2>Login</h2>
-    <form method="post">
+    <form method="post" asp-page-handler="Login">
         <div class="mb-3">
             <input type="email" class="form-control" placeholder="Email" asp-for="email" required>
         </div>
         <div class="mb-3">
             <input type="password" class="form-control" placeholder="Password" asp-for="password" required>
         </div>
-        @if (Model.Message != null)
-        {
-            <div class="mb-3">
-                <label asp-for="Message"></label>
-            </div>
-        }
+        <p style="color: #ff3838">@Model.Message</p>
         <div class="d-flex justify-content-between forgot-password mb-3">
             <div>
                 <input type="checkbox" id="rememberMe"> <label for="rememberMe"> Remember me</label>

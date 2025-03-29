@@ -29,6 +29,8 @@ public partial class DoctorProfile
 
     public string CreatedBy { get; set; } = null!;
 
+    public string? Name { get; set; }
+
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual User Doctor { get; set; } = null!;

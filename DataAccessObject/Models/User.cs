@@ -11,10 +11,6 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public string PhoneNumber { get; set; } = null!;
-
-    public string PasswordHash { get; set; } = null!;
-
     public int RoleId { get; set; }
 
     public DateTime CreatedAt { get; set; }
@@ -28,6 +24,8 @@ public partial class User
     public string? CreatedBy { get; set; }
 
     public virtual DoctorProfile? DoctorProfile { get; set; }
+
+    public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
 
     public virtual PatientProfile? PatientProfile { get; set; }
 

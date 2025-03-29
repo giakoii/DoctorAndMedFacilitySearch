@@ -21,7 +21,7 @@
     <!-- Custom Styles -->
     <style>
         body {
-            background: linear-gradient(135deg, #dbeafe, #93c5fd);
+            background: linear-gradient(135deg, #dbeafe, #15B9D9FF);
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
@@ -73,34 +73,22 @@
     </style>
 </head>
 <body>
+
 <div class="register-container">
     <h2>Register</h2>
-    <form method="post" asp-page-handler="Register">
+    <form method="post">
         <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Full Name" asp-for="RegisterViewModel.FullName" required>
-        </div>
-        <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Email" asp-for="RegisterViewModel.Email" required>
-        </div>
-        <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Phone Number" asp-for="RegisterViewModel.PhoneNumber" required>
-        </div>
-        <div class="mb-3">
-            <select class="form-control" asp-for="RegisterViewModel.RoleId" required>
+            <input type="hidden" asp-for="RegisterViewModel.FullName" />
+            <input type="hidden" asp-for="RegisterViewModel.Email" />
+            <select class="form-control" asp-for="RegisterViewModel.RoleId" id="roleSelect" required>
                 <option value="">Select Your Role</option>
                 <option value="2">Patient</option>
                 <option value="3">Medical Expert</option>
             </select>
         </div>
-        <div class="mb-3">
-            <input type="password" class="form-control" placeholder="Password" asp-for="RegisterViewModel.Password" required>
-        </div>
-        <div class="mb-3">
-            <input type="password" class="form-control" placeholder="Confirm Password" asp-for="RegisterViewModel.ConfirmPassword" required>
-        </div>
         <button type="submit" class="btn btn-register" onclick="this.disabled=true; this.form.submit();">
             Register
-        </button>   
+        </button>
         <p class="mt-3 login-link">Already have an account? <a asp-page="/User/Login">Login</a></p>
     </form>
     <p style="color: #ff3838">@Model.Message</p>

@@ -28,4 +28,6 @@ public partial class VwDoctorProfile
     public bool IsActive { get; set; }
 
     public string CreatedBy { get; set; } = null!;
+
+    public string? Name { get; set; }
 }

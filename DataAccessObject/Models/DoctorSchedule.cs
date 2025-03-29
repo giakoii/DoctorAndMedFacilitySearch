@@ -3,15 +3,17 @@ using System.Collections.Generic;
 
 namespace DataAccessObject.Models;
 
-public partial class VwUser
+public partial class DoctorSchedule
 {
-    public int UserId { get; set; }
+    public int DoctorScheduleId { get; set; }
 
-    public string FullName { get; set; } = null!;
+    public int DoctorId { get; set; }
 
-    public string Email { get; set; } = null!;
+    public DateTime StartTime { get; set; }
 
-    public int RoleId { get; set; }
+    public DateTime EndTime { get; set; }
+
+    public int MaxPatients { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -22,4 +24,6 @@ public partial class VwUser
     public bool IsActive { get; set; }
 
     public string? CreatedBy { get; set; }
+
+    public virtual User Doctor { get; set; } = null!;
 }
