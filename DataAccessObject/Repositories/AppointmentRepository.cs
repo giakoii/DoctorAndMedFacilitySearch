@@ -16,7 +16,19 @@ namespace DataAccessObject.Repositories
         {
             _context = context;
         }
+        private string GetStartTimeFromSlotId(int slotId)
+        {
+            var slotMap = new Dictionary<int, string>
+    {
+        {1, "07:00"}, {2, "07:30"}, {3, "08:00"}, {4, "08:30"},
+        {5, "09:00"}, {6, "09:30"}, {7, "10:00"}, {8, "10:30"},
+        {9, "11:00"}, {10, "11:30"}, {11, "12:00"}, {12, "12:30"},
+        {13, "13:00"}, {14, "13:30"}, {15, "14:00"}, {16, "14:30"},
+        {17, "15:00"}, {18, "15:30"}, {19, "16:00"}, {20, "16:30"}
+    };
 
+            return slotMap.TryGetValue(slotId, out string startTime) ? startTime : null;
+        }
         public async Task<string> CreateAppointment(string email, int doctorId, DateOnly selectedDate, int slotId, int facilityId)
         {
             try
@@ -46,7 +58,7 @@ namespace DataAccessObject.Repositories
                     ScheduleId = schedule.ScheduleId,
                     SlotId = slotToBook.SlotId,
                     FacilityId = facility.FacilityId,
-                    AppointmentDate = DateTime.UtcNow,
+                    AppointmentDate = DateTime.Parse(selectedDate.ToString() + " " + GetStartTimeFromSlotId(slotId)),
                     Status = "Confirmed",
                     PaymentStatus = "Paid",
                     Notes = null,
@@ -73,6 +85,62 @@ namespace DataAccessObject.Repositories
             await _context.SaveChangesAsync();
             return appointment;
         }
+
+        public async Task<List<Appointment>> GetAppointments(string email, int page, int pageSize)
+        {
+            try
+            {
+                var user = await _context.Users
+                 .FirstOrDefaultAsync(u => u.Email == email);
+
+                if (user == null)
+                {
+                    return new List<Appointment>();
+                }
+
+                if (page < 1) page = 1;
+                if (pageSize < 1) pageSize = 10;
+
+                var appointments = await _context.Appointments
+                    .Include(a => a.Patient)
+                    .Include(a => a.Doctor)
+                    .Include(a => a.Facility)
+                    .Include(a => a.ScheduleSlot)
+                    .Where(a => a.PatientId == user.UserId || a.DoctorId == user.UserId)
+                    .OrderByDescending(a => a.AppointmentDate)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                return appointments;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<int> GetAppointmentsCount(string email)
+        {
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+                if (user == null)
+                {
+                    return 0;
+                }
+
+                return await _context.Appointments
+                    .Where(a => a.PatientId == user.UserId || a.DoctorId == user.UserId)
+                    .CountAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<List<DateOnly>> GetAvailableDates(int doctorId, int month, int year)
         {
             try

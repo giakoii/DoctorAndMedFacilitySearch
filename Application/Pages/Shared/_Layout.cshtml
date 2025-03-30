@@ -170,7 +170,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
-                            <a href="appointment.html" class="dropdown-item">Appointment</a>
+                            <a href="/Appointment/Index" class="dropdown-item">Appointment</a>
                             @{
                                 var role = Context.User.FindFirst(ClaimTypes.Role)?.Value;
                                 if (role == "3")

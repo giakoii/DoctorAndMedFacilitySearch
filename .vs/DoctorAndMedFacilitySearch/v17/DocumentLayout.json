@@ -7,12 +7,52 @@
       "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\models\\doctorandmedfacilitysearchcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\models\\doctorandmedfacilitysearchcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\appointment\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\appointment\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\models\\helper\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\models\\helper\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\appointment\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\appointment\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\repositories\\appointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\repositories\\appointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\repositories\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\repositories\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\appointment\\confirmation.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\appointment\\confirmation.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\services\\appointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\appointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\services\\iappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\iappointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\appointment\\process.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\appointment\\process.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\schedules\\schedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\schedules\\schedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\viewmodels\\appointmentviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\viewmodels\\appointmentviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\appointment\\confirmation.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\appointment\\confirmation.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -70,33 +110,163 @@
               "RelativeToolTip": "Application\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-30T16:21:13.345Z",
+              "WhenOpened": "2025-03-30T18:03:15.421Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DoctorAndMedFacilitySearchContext.cs",
-              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\DoctorAndMedFacilitySearchContext.cs",
-              "RelativeDocumentMoniker": "DataAccessObject\\Models\\DoctorAndMedFacilitySearchContext.cs",
-              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\DoctorAndMedFacilitySearchContext.cs",
-              "RelativeToolTip": "DataAccessObject\\Models\\DoctorAndMedFacilitySearchContext.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAkwEkAAAAEAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Confirmation.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Confirmation.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\Appointment\\Confirmation.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Confirmation.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\Appointment\\Confirmation.cshtml.cs",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAUwJwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T16:19:21.85Z",
+              "WhenOpened": "2025-03-30T17:58:41.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AppointmentService.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\AppointmentService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\Services\\AppointmentService.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\AppointmentService.cs",
+              "RelativeToolTip": "BusinessLogic\\Services\\AppointmentService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAIAzwBoAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T16:33:00.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IAppointmentRepository.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\IAppointmentRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Repositories\\IAppointmentRepository.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\IAppointmentRepository.cs",
+              "RelativeToolTip": "DataAccessObject\\Repositories\\IAppointmentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBAAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T16:26:22.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppointmentRepository.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\AppointmentRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Repositories\\AppointmentRepository.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\AppointmentRepository.cs",
+              "RelativeToolTip": "DataAccessObject\\Repositories\\AppointmentRepository.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAADwvzkAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T16:26:20.164Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\Helper\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "DataAccessObject\\Models\\Helper\\AppDbContext.cs",
-              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\Helper\\AppDbContext.cs",
-              "RelativeToolTip": "DataAccessObject\\Models\\Helper\\AppDbContext.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\Appointment\\Index.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Index.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\Appointment\\Index.cshtml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA0wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T16:19:18.246Z",
+              "WhenOpened": "2025-03-30T17:33:14.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Index.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Appointment\\Index.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Index.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Appointment\\Index.cshtml",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAUwBkAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-30T17:32:17.316Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IAppointmentService.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\IAppointmentService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\Services\\IAppointmentService.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\IAppointmentService.cs",
+              "RelativeToolTip": "BusinessLogic\\Services\\IAppointmentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBAAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T16:32:50.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Process.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Process.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\Appointment\\Process.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Process.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\Appointment\\Process.cshtml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAUwEsAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T17:57:38.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Schedule.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Schedule.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Schedules\\Schedule.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Schedule.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Schedules\\Schedule.cshtml",
+              "ViewState": "AgIAAG4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-30T17:55:35.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAK4AAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-30T17:54:02.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AppointmentViewModel.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\AppointmentViewModel.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\ViewModels\\AppointmentViewModel.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\AppointmentViewModel.cs",
+              "RelativeToolTip": "BusinessLogic\\ViewModels\\AppointmentViewModel.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAIAxwA8AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T16:28:27.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Confirmation.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Confirmation.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Appointment\\Confirmation.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Appointment\\Confirmation.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Appointment\\Confirmation.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-30T17:06:24.664Z",
               "EditorCaption": ""
             }
           ]
