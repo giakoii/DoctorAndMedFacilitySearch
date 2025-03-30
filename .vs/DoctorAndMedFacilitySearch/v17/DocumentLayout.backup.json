@@ -1,0 +1,470 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Projects\\DoctorAndMedFacilitySearch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\schedules\\schedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\schedules\\schedule.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\repositories\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\repositories\\schedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\repositories\\ischedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\repositories\\ischedulerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\services\\scheduleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\scheduleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\services\\ischeduleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\ischeduleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\schedules\\schedule.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\schedules\\schedule.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\schedules\\add.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\schedules\\add.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\schedules\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\schedules\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\viewmodels\\scheduleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\viewmodels\\scheduleviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\viewmodels\\scheduleslotviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\viewmodels\\scheduleslotviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\viewmodels\\slotmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\viewmodels\\slotmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\models\\scheduleslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\models\\scheduleslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\models\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\models\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\user\\googlecallback.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\user\\googlecallback.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\user\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\user\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\user\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\user\\profile.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\doctor\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\doctor\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\user\\googlecallback.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\user\\googlecallback.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\models\\slot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\models\\slot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|e:\\projects\\doctorandmedfacilitysearch\\application\\pages\\user\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7450142B-34AB-42E2-96D1-653883577141}|Application\\Application.csproj|solutionrelative:application\\pages\\user\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|e:\\projects\\doctorandmedfacilitysearch\\businesslogic\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E4340F3-616A-4094-AA21-C32A78CD954E}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|e:\\projects\\doctorandmedfacilitysearch\\dataaccessobject\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F036497-69C1-493E-98E7-8EC2AAB91702}|DataAccessObject\\DataAccessObject.csproj|solutionrelative:dataaccessobject\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 15,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ScheduleSlotViewModel.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\ScheduleSlotViewModel.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\ViewModels\\ScheduleSlotViewModel.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\ScheduleSlotViewModel.cs",
+              "RelativeToolTip": "BusinessLogic\\ViewModels\\ScheduleSlotViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T02:03:16.173Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Schedule.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\Schedule.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Models\\Schedule.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\Schedule.cs",
+              "RelativeToolTip": "DataAccessObject\\Models\\Schedule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA8AAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T01:32:41.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ScheduleViewModel.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\ScheduleViewModel.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\ViewModels\\ScheduleViewModel.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\ScheduleViewModel.cs",
+              "RelativeToolTip": "BusinessLogic\\ViewModels\\ScheduleViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T01:38:32.131Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Schedule.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Schedule.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\Schedules\\Schedule.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Schedule.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\Schedules\\Schedule.cshtml.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAUwDMAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T01:37:41.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Schedule.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Schedule.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Schedules\\Schedule.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Schedule.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Schedules\\Schedule.cshtml",
+              "ViewState": "AgIAAAwBAAAAAAAAAAAywPkAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-30T01:37:22.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ScheduleRepository.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\ScheduleRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Repositories\\ScheduleRepository.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\ScheduleRepository.cs",
+              "RelativeToolTip": "DataAccessObject\\Repositories\\ScheduleRepository.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAIAzwFYAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T20:33:51.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\appsettings.json",
+              "RelativeDocumentMoniker": "Application\\appsettings.json",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\appsettings.json",
+              "RelativeToolTip": "Application\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-29T20:12:28.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\Profile.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\User\\Profile.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\Profile.cshtml",
+              "RelativeToolTip": "Application\\Pages\\User\\Profile.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-29T20:01:17.498Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Profile.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\Profile.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\User\\Profile.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\Profile.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\User\\Profile.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T20:01:13.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Doctor\\Index.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Doctor\\Index.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Doctor\\Index.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Doctor\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-29T19:57:03.528Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\Index.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAuwFEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:56:41.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Program.cs",
+              "RelativeDocumentMoniker": "Application\\Program.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Program.cs",
+              "RelativeToolTip": "Application\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:48:20.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Slot.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\Slot.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Models\\Slot.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\Slot.cs",
+              "RelativeToolTip": "DataAccessObject\\Models\\Slot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:38:13.255Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SlotModel.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\SlotModel.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\ViewModels\\SlotModel.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\ViewModels\\SlotModel.cs",
+              "RelativeToolTip": "BusinessLogic\\ViewModels\\SlotModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:40:07.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\User\\Login.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\Login.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\User\\Login.cshtml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:30:55.871Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "GoogleCallback.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\GoogleCallback.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\User\\GoogleCallback.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\GoogleCallback.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\User\\GoogleCallback.cshtml.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAywB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:26:12.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "GoogleCallback.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\GoogleCallback.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\User\\GoogleCallback.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\User\\GoogleCallback.cshtml",
+              "RelativeToolTip": "Application\\Pages\\User\\GoogleCallback.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-29T19:26:10.887Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\Services\\UserService.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\UserService.cs",
+              "RelativeToolTip": "BusinessLogic\\Services\\UserService.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:25:34.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Add.cshtml.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Add.cshtml.cs",
+              "RelativeDocumentMoniker": "Application\\Pages\\Schedules\\Add.cshtml.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Add.cshtml.cs",
+              "RelativeToolTip": "Application\\Pages\\Schedules\\Add.cshtml.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA5wBIAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:23:42.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Add.cshtml",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Add.cshtml",
+              "RelativeDocumentMoniker": "Application\\Pages\\Schedules\\Add.cshtml",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\Application\\Pages\\Schedules\\Add.cshtml",
+              "RelativeToolTip": "Application\\Pages\\Schedules\\Add.cshtml",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAiwKAAAABrAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-29T19:23:28.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ScheduleService.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\ScheduleService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\Services\\ScheduleService.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\ScheduleService.cs",
+              "RelativeToolTip": "BusinessLogic\\Services\\ScheduleService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAIA1wCMAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:21:18.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IScheduleService.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\IScheduleService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\Services\\IScheduleService.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\BusinessLogic\\Services\\IScheduleService.cs",
+              "RelativeToolTip": "BusinessLogic\\Services\\IScheduleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:20:19.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\User.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Models\\User.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\User.cs",
+              "RelativeToolTip": "DataAccessObject\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:09:31.898Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ScheduleSlot.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\ScheduleSlot.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Models\\ScheduleSlot.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Models\\ScheduleSlot.cs",
+              "RelativeToolTip": "DataAccessObject\\Models\\ScheduleSlot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:08:28.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IScheduleRepository.cs",
+              "DocumentMoniker": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\IScheduleRepository.cs",
+              "RelativeDocumentMoniker": "DataAccessObject\\Repositories\\IScheduleRepository.cs",
+              "ToolTip": "E:\\Projects\\DoctorAndMedFacilitySearch\\DataAccessObject\\Repositories\\IScheduleRepository.cs",
+              "RelativeToolTip": "DataAccessObject\\Repositories\\IScheduleRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T19:02:20.086Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
