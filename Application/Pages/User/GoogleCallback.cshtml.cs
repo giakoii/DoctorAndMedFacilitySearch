@@ -11,10 +11,12 @@ namespace Application.Pages.User;
 public class GoogleCallback : PageModel
 {
     private readonly IUserService _userService;
+    private readonly IRoleService _roleService;
 
-    public GoogleCallback(IUserService userService)
+    public GoogleCallback(IUserService userService, IRoleService roleService)
     {
         _userService = userService;
+        _roleService = roleService;
     }
 
     public async Task<IActionResult> OnGetAsync()
@@ -36,21 +38,25 @@ public class GoogleCallback : PageModel
         }
 
         // 
-        return RedirectToPage("./Register", new { email, fullName });    }
+        return RedirectToPage("./Register", new { email, fullName });
+    }
 
     private async Task SignInUser(DataAccessObject.Models.User user)
     {
+        var roleName = _roleService.FindView(x => x.RoleId == user.RoleId).Select(x => x.RoleName).FirstOrDefault();
+
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.RoleId.ToString())
+            new Claim(ClaimTypes.Role, user.RoleId.ToString()),
+            new Claim("RoleName", roleName)
         };
 
         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var authProperties = new AuthenticationProperties();
 
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity), authProperties);
     }
 }
