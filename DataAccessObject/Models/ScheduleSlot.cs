@@ -11,6 +11,8 @@ public partial class ScheduleSlot
 
     public bool? IsBooked { get; set; }
 
+    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
     public virtual Schedule Schedule { get; set; } = null!;
 
     public virtual Slot Slot { get; set; } = null!;

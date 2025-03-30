@@ -29,13 +29,11 @@ public partial class DoctorProfile
 
     public string CreatedBy { get; set; } = null!;
 
-    public string? Name { get; set; }
-
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual User Doctor { get; set; } = null!;
 
-    public virtual ICollection<MedicalFacility> MedicalFacilities { get; set; } = new List<MedicalFacility>();
-
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+    public virtual ICollection<MedicalFacility> Facilities { get; set; } = new List<MedicalFacility>();
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DataAccessObject.Models;
 
@@ -60,11 +61,18 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     public virtual DbSet<VwSystemConfig> VwSystemConfigs { get; set; }
 
     public virtual DbSet<VwUser> VwUsers { get; set; }
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+        var strConn = config["ConnectionStrings:DefaultConnection"];
 
+        return strConn;
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=database.techtheworld.id.vn;Database=DoctorAndMedFacilitySearch;User Id=abc;Password=B82E3D33-F7B4-46F7-AAF8-6F84B826524A;TrustServerCertificate=True;");
-
+        => optionsBuilder.UseSqlServer(GetConnectionString());
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -95,6 +103,11 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.HasOne(d => d.Patient).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.PatientId)
                 .HasConstraintName("FK__Appointme__Patie__59063A47");
+
+            entity.HasOne(d => d.ScheduleSlot).WithMany(p => p.Appointments)
+                .HasForeignKey(d => new { d.ScheduleId, d.SlotId })
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Appointment_ScheduleSlot");
         });
 
         modelBuilder.Entity<DoctorProfile>(entity =>
@@ -109,9 +122,6 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.CreatedBy).HasMaxLength(50);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.Qualification).HasMaxLength(255);
             entity.Property(e => e.Specialty).HasMaxLength(255);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
@@ -121,6 +131,23 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.HasOne(d => d.Doctor).WithOne(p => p.DoctorProfile)
                 .HasForeignKey<DoctorProfile>(d => d.DoctorId)
                 .HasConstraintName("FK__DoctorPro__Docto__3F466844");
+
+            entity.HasMany(d => d.Facilities).WithMany(p => p.Doctors)
+                .UsingEntity<Dictionary<string, object>>(
+                    "DoctorMedicalFacility",
+                    r => r.HasOne<MedicalFacility>().WithMany()
+                        .HasForeignKey("FacilityId")
+                        .HasConstraintName("FK__DoctorMed__Facil__08B54D69"),
+                    l => l.HasOne<DoctorProfile>().WithMany()
+                        .HasForeignKey("DoctorId")
+                        .HasConstraintName("FK__DoctorMed__Docto__07C12930"),
+                    j =>
+                    {
+                        j.HasKey("DoctorId", "FacilityId").HasName("PK__DoctorMe__783B0666D7A41A05");
+                        j.ToTable("DoctorMedicalFacility");
+                        j.IndexerProperty<int>("DoctorId").HasColumnName("DoctorID");
+                        j.IndexerProperty<int>("FacilityId").HasColumnName("FacilityID");
+                    });
         });
 
         modelBuilder.Entity<DoctorSchedule>(entity =>
@@ -183,7 +210,6 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.CreatedBy).HasMaxLength(50);
-            entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Name).HasMaxLength(255);
@@ -192,10 +218,6 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Rating).HasDefaultValue(0.0);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
-
-            entity.HasOne(d => d.Doctor).WithMany(p => p.MedicalFacilities)
-                .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__MedicalFa__Docto__45F365D3");
         });
 
         modelBuilder.Entity<PatientProfile>(entity =>
@@ -384,11 +406,9 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Availability).HasMaxLength(255);
             entity.Property(e => e.ConsultationFee).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-            entity.Property(e => e.CreatedBy).HasMaxLength(50);
             entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
-            entity.Property(e => e.Name)
-                .HasMaxLength(255)
-                .IsUnicode(false);
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.Qualification).HasMaxLength(255);
             entity.Property(e => e.Specialty).HasMaxLength(255);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
@@ -452,7 +472,6 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.CreatedBy).HasMaxLength(50);
-            entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.FacilityId)
                 .ValueGeneratedOnAdd()
@@ -473,8 +492,9 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Address).HasMaxLength(255);
             entity.Property(e => e.BloodType).HasMaxLength(5);
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
-            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.EmergencyContact).HasMaxLength(255);
+            entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.PatientId).HasColumnName("PatientID");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);

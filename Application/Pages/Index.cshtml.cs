@@ -35,7 +35,7 @@ public class IndexModel : PageModel
 
         if (!string.IsNullOrEmpty(Keyword))
         {
-            doctorsQuery = doctorsQuery.Where(x => x.Name.Contains(Keyword));
+            doctorsQuery = doctorsQuery.Where(x => x.FullName.Contains(Keyword));
             medicalFacilitiesQuery = medicalFacilitiesQuery.Where(x => x.Name.Contains(Keyword));
         }
 
@@ -73,7 +73,7 @@ public class IndexModel : PageModel
 
         ViewData["Doctors"] = doctorsQuery.Select(x => new DoctorViewModel
         {
-            Name = x.Name,
+            Name = x.FullName,
             Specialty = x.Specialty,
             ExperienceYears = x.ExperienceYears,
             WorkSchedule = x.WorkSchedule,
