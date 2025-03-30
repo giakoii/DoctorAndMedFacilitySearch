@@ -60,14 +60,8 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
                 Email = registerViewModel.Email,
                 RoleId = registerViewModel.RoleId,
             };
-             _repository.Add(newUser);
-             SaveChanges(registerViewModel.Email);
-            
-            Console.WriteLine($"Email: {newUser.Email}");
-            Console.WriteLine($"Role: {newUser.RoleId}");
-            Console.WriteLine($"Full Name: {newUser.FullName}");
-            Console.WriteLine($"Email: {newUser.Email}");
-            
+            _repository.Add(newUser);
+            SaveChanges(registerViewModel.Email);
             return true;
         });
     }
@@ -97,48 +91,4 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
 
         return _mapper.Map<PatientProfileViewModel>(patientProfile);
     }
-    
-    // public IEnumerable<DoctorProfileViewModel> SearchDoctors(string name, string specialty, string medicalFacility, string location, string expertise, double? rating, decimal? fee)
-    // {
-    //     var information = FindView(x => x.RoleId == (byte)ConstantEnum.Role.MedicalExpert);
-    //     
-    //     var query = _doctorProfileService.FindView();
-    //
-    //     if (!string.IsNullOrEmpty(name))
-    //     {
-    //         information = information.Where(d => d.FullName.Contains(name));
-    //     }
-    //
-    //     if (!string.IsNullOrEmpty(specialty))
-    //     {
-    //         query = query.Where(d => d.Specialty.Contains(specialty));
-    //     }
-    //
-    //     if (!string.IsNullOrEmpty(medicalFacility))
-    //     {
-    //         query = query.Where(d => d..Contains(medicalFacility));
-    //     }
-    //
-    //     if (!string.IsNullOrEmpty(location))
-    //     {
-    //         query = query.Where(d => d.Location.Contains(location));
-    //     }
-    //
-    //     if (!string.IsNullOrEmpty(expertise))
-    //     {
-    //         query = query.Where(d => d.Expertise.Contains(expertise));
-    //     }
-    //
-    //     if (rating.HasValue)
-    //     {
-    //         query = query.Where(d => d.Rating >= rating.Value);
-    //     }
-    //
-    //     if (fee.HasValue)
-    //     {
-    //         query = query.Where(d => d.Fee <= fee.Value);
-    //     }
-    //
-    //     return _mapper.Map<IEnumerable<DoctorProfileViewModel>>(query.ToList());
-    // }
 }

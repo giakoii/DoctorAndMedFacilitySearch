@@ -31,49 +31,16 @@ public class Login : PageModel
     
     [TempData] public string Message { get; set; }
     
-    /// <summary>
-    /// Login
-    /// </summary>
-    /// <returns></returns>
-    // public async Task<IActionResult> OnPostLogin()
-    // {
-    //     if (!ModelState.IsValid)
-    //     {
-    //         Message = "Please enter Email and Password";
-    //         return Page();
-    //     }
-    //
-    //     var userLogin = _userService.Login(email, password);
-    //     if (userLogin == null)
-    //     {
-    //         Message = "Invalid username or password";
-    //         return Page();
-    //     }
-    //     
-    //     // Set Claim
-    //     var claims = new List<Claim>
-    //     {
-    //         new Claim(ClaimTypes.Name, userLogin.FullName),
-    //         new Claim(ClaimTypes.Email, userLogin.Email),
-    //         new Claim(ClaimTypes.Role, userLogin.RoleName),
-    //         new Claim(ClaimTypes.MobilePhone, userLogin.PhoneNumber)
-    //     };
-    //     
-    //     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-    //     var principal = new ClaimsPrincipal(identity);
-    //     
-    //     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-    //
-    //     if (userLogin.RoleName == ConstantEnum.Role.MedicalExpert.ToString())
-    //     {
-    //         return RedirectToPage("/Index");
-    //     }
-    //     return RedirectToPage("/Index");
-    // }
     
     public IActionResult OnGet()
     {
         var redirectUrl = Url.Page("/User/GoogleCallback", pageHandler: null, values: null, protocol: Request.Scheme);
-        return Challenge(new AuthenticationProperties { RedirectUri = redirectUrl }, GoogleDefaults.AuthenticationScheme);
+        var authenticationProperties = new AuthenticationProperties
+        {
+            RedirectUri = redirectUrl,
+            Parameters = { { "prompt", "select_account" } }
+        };
+
+        return Challenge(authenticationProperties, GoogleDefaults.AuthenticationScheme);
     }
 }

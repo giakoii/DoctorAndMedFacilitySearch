@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using BusinessLogic;
 using BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,10 +31,14 @@ public class GoogleCallback : PageModel
         var email = result.Principal.FindFirst(ClaimTypes.Email)?.Value;
         var fullName = result.Principal.FindFirst(ClaimTypes.Name)?.Value;
 
-        var userExist = await _userService.Find(x => x.Email == email).FirstOrDefaultAsync();
+        var userExist = await _userService.Find(x => x.Email == email, true, x => x.Role).FirstOrDefaultAsync();
         if (userExist != null)
         {
             await SignInUser(userExist);
+            if (userExist.Role.RoleName == ConstantEnum.Role.MedicalExpert.ToString())
+            {
+                return RedirectToPage("/Doctor/Index");
+            }
             return RedirectToPage("/Index");
         }
 

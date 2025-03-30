@@ -31,9 +31,15 @@ public partial class Appointment
 
     public string CreatedBy { get; set; } = null!;
 
+    public int ScheduleId { get; set; }
+
+    public int SlotId { get; set; }
+
     public virtual DoctorProfile? Doctor { get; set; }
 
     public virtual MedicalFacility? Facility { get; set; }
 
     public virtual PatientProfile? Patient { get; set; }
+
+    public virtual ScheduleSlot ScheduleSlot { get; set; } = null!;
 }

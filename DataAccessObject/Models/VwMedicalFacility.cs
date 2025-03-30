@@ -30,6 +30,4 @@ public partial class VwMedicalFacility
     public bool IsActive { get; set; }
 
     public string CreatedBy { get; set; } = null!;
-
-    public int DoctorId { get; set; }
 }

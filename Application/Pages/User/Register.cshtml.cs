@@ -45,8 +45,6 @@ public class Register : PageModel
             }
         }
         
-        Console.WriteLine($"Full Name: {RegisterViewModel.FullName}");
-        Console.WriteLine($"Email: {RegisterViewModel.Email}");
         if (!ModelState.IsValid) 
             return Page();
 

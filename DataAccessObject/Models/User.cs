@@ -30,4 +30,6 @@ public partial class User
     public virtual PatientProfile? PatientProfile { get; set; }
 
     public virtual Role Role { get; set; } = null!;
+
+    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

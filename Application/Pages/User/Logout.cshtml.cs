@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,7 +13,10 @@ public class Logout : PageModel
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
+        // Sign out of Cookie Authentication
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        // Redirect to HomePage
         return RedirectToPage("/Index");
     }
 }
