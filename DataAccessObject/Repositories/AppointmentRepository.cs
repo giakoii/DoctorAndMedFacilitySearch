@@ -42,7 +42,7 @@ namespace DataAccessObject.Repositories
                 var schedule = await _context.Schedules.Include(s => s.ScheduleSlots).FirstOrDefaultAsync(s => s.DoctorId == doctorId && s.ScheduleDate == selectedDate);
                 if (schedule == null) return "Schedule not found.";
 
-                var existingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.ScheduleId == schedule.ScheduleId && a.SlotId == slotId);
+                var existingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.ScheduleId == schedule.ScheduleId && a.SlotId == slotId && a.Status == "Confirmed");
                 if (existingAppointment != null) return "Slot already booked.";
 
                 var facility = await _context.MedicalFacilities.FirstOrDefaultAsync(mf => mf.FacilityId == facilityId);

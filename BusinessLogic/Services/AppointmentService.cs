@@ -197,7 +197,10 @@ namespace BusinessLogic.Services
                     return "Error: Appointment not found";
                 }
                 existingAppointment.Status = "Cancelled";
-                existingAppointment.Notes = notes;
+                existingAppointment.Notes = $"An appointment on {existingAppointment.AppointmentDate} has been cancelled.\nReason: {notes}\nThank you for using service!";
+                existingAppointment.IsActive = false;
+                existingAppointment.UpdatedAt = DateTime.Now;
+                existingAppointment.UpdatedBy = "System";
                 var scheduleSlot = await _context.ScheduleSlots.FirstOrDefaultAsync(ss => ss.SlotId == existingAppointment.SlotId && ss.ScheduleId == existingAppointment.ScheduleId);
                 if (scheduleSlot != null)
                 {
