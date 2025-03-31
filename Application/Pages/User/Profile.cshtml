@@ -101,7 +101,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12"><label class="labels">Full Name</label><input type="text" class="form-control" value="@User.Identity.Name" readonly></div>
-                    <div class="col-md-12"><label class="labels">Role</label><input type="text" class="form-control" value="@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value" readonly></div>
+                    <div class="col-md-12"><label class="labels">Role</label><input type="text" class="form-control" value="@User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value" readonly></div>
                 </div>
 
                 @if (User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.Patient.ToString())

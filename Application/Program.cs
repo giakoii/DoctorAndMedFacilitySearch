@@ -23,8 +23,6 @@ builder.Services.AddAutoMapper(typeof(AutoMapping));
 // AddScoped Base
 builder.Services.AddScoped(typeof(IBaseRepository<,,>), typeof(BaseRepository<,,>));
 builder.Services.AddScoped(typeof(IBaseService<, ,>), typeof(BaseService<, ,>));
-builder.Services.AddScoped<IBaseService<DoctorProfile, int, VwDoctorProfile>, BaseService<DoctorProfile, int, VwDoctorProfile>>();
-builder.Services.AddScoped<IBaseService<PatientProfile, int, VwPatientProfile>, BaseService<PatientProfile, int, VwPatientProfile>>();
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 // AddScoped Service
@@ -32,6 +30,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IMedicalFacilityService, MedicalFacilityService>();
+builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

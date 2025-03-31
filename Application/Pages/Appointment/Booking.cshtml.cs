@@ -1,12 +1,8 @@
-﻿using BusinessLogic.Services;
-using BusinessLogic.ViewModels;
+﻿using System.Text.Json;
+using BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Application.Pages.Appointment
 {

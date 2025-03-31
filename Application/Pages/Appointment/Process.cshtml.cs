@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DataAccessObject.Repositories;
+﻿using System.Globalization;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Application.Pages.Appointment
 {
@@ -67,7 +64,7 @@ namespace Application.Pages.Appointment
                 ResultMessage = "Invalid time slot.";
                 return Page();
             }
-            if (!DateOnly.TryParseExact(selectedDate, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out DateOnly parsedDate))
+            if (!DateOnly.TryParseExact(selectedDate, "yyyy-MM-dd", null, DateTimeStyles.None, out DateOnly parsedDate))
             {
                 ResultMessage = "Invalid date format.";
                 return Page();

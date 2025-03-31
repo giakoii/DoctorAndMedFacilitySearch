@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using BusinessLogic;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
-using DataAccessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
@@ -13,13 +12,11 @@ namespace Application.Pages;
 public class IndexModel : PageModel
 {
     private readonly HttpClient _httpClient;
-    private readonly IBaseService<MedicalFacility, int, VwMedicalFacility> _medicalFacilityService;
-    private readonly IBaseService<DoctorProfile, int, VwDoctorProfile> _doctorProfileService;
+    private readonly IMedicalFacilityService _medicalFacilityService;
+    private readonly IDoctorProfileService _doctorProfileService;
     private readonly IUserService _userService;
 
-    public IndexModel(HttpClient httpClient,
-        IBaseService<MedicalFacility, int, VwMedicalFacility> medicalFacilityService,
-        IBaseService<DoctorProfile, int, VwDoctorProfile> doctorProfileService, IUserService userService)
+    public IndexModel(HttpClient httpClient, IMedicalFacilityService medicalFacilityService, IDoctorProfileService doctorProfileService, IUserService userService)
     {
         _httpClient = httpClient;
         _medicalFacilityService = medicalFacilityService;

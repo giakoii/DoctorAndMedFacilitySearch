@@ -39,6 +39,11 @@ public class GoogleCallback : PageModel
             {
                 return RedirectToPage("/Doctor/Index");
             }
+
+            if (userExist.Role.RoleName == ConstantEnum.Role.Admin.ToString())
+            {
+                return RedirectToPage("/Admin/Index");
+            }
             return RedirectToPage("/Index");
         }
 
