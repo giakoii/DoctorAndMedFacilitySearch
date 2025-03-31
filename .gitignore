@@ -43,6 +43,8 @@ CodeCoverage/
 
 .idea/
 
+.vs/
+
 *.DotSettings.user
 
 # MSBuild Binary and Structured Log
