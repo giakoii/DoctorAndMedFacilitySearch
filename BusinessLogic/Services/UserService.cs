@@ -13,7 +13,7 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
     private readonly IBaseService<DoctorProfile, int, VwDoctorProfile> _doctorProfileService;
     private readonly IBaseService<PatientProfile, int, VwPatientProfile> _patientProfileService;
     private readonly IMapper _mapper;
-
+    
     /// <summary>
     /// Constructor
     /// </summary>

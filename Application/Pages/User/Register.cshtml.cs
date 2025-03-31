@@ -1,15 +1,11 @@
 using System.Security.Claims;
-using Application.ViewModels;
 using AutoMapper;
-using BusinessLogic;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Pages.User;
 
