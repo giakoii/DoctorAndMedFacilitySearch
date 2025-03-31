@@ -59,12 +59,12 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     public virtual DbSet<VwSystemConfig> VwSystemConfigs { get; set; }
 
     public virtual DbSet<VwUser> VwUsers { get; set; }
-    
+
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
+            .AddJsonFile("appsettings.json",true,true)
             .Build();
         var strConn = config["ConnectionStrings:DefaultConnection"];
 

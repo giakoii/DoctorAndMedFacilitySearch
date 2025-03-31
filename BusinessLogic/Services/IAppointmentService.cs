@@ -18,5 +18,8 @@ namespace BusinessLogic.Services
         Task<List<AppointmentViewModel>> GetAppointmentsViewModel(string email, int page, int pageSize);
         Task<int> GetAppointmentsCount(string email);
         Task<string> UpdateAppointmentAsync(int id, string notes);
+        Task<AppointmentViewModel> GetAppointmentByIdAsync(int id);
+        Task<List<ScheduleModel>> GetDoctorSchedulesAsync(int doctorId);
+        Task<string> ChangeAppointmentScheduleAsync(int appointmentId, int doctorId, int scheduleId, int slotId);
     }
 }
