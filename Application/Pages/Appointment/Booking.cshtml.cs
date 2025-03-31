@@ -1,8 +1,8 @@
-﻿using System.Text.Json;
-using BusinessLogic.Services;
+﻿using BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
 
 namespace Application.Pages.Appointment
 {
@@ -94,7 +94,9 @@ namespace Application.Pages.Appointment
                 Specialty = d.Specialty,
                 ExperienceYears = d.ExperienceYears,
                 ConsultationFee = d.ConsultationFee,
-                Availability = d.Availability ?? "Not specified"
+                Availability = d.Availability ?? "Not specified",
+                FacilityIds = d.Facilities.Select(f => f.FacilityId.ToString()).ToList()
+
             }).ToList();
 
             var facilityDetails = facilities.Select(f => new

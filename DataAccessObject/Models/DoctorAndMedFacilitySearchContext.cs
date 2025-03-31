@@ -64,7 +64,7 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     {
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json",true,true)
+            .AddJsonFile("appsettings.json", true, true)
             .Build();
         var strConn = config["ConnectionStrings:DefaultConnection"];
 
@@ -103,6 +103,11 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.HasOne(d => d.Patient).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.PatientId)
                 .HasConstraintName("FK__Appointme__Patie__59063A47");
+
+            entity.HasOne(d => d.ScheduleSlot).WithMany(p => p.Appointments)
+                .HasForeignKey(d => new { d.ScheduleId, d.SlotId })
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Appointment_ScheduleSlot");
         });
 
         modelBuilder.Entity<DoctorProfile>(entity =>

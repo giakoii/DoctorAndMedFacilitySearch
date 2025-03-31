@@ -1,0 +1,270 @@
+﻿@page
+@using BusinessLogic.ViewModels
+@model Application.Pages.CareModel
+@{
+    var isSearch = ViewData["IsSearch"] as bool? ?? false;
+    var keyword = ViewData["Keyword"] as string;
+    var doctors = ViewData["Doctors"] as List<DoctorViewModel> ?? new List<DoctorViewModel>();
+    var medicalFacilities = ViewData["MedicalFacilities"] as List<MedicalFacilityViewModel> ?? new List<MedicalFacilityViewModel>();
+
+    // Lấy tab hiện tại
+    var tab = ViewData["Tab"] as string ?? "doctors";
+
+    // Các biến phân trang
+    var pageNumberDoctors = (int)(ViewData["PageNumberDoctors"] ?? 1);
+    var totalPagesDoctors = (int)(ViewData["TotalPagesDoctors"] ?? 1);
+
+    var pageNumberFacilities = (int)(ViewData["PageNumberMedicalFacilities"] ?? 1);
+    var totalPagesFacilities = (int)(ViewData["TotalPagesMedicalFacilities"] ?? 1);
+
+    // Các tham số lọc khác nếu có
+    var specialty = ViewData["Specialty"] as string;
+    var rating = ViewData["Rating"];
+    var fee = ViewData["Fee"];
+    var services = ViewData["Services"];
+}
+
+<!-- Tabs -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <!-- Tab Doctors -->
+        <a class="nav-link @(tab == "doctors" ? "active" : string.Empty)"
+           asp-page="./Care"
+           asp-route-Tab="doctors"
+           asp-route-IsSearch="true"
+           asp-route-Keyword="@keyword"
+           asp-route-Specialty="@specialty"
+           asp-route-Rating="@rating"
+           asp-route-Fee="@fee"
+           asp-route-Services="@services"
+           asp-route-PageNumberDoctors="1"
+           asp-route-PageNumberMedicalFacilities="@pageNumberFacilities">
+            Doctors
+        </a>
+
+    </li>
+    <li class="nav-item">
+        <!-- Tab Facilities -->
+        <a class="nav-link @(tab == "facilities" ? "active" : "")"
+           asp-page="./Care"
+           asp-route-Tab="facilities"
+           asp-route-IsSearch="true"
+           asp-route-Keyword="@keyword"
+           asp-route-Specialty="@specialty"
+           asp-route-Rating="@rating"
+           asp-route-Fee="@fee"
+           asp-route-Services="@services"
+           asp-route-PageNumberDoctors="@pageNumberDoctors"
+           asp-route-PageNumberMedicalFacilities="1">
+            Facilities
+        </a>
+    </li>
+</ul>
+
+<!-- Nội dung trang -->
+<div class="container mt-4">
+    @if (isSearch)
+    {
+        <!-- Tùy thuộc vào tab mà hiển thị nội dung -->
+        @if (tab == "doctors")
+        {
+            if (doctors.Any())
+            {
+                <h4>🔍 Search Results for "@keyword":</h4>
+                <h5>👨‍⚕️ Doctors</h5>
+                <div class="row">
+                    @foreach (var doctor in doctors)
+                    {
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="feature-item p-4 shadow-sm rounded bg-light">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-user-md fa-4x text-primary"></i>
+                                </div>
+                                <h5 class="text-center">@doctor.Name</h5>
+                                <ul class="list-unstyled mt-3">
+                                    <li><strong>Availability:</strong> @doctor.Availability</li>
+                                    <li><strong>Qualification:</strong> @doctor.Qualification</li>
+                                    <li><strong>Specialty:</strong> @doctor.Specialty</li>
+                                    <li><strong>Consultation Fee:</strong> @doctor.ConsultationFee</li>
+                                    <li><strong>Experience Years:</strong> @doctor.ExperienceYears</li>
+                                    <li><strong>Work Schedule:</strong> @doctor.WorkSchedule</li>
+                                </ul>
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-primary">Book Appointment</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Phân trang Doctors -->
+                <div class="pagination mt-3">
+                    <!-- Previous -->
+                    <a class="btn btn-primary mx-2 @(pageNumberDoctors <= 1 ? "disabled" : "")"
+                       asp-page="./Care"
+                       asp-route-Tab="doctors"
+                       asp-route-IsSearch="true"
+                       asp-route-Keyword="@keyword"
+                       asp-route-Specialty="@specialty"
+                       asp-route-Rating="@rating"
+                       asp-route-Fee="@fee"
+                       asp-route-Services="@services"
+                       asp-route-PageNumberDoctors="@(pageNumberDoctors - 1)"
+                       asp-route-PageNumberMedicalFacilities="@pageNumberFacilities">
+                        Previous
+                    </a>
+
+                    <span class="align-self-center">Page @pageNumberDoctors / @totalPagesDoctors</span>
+
+                    <!-- Next -->
+                    <a class="btn btn-primary mx-2 @(pageNumberDoctors >= totalPagesDoctors ? "disabled" : "")"
+                       asp-page="./Care"
+                       asp-route-Tab="doctors"
+                       asp-route-IsSearch="true"
+                       asp-route-Keyword="@keyword"
+                       asp-route-Specialty="@specialty"
+                       asp-route-Rating="@rating"
+                       asp-route-Fee="@fee"
+                       asp-route-Services="@services"
+                       asp-route-PageNumberDoctors="@(pageNumberDoctors + 1)"
+                       asp-route-PageNumberMedicalFacilities="@pageNumberFacilities">
+                        Next
+                    </a>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted text-center">No Doctor results found for "@keyword".</p>
+            }
+        }
+        else if (tab == "facilities")
+        {
+            if (medicalFacilities.Any())
+            {
+                <h4>🔍 Search Results for "@keyword":</h4>
+                <h5>🏥 Medical Facilities</h5>
+                <div id="medicalFacilitiesContainer" class="row">
+                    @foreach (var facility in medicalFacilities)
+                    {
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="feature-item p-4 shadow-sm rounded bg-light">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-hospital-alt fa-4x text-primary"></i>
+                                </div>
+                                <h5 class="text-center">@facility.Name</h5>
+                                <ul class="list-unstyled mt-3">
+                                    <li><strong>Address:</strong> @facility.Address</li>
+                                    <li><strong>Phone number:</strong> @facility.Phone</li>
+                                    <li><strong>Email:</strong> @facility.Email</li>
+                                    <li><strong>Services:</strong> @facility.Services</li>
+                                    <li><strong>Opening Hours:</strong> @facility.OpeningHours</li>
+                                    <li><strong>Ratings:</strong> ⭐@facility.Rating</li>
+                                </ul>
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-primary">Book Appointment</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Phân trang Medical Facilities -->
+                <div class="pagination mt-3">
+                    <!-- Previous -->
+                    <a class="btn btn-primary mx-2 @(pageNumberFacilities <= 1 ? "disabled" : "")"
+                       asp-page="./Care"
+                       asp-route-Tab="facilities"
+                       asp-route-IsSearch="true"
+                       asp-route-Keyword="@keyword"
+                       asp-route-Specialty="@specialty"
+                       asp-route-Rating="@rating"
+                       asp-route-Fee="@fee"
+                       asp-route-Services="@services"
+                       asp-route-PageNumberDoctors="@pageNumberDoctors"
+                       asp-route-PageNumberMedicalFacilities="@(pageNumberFacilities - 1)">
+                        Previous
+                    </a>
+
+                    <span class="align-self-center">Page @pageNumberFacilities / @totalPagesFacilities</span>
+
+                    <!-- Next -->
+                    <a class="btn btn-primary mx-2 @(pageNumberFacilities >= totalPagesFacilities ? "disabled" : "")"
+                       asp-page="./Care"
+                       asp-route-Tab="facilities"
+                       asp-route-IsSearch="true"
+                       asp-route-Keyword="@keyword"
+                       asp-route-Specialty="@specialty"
+                       asp-route-Rating="@rating"
+                       asp-route-Fee="@fee"
+                       asp-route-Services="@services"
+                       asp-route-PageNumberDoctors="@pageNumberDoctors"
+                       asp-route-PageNumberMedicalFacilities="@(pageNumberFacilities + 1)">
+                        Next
+                    </a>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted text-center">No Facility results found for "@keyword".</p>
+            }
+        }
+    }
+    <script>
+        document.getElementById("btnFindNearby").addEventListener("click", function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+
+                    fetch(`/Care?handler=Nearby&lat=${latitude}&lon=${longitude}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("🔵 Dữ liệu từ API:", data);
+
+                            // Lấy container danh sách medicalFacilities hiện có
+                            let facilitiesContainer = document.getElementById("medicalFacilitiesContainer");
+
+                            // Nếu muốn xóa nội dung cũ (hoặc bạn có thể giữ nguyên để chỉ append)
+                            // facilitiesContainer.innerHTML = "";
+
+                            if (data.medicals && data.medicals.length > 0) {
+                                data.medicals.forEach(hospital => {
+                                    let facilityHtml = `
+                                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                                            <div class="feature-item p-4 border rounded shadow-sm">
+                                                <div class="feature-icon mb-3 text-center">
+                                                    <div class="p-3 d-inline-flex bg-white rounded">
+                                                        <i class="fas fa-hospital-alt fa-4x text-primary"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="feature-content text-center">
+                                                    <h5 class="mb-3">${hospital.name}</h5>
+                                                    <p class="mb-1"><strong>Address:</strong> ${hospital.address}</p>
+                                                    <p class="mb-1"><strong>Phone:</strong> ${hospital.phone}</p>
+                                                    <p class="mb-1"><strong>Email:</strong> ${hospital.email || "Không có"}</p>
+                                                    <p class="mb-1"><strong>Services:</strong> ${hospital.services || "Chưa cập nhật"}</p>
+                                                    <p class="mb-1"><strong>Opening Hours:</strong> ${hospital.openingHours || "Chưa cập nhật"}</p>
+                                                    <p class="mb-0"><strong>Ratings:</strong> ⭐${hospital.rating}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    // Thêm nội dung mới vào cuối container
+                                    facilitiesContainer.insertAdjacentHTML("beforeend", facilityHtml);
+                                });
+                            } else {
+                                console.warn("🔴 Không có dữ liệu trong medicals");
+                                // Bạn có thể append một thông báo nếu muốn
+                                facilitiesContainer.insertAdjacentHTML("beforeend", "<p class='text-danger'>Không tìm thấy cơ sở y tế gần bạn.</p>");
+                            }
+                        })
+                        .catch(error => console.error("🔴 Lỗi fetch API:", error));
+                }, function (error) {
+                    alert("Không thể lấy vị trí của bạn.");
+                });
+            } else {
+                alert("Trình duyệt không hỗ trợ lấy vị trí.");
+            }
+        });
+    </script>
+

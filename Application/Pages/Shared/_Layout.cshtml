@@ -31,39 +31,41 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css"/>
     <style>
         .search-container {
-            width: 100%;
-            max-width: 100%;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
+            flex: 1;
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
         }
+
 
         .search-input {
             flex: 1;
+            min-width: 550px;
             border: none;
             padding: 12px 20px;
             border-radius: 30px;
             outline: none;
             font-size: 16px;
+            margin-right: 8px;
         }
+
 
         .search-button {
             background: #15B9D9FF;
             color: white;
             border: none;
             border-radius: 30px;
-            padding: 10px 20px;
-            margin-left: 10px;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .search-button:hover {
-            background: #1e40af;
+                background: #1e40af;
         }
+
 
         .pagination a.disabled {
             pointer-events: none;
@@ -72,7 +74,42 @@
     </style>
 </head>
 <body>
-
+    <!-- Modal Advanced Search -->
+    <div class="modal fade" id="advancedSearchModal" tabindex="-1" aria-labelledby="advancedSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header của modal -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="advancedSearchModalLabel">Advanced Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Body chứa form -->
+                <div class="modal-body">
+                    <form method="get" asp-page-handler="Index/OnGet">
+                        <div class="form-group mb-3">
+                            <label for="specialty" class="form-label">Specialty</label>
+                            <input type="text" class="form-control" id="specialty" name="Specialty"
+                                   value="@ViewData["Specialty"]">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="rating" class="form-label">Minimum Rating</label>
+                            <input type="range" class="form-range" id="rating" name="Rating" min="1" max="5"
+                                   value="@ViewData["Rating"]">
+                            <span id="ratingValue">⭐⭐⭐</span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="fee" class="form-label">Max Fee</label>
+                            <input type="number" class="form-control" id="fee" name="Fee"
+                                   value="@ViewData["Fee"]">
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check me-1"></i> Apply
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <!-- Spinner Start -->
 <div id="spinner"
      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -119,47 +156,60 @@
 
         <div class="d-flex flex-grow-1 justify-content-center mx-3">
             <!-- Dropdown mở form tìm kiếm nâng cao -->
-            <div class="dropdown">
-                <button class="btn btn-primary me-2 search-button dropdown-toggle" type="button" id="searchDropdownBtn"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                    Advanced Search
-                </button>
+            @* <div class="dropdown"> *@
+            @*     <button class="btn btn-primary me-2 search-button dropdown-toggle" type="button" id="searchDropdownBtn" *@
+            @*             data-bs-toggle="dropdown" aria-expanded="false"> *@
+            @*         Advanced Search *@
+            @*     </button> *@
 
-                <!-- Form tìm kiếm nâng cao -->
-                <div class="dropdown-menu p-3" id="searchFormContainer">
-                    <form method="get" asp-page-handler="Index/ỎnGet">
-                        <div class="form-group">
-                            <label for="specialty">Specialty</label>
-                            <input type="text" class="form-control" id="specialty" name="Specialty"
-                                   value="@ViewData["Specialty"]">
+            @*     <!-- Form tìm kiếm nâng cao --> *@
+            @*     <div class="dropdown-menu p-3" id="searchFormContainer"> *@
+            @*         <form method="get" asp-page-handler="Index/ỎnGet"> *@
+            @*             <div class="form-group"> *@
+            @*                 <label for="specialty">Specialty</label> *@
+            @*                 <input type="text" class="form-control" id="specialty" name="Specialty" *@
+            @*                        value="@ViewData["Specialty"]"> *@
+            @*             </div> *@
+            @*             <div class="form-group"> *@
+            @*                 <label for="rating">Minimum Rating</label> *@
+            @*                 <input type="range" class="form-range" id="rating" name="Rating" min="1" max="5" *@
+            @*                        value="@ViewData["Rating"]"> *@
+            @*                 <span id="ratingValue">⭐⭐⭐</span> *@
+            @*             </div> *@
+            @*             <div class="form-group"> *@
+            @*                 <label for="fee">Max Fee</label> *@
+            @*                 <input type="number" class="form-control" id="fee" name="Fee" value="@ViewData["Fee"]"> *@
+            @*             </div> *@
+            @*             <button type="submit" class="btn btn-success mt-2">Apply</button> *@
+            @*         </form> *@
+            @*     </div> *@
+            @* </div> *@
+                <div class="d-flex flex-grow-1 justify-content-start">
+                    <!-- Ô tìm kiếm chính -->
+                    <form method="get" asp-page="/Care">
+                        <div class="search-container d-flex align-items-center ms-2">
+                            <!-- Ô tìm kiếm cơ bản -->
+                            <input type="text" class="search-input form-control me-2" id="keyword" name="Keyword"
+                                   placeholder="Search Medical facility, Doctor, . . ."
+                                   value="@ViewData["Keyword"]">
+                            <!-- Trường ẩn đánh dấu đây là yêu cầu search -->
+                            <input type="hidden" name="IsSearch" value="true">
+                            <!-- Nút Search -->
+                            <button type="submit" class="search-button btn btn-primary me-2">
+                                <i class="fas fa-search me-1"></i>
+                            </button>
+                            <!-- Nút Advanced Search: mở modal -->
+                            <button type="button" class="search-button btn btn-outline-primary me-2"
+                                    data-bs-toggle="modal" data-bs-target="#advancedSearchModal">
+                                <i class="fas fa-filter me-1"></i>
+                            </button>
+                            <!-- Nút Find Nearby -->
+                            <button id="btnFindNearby" class="search-button btn btn-outline-primary" type="button">
+                                <i class="fas fa-map-marker-alt me-1"></i>
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="rating">Minimum Rating</label>
-                            <input type="range" class="form-range" id="rating" name="Rating" min="1" max="5"
-                                   value="@ViewData["Rating"]">
-                            <span id="ratingValue">⭐⭐⭐</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="fee">Max Fee</label>
-                            <input type="number" class="form-control" id="fee" name="Fee" value="@ViewData["Fee"]">
-                        </div>
-                        <button type="submit" class="btn btn-success mt-2">Apply</button>
                     </form>
                 </div>
-            </div>
-
-            <!-- Ô tìm kiếm chính -->
-            <form method="get">
-                <div class="search-container d-flex align-items-center ms-2">
-                    <input type="text" class="search-input form-control me-2" id="keyword" name="Keyword"
-                           placeholder="Search Medical facility, Doctor, . . ."
-                           value="@ViewData["Keyword"]">
-                    <input type="hidden" name="IsSearch" value="true">
-                    <button type="submit" class="search-button btn btn-primary me-2">Search</button>
-                    <button id="btnFindNearby" class="search-button btn btn-outline-primary" type="button">Find Nearby
-                    </button>
-                </div>
-            </form>
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -198,135 +248,6 @@
             }
         </div>
     </nav>
-
-    <div class="container mt-5">
-        <div id="result" class="row mt-3">
-        </div>
-    </div>
-
-    @{
-        var isSearch = ViewData["IsSearch"] as bool? ?? false;
-        var keyword = ViewData["Keyword"] as string;
-        var doctors = ViewData["Doctors"] as List<DoctorViewModel> ?? new List<DoctorViewModel>();
-        var medicalFacilities = ViewData["MedicalFacilities"] as List<MedicalFacilityViewModel> ?? new List<MedicalFacilityViewModel>();
-    }
-
-    @if (isSearch)
-    {
-        @if (doctors.Any() || medicalFacilities.Any())
-        {
-            <h4>🔍 Search Results for "@keyword":</h4>
-
-            @if (doctors.Any())
-            {
-                <h5>👨‍⚕️ Doctors</h5>
-                <div class="row">
-                    @foreach (var doctor in doctors)
-                    {
-                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
-                            <div class="feature-item p-4 shadow-sm rounded bg-light">
-                                <div class="text-center mb-3">
-                                    <i class="fas fa-user-md fa-4x text-primary"></i>
-                                </div>
-                                <h5 class="text-center">@doctor.Name</h5>
-                                <ul class="list-unstyled mt-3">
-                                    <li><strong>Availability:</strong> @doctor.Availability</li>
-                                    <li><strong>Qualification:</strong> @doctor.Qualification</li>
-                                    <li><strong>Specialty:</strong> @doctor.Specialty</li>
-                                    <li><strong>Consultation Fee:</strong> @doctor.ConsultationFee</li>
-                                    <li><strong>Experience Years:</strong> @doctor.ExperienceYears</li>
-                                    <li><strong>Work Schedule:</strong> @doctor.WorkSchedule</li>
-                                </ul>
-                            </div>
-                        </div>
-                    }
-                </div>
-
-                <!-- Phân trang Doctors -->
-                <div class="pagination mt-3">
-                    <a href="?IsSearch=true
-                            &Keyword=@ViewData["Keyword"]
-                            &Specialty=@ViewData["Specialty"]
-                            &Rating=@ViewData["Rating"]
-                            &Fee=@ViewData["Fee"]
-                            &Services=@ViewData["Services"]
-                            &PageNumberDoctors=@((int)ViewData["PageNumberDoctors"] - 1)"
-                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberDoctors"] <= 1 ? "disabled" : "")">
-                        Previous
-                    </a>
-
-                    <span class="align-self-center">Page @(ViewData["PageNumberDoctors"]) / @(ViewData["TotalPagesDoctors"])</span>
-
-                    <a href="?IsSearch=true
-                        &Keyword=@ViewData["Keyword"]
-                        &Specialty=@ViewData["Specialty"]
-                        &Rating=@ViewData["Rating"]
-                        &Fee=@ViewData["Fee"]
-                        &Services=@ViewData["Services"]
-                        &PageNumberDoctors=@((int)ViewData["PageNumberDoctors"] + 1)"
-                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberDoctors"] >= (int)ViewData["TotalPagesDoctors"] ? "disabled" : "")">
-                        Next
-                    </a>
-                </div>
-            }
-
-            @if (medicalFacilities.Any())
-            {
-                <h5>🏥 Medical Facilities</h5>
-                <div class="row">
-                    @foreach (var facility in medicalFacilities)
-                    {
-                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
-                            <div class="feature-item p-4 shadow-sm rounded bg-light">
-                                <div class="text-center mb-3">
-                                    <i class="fas fa-hospital-alt fa-4x text-primary"></i>
-                                </div>
-                                <h5 class="text-center">@facility.Name</h5>
-                                <ul class="list-unstyled mt-3">
-                                    <li><strong>Address:</strong> @facility.Address</li>
-                                    <li><strong>Phone number:</strong> @facility.Phone</li>
-                                    <li><strong>Email:</strong> @facility.Email</li>
-                                    <li><strong>Services:</strong> @facility.Services</li>
-                                    <li><strong>Opening Hours:</strong> @facility.OpeningHours</li>
-                                    <li><strong>Ratings:</strong> ⭐@facility.Rating</li>
-                                </ul>
-                            </div>
-                        </div>
-                    }
-                </div>
-                
-                <!-- Phân trang Medical Facilities -->
-                <div class="pagination mt-3">
-                    <a href="?IsSearch=true
-                        &Keyword=@ViewData["Keyword"]
-                        &Specialty=@ViewData["Specialty"]
-                        &Rating=@ViewData["Rating"]
-                        &Fee=@ViewData["Fee"]
-                        &Services=@ViewData["Services"]
-                        &PageNumberMedicalFacilities=@((int)ViewData["PageNumberMedicalFacilities"] - 1)"
-                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberMedicalFacilities"] <= 1 ? "disabled" : "")">
-                        Previous
-                    </a>
-
-                    <span class="align-self-center">Page @(ViewData["PageNumberMedicalFacilities"]) / @(ViewData["TotalPagesMedicalFacilities"])</span>
-
-                    <a href="?IsSearch=true
-                        &Keyword=@ViewData["Keyword"]
-                        &Specialty=@ViewData["Specialty"]
-                        &Rating=@ViewData["Rating"]
-                        &Fee=@ViewData["Fee"]
-                        &Services=@ViewData["Services"]
-                        &PageNumberMedicalFacilities=@((int)ViewData["PageNumberMedicalFacilities"] + 1)"
-                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberMedicalFacilities"] >= (int)ViewData["TotalPagesMedicalFacilities"] ? "disabled" : "")">
-                        Next
-                    </a>
-                </div>            }
-        }
-        else
-        {
-            <p class="text-muted text-center">No results found for "@keyword".</p>
-        }
-    }
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel">
         <div class="header-carousel-item">
@@ -475,66 +396,6 @@
             let stars = "⭐".repeat(this.value);
             ratingDisplay.textContent = stars;
         });
-    });
-</script>
-
-<script>
-    document.getElementById("btnFindNearby").addEventListener("click", function () {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-
-                fetch(`/Index?handler=Nearby&lat=${latitude}&lon=${longitude}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("🔵 Dữ liệu từ API:", data);
-
-                        let resultDiv = document.getElementById("result");
-                        resultDiv.innerHTML = ""; // Xóa nội dung cũ trước khi thêm mới
-
-                        if (data.medicals && data.medicals.length > 0) {
-                            let row = document.createElement("div");
-                            row.classList.add("row"); // Tạo hàng Bootstrap
-
-                            data.medicals.forEach(hospital => {
-                                let col = document.createElement("div");
-                                col.classList.add("col-md-6", "col-lg-4", "col-xl-3", "mb-4"); // Chia 4 cột trên màn hình lớn
-
-                                col.innerHTML = `
-                                <div class="feature-item p-4 border rounded shadow-sm">
-                                    <div class="feature-icon mb-3 text-center">
-                                        <div class="p-3 d-inline-flex bg-white rounded">
-                                            <i class="fas fa-hospital-alt fa-4x text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <div class="feature-content text-center">
-                                        <h5 class="mb-3">${hospital.name}</h5>
-                                        <p class="mb-1"><strong>Address:</strong> ${hospital.address}</p>
-                                        <p class="mb-1"><strong>Phone:</strong> ${hospital.phone}</p>
-                                        <p class="mb-1"><strong>Email:</strong> ${hospital.email || "Không có"}</p>
-                                        <p class="mb-1"><strong>Services:</strong> ${hospital.services || "Chưa cập nhật"}</p>
-                                        <p class="mb-1"><strong>Opening Hours:</strong> ${hospital.openingHours || "Chưa cập nhật"}</p>
-                                        <p class="mb-0"><strong>Ratings:</strong> ⭐${hospital.rating}</p>
-                                    </div>
-                                </div>`;
-
-                                row.appendChild(col); // Thêm cột vào hàng
-                            });
-
-                            resultDiv.appendChild(row); // Thêm hàng vào container
-                        } else {
-                            console.warn("🔴 Không có dữ liệu trong medicals");
-                            resultDiv.innerHTML = "<p class='text-danger'>Không tìm thấy bác sĩ gần bạn.</p>";
-                        }
-                    })
-                    .catch(error => console.error("🔴 Lỗi fetch API:", error));
-            }, function (error) {
-                alert("Không thể lấy vị trí của bạn.");
-            });
-        } else {
-            alert("Trình duyệt không hỗ trợ lấy vị trí.");
-        }
     });
 </script>
 

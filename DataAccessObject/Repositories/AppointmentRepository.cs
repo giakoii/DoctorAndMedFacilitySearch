@@ -1,11 +1,6 @@
 ﻿using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessObject.Repositories
 {
@@ -161,7 +156,9 @@ namespace DataAccessObject.Repositories
         {
             try
             {
-                return await _context.DoctorProfiles.Include(d => d.Doctor).ToListAsync();
+                return await _context.DoctorProfiles.Include(d => d.Doctor)
+                    .Include(d => d.Facilities)
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
