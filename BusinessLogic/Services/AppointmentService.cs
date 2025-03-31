@@ -186,5 +186,30 @@ namespace BusinessLogic.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<string> UpdateAppointmentAsync(int id, string notes)
+        {
+            try
+            {
+                var existingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.AppointmentId == id);
+                if (existingAppointment == null)
+                {
+                    return "Error: Appointment not found";
+                }
+                existingAppointment.Status = "Cancelled";
+                existingAppointment.Notes = notes;
+                var scheduleSlot = await _context.ScheduleSlots.FirstOrDefaultAsync(ss => ss.SlotId == existingAppointment.SlotId && ss.ScheduleId == existingAppointment.ScheduleId);
+                if (scheduleSlot != null)
+                {
+                    scheduleSlot.IsBooked = false;
+                }
+                await _context.SaveChangesAsync();
+                return "Appointment updated successfully";
+            }
+            catch (Exception ex)
+            {
+                return $"Error: {ex.Message}";
+            }
+        }
     }
 }

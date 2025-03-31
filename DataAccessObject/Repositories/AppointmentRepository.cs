@@ -226,6 +226,27 @@ namespace DataAccessObject.Repositories
                 throw new Exception($"Error fetching schedules: {ex.Message}");
             }
         }
-
+        public async Task<Appointment> GetAppointmentById(int id)
+        {
+            try
+            {
+                var appointment = await _context.Appointments
+                    .Include(a => a.Patient)
+                    .Include(a => a.Doctor)
+                    .Include(a => a.Facility)
+                    .Include(a => a.ScheduleSlot)
+                    .FirstOrDefaultAsync(a => a.AppointmentId == id);
+                if (appointment == null) return new Appointment();
+                return appointment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task SaveChange()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

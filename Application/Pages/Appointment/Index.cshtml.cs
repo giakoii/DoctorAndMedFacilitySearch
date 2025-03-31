@@ -18,8 +18,9 @@ namespace Application.Pages.Appointment
             _appointmentService = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
         }
         public List<AppointmentViewModel> Appointments { get; set; } = new List<AppointmentViewModel>();
+        public string Message { get; set; } = "";
         public int CurrentPage { get; set; } = 1;
-        public int PageSize { get; set; } = 3;
+        public int PageSize { get; set; } = 5;
         public int TotalPages { get; set; }
         public async Task<IActionResult> OnGetAsync(int? num = 1)
         {
@@ -34,6 +35,27 @@ namespace Application.Pages.Appointment
             TotalPages = (int)Math.Ceiling(totalCount / (double)PageSize);
             var medicines = await _appointmentService.GetAppointmentsViewModel(email, CurrentPage, PageSize);
             Appointments = medicines ?? new List<AppointmentViewModel>();
+        }
+        public async Task<IActionResult> OnPostCancelAsync(int id, string cancelNotes)
+        {
+            if (string.IsNullOrEmpty(cancelNotes))
+            {
+                Message = "Please provide a cancellation reason.";
+                return Page();
+            }
+
+            try
+            {
+                await _appointmentService.UpdateAppointmentAsync(id, cancelNotes);
+                Message = $"Appointment {id} has been cancelled successfully.";
+            }
+            catch (Exception ex)
+            {
+                Message = $"Failed to cancel appointment: {ex.Message}";
+                return Page();
+            }
+
+            return RedirectToPage();
         }
     }
 }
