@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using AutoMapper;
+using BusinessLogic;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -62,6 +63,11 @@ public class Register : PageModel
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
             new ClaimsPrincipal(claimsIdentity), authProperties);
 
+        if (RegisterViewModel.RoleId == ((byte) ConstantEnum.Role.MedicalExpert))
+        {
+            return RedirectToPage("/Doctor");
+
+        }
         return RedirectToPage("/Index");
     }
 }

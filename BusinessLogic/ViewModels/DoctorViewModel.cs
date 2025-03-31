@@ -7,7 +7,7 @@ public class DoctorViewModel
     [Required(ErrorMessage = "Qualification is required")]
     public string Qualification { get; set; } = null!;
     
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; } = null!;
 
     [Required(ErrorMessage = "Specialty is required")]
     public string Specialty { get; set; } = null!;

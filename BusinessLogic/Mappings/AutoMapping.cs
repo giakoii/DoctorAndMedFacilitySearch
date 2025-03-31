@@ -10,5 +10,7 @@ public class AutoMapping : Profile
     public AutoMapping()
     {
         CreateMap<DoctorSchedule, DoctorScheduleViewModel>().ReverseMap();
+        CreateMap<DoctorViewModel, DoctorProfile>();
+        CreateMap<DoctorProfile, DoctorViewModel>();
     }
 }

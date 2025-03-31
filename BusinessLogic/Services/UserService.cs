@@ -1,9 +1,8 @@
-using Application.ViewModels;
+using System.Linq.Expressions;
 using AutoMapper;
 using BusinessLogic.ViewModels;
 using DataAccessObject;
 using DataAccessObject.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Services;
 

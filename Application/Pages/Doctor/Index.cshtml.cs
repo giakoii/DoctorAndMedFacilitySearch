@@ -8,24 +8,45 @@ namespace Application.Pages.Doctor;
 
 public class Index : PageModel
 {
-    private readonly IUserService _userService;
+    private readonly IDoctorProfileService _doctorProfileService;
     
     [BindProperty] public DoctorViewModel DoctorViewModel { get; set; }
+    
+    public bool ShowModal { get; set; } = false;
+    
+    [TempData] public string Message { get; set; }
 
-    public Index(IUserService userService)
+    public Index(IDoctorProfileService doctorProfileService)
     {
-        _userService = userService;
+        _doctorProfileService = doctorProfileService;
     }
 
     public void OnGet()
     {
         var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value!;
         
-        var doctor = _userService.FindView(x => x.Email == email).FirstOrDefault();
+        var doctor = _doctorProfileService.FindView(x => x.Email == email).FirstOrDefault();
 
         if (doctor == null)
         {
-            
+            Message = "Please complete your profile";
+            ShowModal = true;
         }
+    }
+    
+    public IActionResult OnPostSaveProfile()
+    {
+        if (!ModelState.IsValid)
+        {
+            ShowModal = true;
+            return Page();
+        }
+        var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value!;
+
+        _doctorProfileService.AddDoctorProfile(DoctorViewModel, email);
+        Message = "Profile updated successfully!";
+        ShowModal = false;
+
+        return RedirectToPage();
     }
 }

@@ -3,9 +3,7 @@ using DataAccessObject;
 
 namespace BusinessLogic.Services;
 
-public class BaseService<T, TU, TView> : IBaseService<T, TU, TView>
-    where T : class
-    where TView : class
+public class BaseService<T, TU, TView> : IBaseService<T, TU, TView> where T : class where TView : class
 {
     protected readonly IBaseRepository<T, TU, TView> _repository;
 
