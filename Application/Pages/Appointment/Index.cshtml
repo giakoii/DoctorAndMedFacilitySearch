@@ -76,7 +76,7 @@
                                 <td>
                                     @if (appointment.Status != "Cancelled") {
                                         <div class="btn-group" role="group" aria-label="Appointment Actions">
-                                            <a asp-page-handler="Change" asp-route-id="@appointment.AppointmentId"
+                                            <a asp-page="/Appointment/Change" asp-route-id="@appointment.AppointmentId"
                                                class="btn btn-sm btn-warning d-flex align-items-center"
                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Modify Appointment">
                                                 <i class="bi bi-pencil-square me-1"></i> Change
