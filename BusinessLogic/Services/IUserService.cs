@@ -18,5 +18,6 @@ public interface IUserService : IBaseService<User, int, VwUser>
     List<MedicalFileViewModel> GetMedicalFiles(string email);
     List<UserViewModel> GetSharedDoctors(string email);
     MedicalFileViewModel GetMedicalFileById(int fileId, string email);
+    List<SharedMedicalHistoryViewModel> GetSharedMedicalHistories(string doctorEmail);
 
 }

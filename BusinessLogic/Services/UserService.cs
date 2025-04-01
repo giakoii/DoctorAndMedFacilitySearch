@@ -50,19 +50,33 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
     {
         return _repository.ExecuteInTransaction(() =>
         {
-            if (_repository.Find(x => x.Email == registerViewModel.Email, false).Any())
+            // Check if user already exists
+            var userExist = _repository
+                .Find(x => x.Email == registerViewModel.Email, false)
+                .FirstOrDefault();
+
+            if (userExist != null)
             {
                 return false;
             }
 
+            // Get role
             var role = _roleService.GetById(registerViewModel.RoleId);
-            if (role == null) return false;
+            if (role == null)
+            {
+                return false;
+            }
 
+            // Add new user
             var newUser = new User
             {
                 FullName = registerViewModel.FullName,
                 Email = registerViewModel.Email,
                 RoleId = registerViewModel.RoleId,
+                CreatedAt = DateTime.UtcNow,
+               CreatedBy  =registerViewModel.Email,
+               UpdatedAt = DateTime.UtcNow,
+               UpdatedBy =registerViewModel.Email,
             };
             _repository.Add(newUser);
             SaveChanges(registerViewModel.Email);
@@ -192,9 +206,38 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
         var patient = _repository.FindView(x => x.Email == patientEmail).FirstOrDefault();
         var doctor = _repository.FindView(x => x.Email == doctorEmail && x.RoleId == (int)ConstantEnum.Role.MedicalExpert).FirstOrDefault();
 
-        return patient != null && doctor != null;
-    }
+        if (patient == null || doctor == null) return false;
 
+        // Check if already shared
+        var existingShare = _context.MedicalHistoryShares
+            .FirstOrDefault(s => s.PatientId == patient.UserId && s.DoctorId == doctor.UserId);
+
+        if (existingShare != null)
+        {
+            if (existingShare.IsActive.HasValue && !existingShare.IsActive.Value)
+            {
+                existingShare.IsActive = true;
+                existingShare.SharedAt = DateTime.UtcNow;
+                _context.SaveChanges();
+                return true;
+            }
+            return true; // Already shared
+        }
+
+        // Create new share record
+        var newShare = new MedicalHistoryShare
+        {
+            PatientId = patient.UserId,
+            DoctorId = doctor.UserId,
+            SharedAt = DateTime.UtcNow,
+            IsActive = true
+        };
+
+        _context.MedicalHistoryShares.Add(newShare);
+        _context.SaveChanges();
+
+        return true;
+    }
     public bool UploadMedicalFile(string email, IFormFile file)
     {
         if (file == null || file.Length == 0) return false;
@@ -305,5 +348,64 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
             UploadedAt = medicalFile.UploadedAt,
             FileContent = DecryptFile(medicalFile.FileContent) 
         };
+    }
+    public List<SharedMedicalHistoryViewModel> GetSharedMedicalHistories(string doctorEmail)
+    {
+        // First verify the doctor exists
+        var doctor = _repository.FindView(x => x.Email == doctorEmail && x.RoleId == (int)ConstantEnum.Role.MedicalExpert)
+            .FirstOrDefault();
+
+        if (doctor == null) return new List<SharedMedicalHistoryViewModel>();
+
+        // In a real implementation, you would have a sharing table in your database
+        // For this example, we'll simulate it by getting all patients who have shared with this doctor
+
+        // Get all patients who have shared with this doctor
+        var sharedPatients = _context.MedicalHistoryShares
+            .Where(s => s.DoctorId == doctor.UserId && s.IsActive == true)
+            .Select(s => s.PatientId)
+            .ToList();
+
+        if (!sharedPatients.Any()) return new List<SharedMedicalHistoryViewModel>();
+
+        // Get the patient profiles and related data
+        var histories = _context.PatientProfiles
+            .Where(p => sharedPatients.Contains(p.PatientId))
+            .Include(p => p.Patient)
+            .Include(p => p.Appointments)
+                .ThenInclude(a => a.Facility)
+            .Select(p => new SharedMedicalHistoryViewModel
+            {
+                PatientId = p.PatientId,
+                PatientName = p.Patient.FullName,
+                PatientEmail = p.Patient.Email,
+                DateOfBirth = p.DateOfBirth != default ?
+        p.DateOfBirth.ToDateTime(TimeOnly.MinValue) :
+        (DateTime?)null,
+                Gender = p.Gender,
+                BloodType = p.BloodType,
+                Allergies = p.Allergies,
+                MedicalHistory = p.MedicalHistory,
+                Appointments = p.Appointments
+                    .Where(a => a.IsActive)
+                    .Select(a => new AppointmentViewModel
+                    {
+                        AppointmentId = a.AppointmentId,
+                        AppointmentDate = a.AppointmentDate,
+                        FacilityName = a.Facility.Name,
+                        Status = a.Status
+                    }).ToList(),
+                MedicalFiles = _context.MedicalFiles
+                    .Where(f => f.PatientId == p.PatientId && f.IsActive)
+                    .Select(f => new MedicalFileViewModel
+                    {
+                        FileId = f.FileId,
+                        FileName = f.FileName,
+                        UploadedAt = f.UploadedAt
+                    }).ToList()
+            })
+            .ToList();
+
+        return histories;
     }
 }

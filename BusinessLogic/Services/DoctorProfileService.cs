@@ -23,6 +23,8 @@ public class DoctorProfileService : BaseService<DoctorProfile, int, VwDoctorProf
 
             var newDoctor = _mapper.Map<DoctorProfile>(doctorProfile);
             newDoctor.DoctorId = doctorId;
+            newDoctor.CreatedAt = DateTime.Now;
+            newDoctor.UpdatedAt = DateTime.Now;
 
             _repository.Add(newDoctor);
             _repository.SaveChanges(email);

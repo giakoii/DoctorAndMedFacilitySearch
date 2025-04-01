@@ -36,11 +36,7 @@ public class Index : PageModel
     
     public IActionResult OnPostSaveProfile()
     {
-        if (!ModelState.IsValid)
-        {
-            ShowModal = true;
-            return Page();
-        }
+       
         var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value!;
 
         _doctorProfileService.AddDoctorProfile(DoctorViewModel, email);

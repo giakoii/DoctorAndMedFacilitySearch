@@ -118,22 +118,7 @@
                                 <label class="labels">Address</label>
                                 <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.Address" readonly>
                             </div>
-                            <div class="col-md-12">
-                                <label class="labels">Medical History</label>
-                                <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.MedicalHistory" readonly>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="labels">Allergies</label>
-                                <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.Allergies" readonly>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="labels">Blood Type</label>
-                                <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.BloodType" readonly>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="labels">Emergency Contact</label>
-                                <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.EmergencyContact" readonly>
-                            </div>
+                       
 
                             <!-- Medical History Section -->
                             <div class="col-md-12 mt-3">
@@ -150,10 +135,12 @@
                                                 <th>Date</th>
                                                 <th>Doctor ID</th>
                                                 <th>Facility</th>
-                                                <th>Created At</th>
+                                                <th>Booked Day</th>
                                                 <th>Updated At</th>
                                                 <th>Status</th>
-                                                <th>Payment Status</th>
+                                            
+<th>Medical History</th>
+<th>Blood</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -166,7 +153,8 @@
                                                  <td>@appt.CreatedAt</td>
                                                     <td>@appt.UpdatedAt</td>
                                                     <td>@appt.Status</td>
-                                                    <td>@appt.PaymentStatus</td>
+                                                    <td>@Model.PatientProfileViewModel?.MedicalHistory</td>
+                                                    <td>@Model.PatientProfileViewModel?.BloodType</td>
                                                 </tr>
                                             }
                                         </tbody>

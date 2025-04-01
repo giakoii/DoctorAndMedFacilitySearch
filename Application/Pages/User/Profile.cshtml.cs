@@ -70,8 +70,8 @@ public class Profile : PageModel
                 }
                 if (PatientProfileViewModel.Appointments == null || !PatientProfileViewModel.Appointments.Any())
                 {
-                    Console.WriteLine("Loading appointments separately...");
-                    PatientProfileViewModel.Appointments = _userService.GetPatientMedicalHistory(userEmail);
+                    
+                    PatientProfileViewModel.Appointments = _userService.GetPatientMedicalHistory(userEmail); 
                 }
             }
             else if (User.IsInRole(ConstantEnum.Role.MedicalExpert.ToString()))

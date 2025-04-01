@@ -29,6 +29,10 @@ public partial class User
 
     public virtual ICollection<MedicalFile> MedicalFiles { get; set; } = new List<MedicalFile>();
 
+    public virtual ICollection<MedicalHistoryShare> MedicalHistoryShareDoctors { get; set; } = new List<MedicalHistoryShare>();
+
+    public virtual ICollection<MedicalHistoryShare> MedicalHistorySharePatients { get; set; } = new List<MedicalHistoryShare>();
+
     public virtual PatientProfile? PatientProfile { get; set; }
 
     public virtual Role Role { get; set; } = null!;
