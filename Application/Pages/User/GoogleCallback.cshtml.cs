@@ -57,6 +57,7 @@ public class GoogleCallback : PageModel
 
         var claims = new List<Claim>
         {
+            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.Name, user.FullName),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Role, user.RoleId.ToString()),

@@ -32,6 +32,7 @@ builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IMedicalFacilityService, MedicalFacilityService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
+builder.Services.AddScoped<IPatientProfileService, PatientProfileService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

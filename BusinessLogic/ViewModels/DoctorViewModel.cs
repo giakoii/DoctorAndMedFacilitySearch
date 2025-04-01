@@ -4,6 +4,8 @@ namespace BusinessLogic.ViewModels;
 
 public class DoctorViewModel
 {
+    public int DoctorId { get; set; }
+    
     [Required(ErrorMessage = "Qualification is required")]
     public string Qualification { get; set; } = null!;
     
