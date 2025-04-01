@@ -7,8 +7,8 @@ namespace Application.Pages.Appointment
 {
     public class ProcessModel : PageModel
     {
-        private readonly IAppointmentService _appointmentService;
-        public ProcessModel(IAppointmentService appointmentService)
+        private readonly BusinessLogic.Services.Appointment.IAppointmentService _appointmentService;
+        public ProcessModel(BusinessLogic.Services.Appointment.IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService;
         }
@@ -70,9 +70,9 @@ namespace Application.Pages.Appointment
                 return Page();
             }
 
-            ResultMessage = await _appointmentService.CreateAppointmentAsync(Email, DoctorId, parsedDate, slotId, FacilityId);
-
-            return Page();
+            ResultMessage = await _appointmentService.CreateAppointment(Email, DoctorId, parsedDate, slotId, FacilityId);
+            
+            return Redirect(ResultMessage);
         }
     }
 }

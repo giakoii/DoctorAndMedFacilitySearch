@@ -8,9 +8,9 @@ namespace Application.Pages.Appointment
 {
     public class ConfirmationModel : PageModel
     {
-        private readonly IAppointmentService _appointmentService;
+        private readonly BusinessLogic.Services.Appointment.IAppointmentService _appointmentService;
 
-        public ConfirmationModel(IAppointmentService appointmentService)
+        public ConfirmationModel(BusinessLogic.Services.Appointment.IAppointmentService appointmentService)
         {
             _appointmentService = appointmentService ?? throw new ArgumentNullException(nameof(appointmentService));
         }
@@ -130,14 +130,8 @@ namespace Application.Pages.Appointment
                     return Page();
                 }
 
-                string result = await _appointmentService.CreateAppointmentAsync(
-                    userEmail,
-                    doctorId,
-                    appointmentDate,
-                    slotId,
-                    facilityId
-                );
-
+                string result = await _appointmentService.CreateAppointment(userEmail, doctorId, appointmentDate, slotId, facilityId);
+                
                 if (result.StartsWith("Error:"))
                 {
                     ModelState.AddModelError("", result);

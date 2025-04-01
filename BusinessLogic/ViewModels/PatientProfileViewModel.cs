@@ -4,6 +4,10 @@ namespace BusinessLogic.ViewModels;
 
 public class PatientProfileViewModel
 {
+    public int PatientId { get; set; }
+    
+    public string FullName { get; set; }
+    
     [Required(ErrorMessage = "Date of birth is required")]
     public DateOnly DateOfBirth { get; set; }
 

@@ -9,16 +9,18 @@ namespace Application.Pages.Doctor;
 public class Index : PageModel
 {
     private readonly IDoctorProfileService _doctorProfileService;
+    private readonly IUserService _userService;
     
-    [BindProperty] public DoctorViewModel DoctorViewModel { get; set; }
+    [BindProperty(SupportsGet = true)] public DoctorViewModel DoctorViewModel { get; set; }
     
     public bool ShowModal { get; set; } = false;
     
     [TempData] public string Message { get; set; }
 
-    public Index(IDoctorProfileService doctorProfileService)
+    public Index(IDoctorProfileService doctorProfileService, IUserService userService)
     {
         _doctorProfileService = doctorProfileService;
+        _userService = userService;
     }
 
     public void OnGet()
@@ -31,10 +33,12 @@ public class Index : PageModel
         {
             Message = "Please complete your profile";
             ShowModal = true;
+            DoctorViewModel = new DoctorViewModel();
+            DoctorViewModel.DoctorId = _userService.FindView(x => x.Email == email).Select(x => x.UserId).FirstOrDefault();
         }
     }
     
-    public IActionResult OnPostSaveProfile()
+    public async Task<IActionResult> OnPostSaveProfile()
     {
         if (!ModelState.IsValid)
         {
@@ -43,7 +47,7 @@ public class Index : PageModel
         }
         var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value!;
 
-        _doctorProfileService.AddDoctorProfile(DoctorViewModel, email);
+        await _doctorProfileService.AddDoctorProfile(DoctorViewModel, email);
         Message = "Profile updated successfully!";
         ShowModal = false;
 

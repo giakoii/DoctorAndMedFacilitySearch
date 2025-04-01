@@ -12,7 +12,16 @@ public class AutoMapping : Profile
             .ForMember(dest => dest.Doctors, opt => opt.MapFrom(src => src.Doctors))
             .ReverseMap();
         CreateMap<DoctorSchedule, DoctorScheduleViewModel>().ReverseMap();
+        CreateMap<DoctorProfile, DoctorViewModel>();
+
         CreateMap<DoctorViewModel, DoctorProfile>();
+
+        CreateMap<VwDoctorProfile, DoctorViewModel>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName));
+        
+        CreateMap<VwPatientProfile, PatientProfileViewModel>()
+            .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName));
+
         CreateMap<DoctorProfile, DoctorViewModel>();
         CreateMap<DoctorProfile, DoctorProfilesViewModel>()
              .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.Doctor.FullName))
