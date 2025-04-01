@@ -89,27 +89,27 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
                 SlotId = slotToBook.SlotId,
                 FacilityId = facility.FacilityId,
                 AppointmentDate = DateTime.Parse(selectedDate.ToString() + " " + GetStartTimeFromSlotId(slotId)),
-                Status = ConstantEnum.AppointmentStatus.Confirmed.ToString(),
+                Status = ConstantEnum.AppointmentStatus.Pending.ToString(),
                 PaymentStatus = "Paid",
                 Notes = null,
             };
             slotToBook.IsBooked = true;
             _repository.Add(appointment);
-            
+
             var momoExcuteResponseModel = new MomoExecuteResponseModel
             {
                 FullName = $"{patient.FullName}",
                 Amount = "30000",
-                OrderId = $"{appointment.AppointmentId}-{Guid.NewGuid().ToString()}",                
+                OrderId = $"{appointment.AppointmentId}-{Guid.NewGuid().ToString()}",
                 OrderInfo = $"{patient.FullName} Payment for AppointmentID {appointment.AppointmentId}",
             };
-            
+
             var momoPayment = await _momoLogic.CreatePaymentOrderAsync(momoExcuteResponseModel);
-            
-            if (momoPayment.ErrorCode != (byte)ConstantEnum.PaymentStatus.Success || 
-                string.IsNullOrEmpty(momoPayment.PayUrl)||
-                string.IsNullOrEmpty(momoPayment.QrCodeUrl)||
-                string.IsNullOrEmpty(momoPayment?.DeeplinkWebInApp)||
+
+            if (momoPayment.ErrorCode != (byte)ConstantEnum.PaymentStatus.Success ||
+                string.IsNullOrEmpty(momoPayment.PayUrl) ||
+                string.IsNullOrEmpty(momoPayment.QrCodeUrl) ||
+                string.IsNullOrEmpty(momoPayment?.DeeplinkWebInApp) ||
                 string.IsNullOrEmpty(momoPayment?.Deeplink))
             {
                 return false;

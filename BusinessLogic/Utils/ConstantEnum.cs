@@ -8,12 +8,14 @@ public class ConstantEnum
         Patient = 2,
         MedicalExpert = 3
     }
-    
+
     public enum AppointmentStatus
     {
-        Confirmed
+        Confirmed,
+        Pending,
+        Cancelled,
     }
-    
+
     public enum PaymentStatus
     {
         Success = 0,

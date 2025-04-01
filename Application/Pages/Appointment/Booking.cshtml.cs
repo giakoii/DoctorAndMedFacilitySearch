@@ -15,10 +15,10 @@ namespace Application.Pages.Appointment
             _appointmentService = appointmentService;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string SelectedLocation { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string SelectedDoctor { get; set; }
 
         public List<SelectListItem> Locations { get; set; }
@@ -77,14 +77,18 @@ namespace Application.Pages.Appointment
             Locations = facilities.Select(f => new SelectListItem
             {
                 Value = f.FacilityId.ToString(),
-                Text = f.Name
+                Text = f.Name,
+                Selected = f.FacilityId.ToString() == SelectedLocation
             }).ToList();
 
+            // Gán giá trị cho dropdown Doctors với việc đánh dấu item được chọn
             Doctors = doctors.Select(d => new SelectListItem
             {
-                Value = d.DoctorId.ToString(),
-                Text = d.DoctorName
+                Value = d.DoctorName,
+                Text = d.DoctorName,
+                Selected = d.DoctorName == SelectedDoctor
             }).ToList();
+
 
             var doctorDetails = doctors.Select(d => new
             {
