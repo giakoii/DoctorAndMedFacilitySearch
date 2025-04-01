@@ -56,7 +56,8 @@ public class DoctorProfileService : BaseService<DoctorProfile, int, VwDoctorProf
         {
             var newDoctor = _mapper.Map<DoctorProfile>(doctorProfile);
             newDoctor.DoctorId = doctor.UserId;
-
+            newDoctor.CreatedAt = DateTime.Now;
+            newDoctor.UpdatedAt = DateTime.Now;
             await _repository.AddAsync(newDoctor);
             await _repository.SaveChangesAsync(email);
             return true;
@@ -75,18 +76,12 @@ public class DoctorProfileService : BaseService<DoctorProfile, int, VwDoctorProf
             .FirstOrDefaultAsync();
         if (doctorSelect == null)
             return;
-        
+
         await _repository.ExecuteInTransactionAsync(async () =>
         {
             _mapper.Map(doctorProfile, doctorSelect);
             await _repository.UpdateAsync(doctorSelect);
             await _repository.SaveChangesAsync(email);
-            newDoctor.DoctorId = doctorId;
-            newDoctor.CreatedAt = DateTime.Now;
-            newDoctor.UpdatedAt = DateTime.Now;
-
-            _repository.Add(newDoctor);
-            _repository.SaveChanges(email);
             return true;
         });
     }
