@@ -101,6 +101,29 @@ namespace DataAccessObject.Repositories
             }
         }
 
+        public async Task<List<Slot>> GetDoctorSlots(string doctorEmail, DateOnly date)
+        {
+            try
+            {
+                var doctor = await _context.Users.FirstOrDefaultAsync(u => u.Email == doctorEmail);
+                if (doctor == null)
+                    return await Task.FromResult(new List<Slot>());
+                var doctorSlots = await _context.Schedules
+                    .Include(s => s.ScheduleSlots)
+                    .ThenInclude(ss => ss.Slot)
+                    .Where(s => s.DoctorId == doctor.UserId && s.ScheduleDate == date)
+                    .SelectMany(s => s.ScheduleSlots)
+                    .Select(ss => ss.Slot)
+                    .ToListAsync();
+                return doctorSlots;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<Schedule>> GetSchedulesFromRange(string doctorEmail, DateOnly startDate, DateOnly endDate)
         {
             try
