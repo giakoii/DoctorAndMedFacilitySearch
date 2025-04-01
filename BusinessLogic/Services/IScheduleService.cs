@@ -14,5 +14,6 @@ namespace BusinessLogic.Services
         Task<bool> DeleteSlotAsync(int scheduleId, int slotId);
         Task<List<SlotModel>> GetSlotsAsync();
         Task<List<ScheduleViewModel>> GetSchedulesFromRangeAsync(string doctorEmail, DateOnly startDate, DateOnly endDate);
+        Task<List<SlotModel>> GetDoctorSlotsAsync(string doctorEmail, DateOnly date);
     }
 }
