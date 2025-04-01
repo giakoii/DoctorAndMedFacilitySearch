@@ -1,4 +1,7 @@
-﻿namespace DataAccessObject.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccessObject.Models;
 
 public partial class User
 {
@@ -25,6 +28,10 @@ public partial class User
     public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
 
     public virtual ICollection<MedicalFile> MedicalFiles { get; set; } = new List<MedicalFile>();
+
+    public virtual ICollection<MedicalHistoryShare> MedicalHistoryShareDoctors { get; set; } = new List<MedicalHistoryShare>();
+
+    public virtual ICollection<MedicalHistoryShare> MedicalHistorySharePatients { get; set; } = new List<MedicalHistoryShare>();
 
     public virtual PatientProfile? PatientProfile { get; set; }
 
