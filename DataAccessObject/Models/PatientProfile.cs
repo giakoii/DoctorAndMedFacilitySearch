@@ -1,4 +1,7 @@
-﻿namespace DataAccessObject.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccessObject.Models;
 
 public partial class PatientProfile
 {

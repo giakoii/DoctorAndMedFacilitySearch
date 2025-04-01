@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccessObject.Models;
@@ -28,6 +30,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<MedicalFile> MedicalFiles { get; set; }
 
+    public virtual DbSet<MedicalHistoryShare> MedicalHistoryShares { get; set; }
+
     public virtual DbSet<PatientProfile> PatientProfiles { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
@@ -50,6 +54,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<VwDoctorSchedule> VwDoctorSchedules { get; set; }
 
+    public virtual DbSet<VwDoctorsWithoutFacility> VwDoctorsWithoutFacilities { get; set; }
+
     public virtual DbSet<VwEmailTemplate> VwEmailTemplates { get; set; }
 
     public virtual DbSet<VwFacilityReviewsDetail> VwFacilityReviewsDetails { get; set; }
@@ -70,7 +76,7 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     {
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
+            .AddJsonFile("appsettings.json",true,true)
             .Build();
         var strConn = config["ConnectionStrings:DefaultConnection"];
 
@@ -253,6 +259,30 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasForeignKey(d => d.PatientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MedicalFiles_Users");
+        });
+
+        modelBuilder.Entity<MedicalHistoryShare>(entity =>
+        {
+            entity.HasKey(e => e.ShareId).HasName("PK__MedicalH__D32A3FEEEA59CE1A");
+
+            entity.ToTable("MedicalHistoryShare");
+
+            entity.HasIndex(e => new { e.PatientId, e.DoctorId }, "UQ_PatientDoctor").IsUnique();
+
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.SharedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Doctor).WithMany(p => p.MedicalHistoryShareDoctors)
+                .HasForeignKey(d => d.DoctorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MedicalHi__Docto__2CF2ADDF");
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalHistorySharePatients)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MedicalHi__Patie__2BFE89A6");
         });
 
         modelBuilder.Entity<PatientProfile>(entity =>
@@ -471,6 +501,20 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.StartTime).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<VwDoctorsWithoutFacility>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("VW_DoctorsWithoutFacility");
+
+            entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.FullName).HasMaxLength(255);
+            entity.Property(e => e.Qualification).HasMaxLength(255);
+            entity.Property(e => e.Specialty).HasMaxLength(255);
+            entity.Property(e => e.WorkSchedule).HasMaxLength(255);
         });
 
         modelBuilder.Entity<VwEmailTemplate>(entity =>

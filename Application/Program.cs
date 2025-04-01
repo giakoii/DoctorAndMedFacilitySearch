@@ -26,8 +26,10 @@ builder.Services.AddScoped(typeof(IBaseRepository<,,>), typeof(BaseRepository<,,
 builder.Services.AddScoped(typeof(IBaseService<,,>), typeof(BaseService<,,>));
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 // AddScoped Service
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
