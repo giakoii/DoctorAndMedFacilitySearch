@@ -6,4 +6,5 @@ namespace BusinessLogic.Services;
 public interface IDoctorProfileService : IBaseService<DoctorProfile, int, VwDoctorProfile>
 {
     void AddDoctorProfile(DoctorViewModel doctorProfile, string email);
+    Task<DoctorProfile> GetDoctorsById(int id);
 }

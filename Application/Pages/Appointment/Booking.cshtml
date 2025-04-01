@@ -146,6 +146,7 @@
     <script>
         // Load doctor data from the model
         const doctors = @Html.Raw(Model.DoctorsJson);
+        const preselectedDoctorId = '@Model.SelectedDoctor';
         console.log(doctors);
 
         // Get DOM elements
@@ -179,10 +180,12 @@
                 const option = document.createElement('option');
                 option.value = doc.DoctorId;
                 option.textContent = doc.DoctorName;
+                 if (doc.DoctorId === preselectedDoctorId) {
+                option.selected = true;
+                 }
                 doctorSelect.appendChild(option);
             });
         }
-        // Gọi hàm updateDoctorOptions khi trang load và khi người dùng thay đổi lựa chọn location
         window.addEventListener('DOMContentLoaded', updateDoctorOptions);
         locationSelect.addEventListener('change', updateDoctorOptions);
         // Event listener for doctor selection

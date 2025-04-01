@@ -81,13 +81,13 @@ namespace Application.Pages.Appointment
                 Selected = f.FacilityId.ToString() == SelectedLocation
             }).ToList();
 
-            // Gán giá trị cho dropdown Doctors với việc đánh dấu item được chọn
             Doctors = doctors.Select(d => new SelectListItem
             {
-                Value = d.DoctorName,
-                Text = d.DoctorName,
-                Selected = d.DoctorName == SelectedDoctor
+                Value = d.DoctorId.ToString(), // Sử dụng ID làm giá trị
+                Text = d.DoctorName,             // Hiển thị tên bác sĩ
+                Selected = d.DoctorId.ToString() == SelectedDoctor  // So sánh với query string
             }).ToList();
+
 
 
             var doctorDetails = doctors.Select(d => new

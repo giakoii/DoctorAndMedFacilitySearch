@@ -1,0 +1,126 @@
+﻿@page "{id?}"
+@model Application.Pages.DetailCare.DoctorModel
+@{
+    ViewData["Title"] = "Chi tiết bác sĩ";
+}
+<!-- Các file CSS sử dụng đường dẫn tuyệt đối -->
+<link rel="stylesheet" href="~/lib/animate/animate.min.css" />
+<link rel="stylesheet" href="~/lib/owlcarousel/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="~/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<style>
+    .doctor-img {
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .margin-top-10 {
+        margin-top: 10rem;
+    }
+</style>
+
+<div class="container margin-top-10">
+    <!-- Header: Thông tin bác sĩ -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-primary mb-1">@Model.Doctor.DoctorName</h2>
+            <p class="mb-2">
+                Chuyên khoa: @Model.Doctor.Specialty
+                <span class="mx-1">|</span>
+                @Model.Doctor.Qualification
+            </p>
+        </div>
+        <div class="col-md-4 text-md-right mt-3 mt-md-0">
+            <h4 class="text-success">@Model.Doctor.ConsultationFee</h4>
+            <!-- Nút đặt lịch, truyền DoctorId -->
+            <a asp-page="/Appointment/Booking" asp-route-SelectedDoctor="@Model.Doctor.DoctorId" class="btn btn-primary mt-2">Đặt lịch</a>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Thông tin chi tiết bác sĩ -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="mb-4 text-center">
+                <img src="https://media.istockphoto.com/id/1372002650/photo/cropped-portrait-of-an-attractive-young-female-doctor-standing-with-her-arms-folded-in-the.jpg?s=612x612&w=0&k=20&c=o1QtStNsowOU0HSof6xQ_jZMglU8ZK565gHd655U6S4="
+                     alt="@Model.Doctor.DoctorName"
+                     class="img-fluid rounded doctor-img" />
+            </div>
+            <h4>Introduction</h4>
+            <p>
+                @Model.Doctor.DoctorName
+            </p>
+            <h4>Experience and Specialty</h4>
+            <ul>
+                <li>@Model.Doctor.ExperienceYears năm kinh nghiệm</li>
+                <li>Work Schedule: @Model.Doctor.WorkSchedule</li>
+                <li>Specialty: @Model.Doctor.Specialty</li>
+                <li>Qualification: @Model.Doctor.Qualification</li>
+            </ul>
+        </div>
+
+        <!-- Cột bên phải: Khung đặt lịch và hiển thị lịch khám -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    Lịch khám của bác sĩ
+                </div>
+                <div class="card-body" id="scheduleContainer">
+                    <!-- Nội dung lịch sẽ được load qua AJAX -->
+                    <p>Đang tải lịch khám...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Các file JavaScript sử dụng đường dẫn tuyệt đối -->
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="~/js/main.js"></script>
+
+<script>
+    // Ẩn spinner sau khi trang load xong và gọi loadSchedules
+    window.addEventListener("load", function () {
+        var spinner = document.getElementById("spinner");
+        if (spinner) {
+            spinner.classList.remove("show");
+        }
+        loadSchedules();
+    });
+
+    // Hàm gọi AJAX để lấy lịch khám của bác sĩ
+    function loadSchedules() {
+        var doctorId = '@Model.Doctor.DoctorId';
+        $.ajax({
+            url: '@Url.Page("", "DoctorSchedules")', // Gọi handler OnGetDoctorSchedulesAsync
+            data: { doctorId: doctorId },
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var container = $('#scheduleContainer');
+                container.empty(); // Xóa nội dung cũ
+                if (data && data.length > 0) {
+                    // Duyệt qua các lịch khám, sử dụng các thuộc tính của ScheduleModel
+                    data.forEach(function (schedule) {
+                        var item = '<div class="mb-2 p-2 border rounded">' +
+                            '<strong>Ngày: </strong>' + schedule.scheduleDate + '<br />' +
+                            '<strong>Thời gian: </strong>' + schedule.slotTime +
+                            '</div>';
+                        container.append(item);
+                    });
+                } else {
+                    container.html('<p>Không có lịch khám nào.</p>');
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#scheduleContainer').html('<p>Không thể tải lịch khám. Vui lòng thử lại sau.</p>');
+            }
+        });
+    }
+</script>
+
