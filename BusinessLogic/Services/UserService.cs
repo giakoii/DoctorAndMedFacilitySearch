@@ -1,82 +1,63 @@
-using Application.ViewModels;
 using AutoMapper;
+using BusinessLogic.ViewModels;
 using DataAccessObject;
 using DataAccessObject.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Services;
 
 public class UserService : BaseService<User, int, VwUser>, IUserService
 {
+    private readonly IRoleService _roleService;
     private readonly IMapper _mapper;
-    
+
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository"></param>
+    /// <param name="roleService"></param>
     /// <param name="mapper"></param>
-    public UserService(IBaseRepository<User, int, VwUser> repository, IMapper mapper) : base(repository)
+    public UserService(IBaseRepository<User, int, VwUser> repository, IRoleService roleService, IMapper mapper) : base(repository)
     {
+        _roleService = roleService;
         _mapper = mapper;
     }
 
-    /// <summary>
-    /// Login
-    /// </summary>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    /// <returns></returns>
-    public UserViewModel? Login(string email, string password)
-    {
-        var user = _repository.Find(x => x.Email == email).FirstOrDefault();
-        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
-        {
-            return null;
-        }
-
-        return new UserViewModel
-        {
-            Email = user.Email,
-            FullName = user.FullName,
-            RoleId = user.RoleId
-        };
-    }
-    
     /// <summary>
     /// Register new user
     /// </summary>
     /// <param name="registerViewModel"></param>
     /// <returns></returns>
-    public async Task<bool> Register(RegisterViewModel registerViewModel)
+    public bool Register(RegisterViewModel registerViewModel)
     {
-        return await _repository.ExecuteInTransactionAsync(async () =>
+        return _repository.ExecuteInTransaction( () =>
         {
             // Check if user already exists
-            var userExist = await _repository
-                .Find(x => x.Email == registerViewModel.Email || x.PhoneNumber == registerViewModel.PhoneNumber)
-                .FirstOrDefaultAsync();
-        
+            var userExist = _repository
+                .Find(x => x.Email == registerViewModel.Email, false)
+                .FirstOrDefault();
+
             if (userExist != null)
             {
                 return false;
             }
-            
+
+            // Get role
+            var role =  _roleService.GetById(registerViewModel.RoleId);
+            if (role == null)
+            {
+                return false;
+            }
+
             // Add new user
             var newUser = new User
             {
                 FullName = registerViewModel.FullName,
                 Email = registerViewModel.Email,
-                PhoneNumber = registerViewModel.PhoneNumber,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerViewModel.Password),
-                RoleId = (byte) ConstantEnum.Role.Patient,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                IsActive = true
+                RoleId = registerViewModel.RoleId,
             };
-            await _repository.AddAsync(newUser);
+            _repository.Add(newUser);
             SaveChanges(registerViewModel.Email);
             return true;
         });
     }
-
 }

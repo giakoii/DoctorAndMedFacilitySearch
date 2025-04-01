@@ -7,6 +7,10 @@ public partial class VwDoctorProfile
 {
     public int DoctorId { get; set; }
 
+    public string? FullName { get; set; }
+
+    public string? Email { get; set; }
+
     public string Qualification { get; set; } = null!;
 
     public string Specialty { get; set; } = null!;
@@ -24,8 +28,4 @@ public partial class VwDoctorProfile
     public DateTime UpdatedAt { get; set; }
 
     public string UpdatedBy { get; set; } = null!;
-
-    public bool IsActive { get; set; }
-
-    public string CreatedBy { get; set; } = null!;
 }

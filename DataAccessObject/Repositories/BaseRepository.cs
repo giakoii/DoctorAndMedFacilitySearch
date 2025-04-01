@@ -129,7 +129,7 @@ public class BaseRepository<TEntity, Type, TView> : IBaseRepository<TEntity, Typ
     /// </summary>
     public async Task AddAsync(TEntity entity)
     {
-         _context.AddAsync(entity);
+         await _context.AddAsync(entity);
     }
 
     /// <summary>

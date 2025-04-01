@@ -7,6 +7,10 @@ public partial class VwPatientProfile
 {
     public int PatientId { get; set; }
 
+    public string? FullName { get; set; }
+
+    public string? Email { get; set; }
+
     public DateOnly DateOfBirth { get; set; }
 
     public byte Gender { get; set; }
@@ -26,8 +30,4 @@ public partial class VwPatientProfile
     public DateTime UpdatedAt { get; set; }
 
     public string UpdatedBy { get; set; } = null!;
-
-    public bool IsActive { get; set; }
-
-    public string? CreatedBy { get; set; }
 }

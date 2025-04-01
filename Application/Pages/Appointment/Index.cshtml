@@ -1,0 +1,179 @@
+﻿@page
+@model Application.Pages.Appointment.IndexModel
+@{
+    ViewData["Title"] = "My Appointments";
+    Layout = null; // Adjust to your actual layout page name
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container">
+    <h1>My Appointments</h1>
+    <div class="mb-3 d-flex gap-2">
+        <a href="/" class="btn btn-sm btn-secondary d-flex align-items-center" style="width: fit-content;">
+            <i class="bi bi-arrow-left me-1"></i> Back
+        </a>
+        <a href="/Appointment/Booking" class="btn btn-sm btn-primary d-flex align-items-center" style="width: fit-content;">
+            <i class="bi bi-plus-circle me-1"></i> Create Appointment
+        </a>
+    </div>
+    @if (TempData["Debug"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["Debug"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Error"]
+        </div>
+    }
+    @if (Model.Appointments.Any())
+    {
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Facility</th>
+                        <th>Notes</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var appointment in Model.Appointments)
+                    {
+                        <tr>
+                            <td>@appointment.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@Html.Raw(appointment.PatientName?.Replace(",", "<br/>"))</td>
+                            <td>@Html.Raw(appointment.DoctorName?.Replace(",", "<br/>"))</td>
+                            <td>
+                                <strong>@appointment.Facility?.Name</strong><br />
+                                <small>@appointment.Facility?.Address</small><br />
+                                <small>@appointment.Facility?.Phone</small>
+                            </td>
+                            <td>@appointment.Notes</td>
+                            <td>
+                                @if (appointment.Status == "Cancelled")
+                                {
+                                    <span class="badge bg-danger">@appointment.Status</span>
+                                }
+                                else if (appointment.Status == "Confirmed")
+                                {
+                                    <span class="badge bg-success">@appointment.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info">@appointment.Status</span>
+                                }
+                            </td>
+                            <td>
+                                @if (appointment.Status != "Cancelled") {
+                                    <div class="btn-group" role="group" aria-label="Appointment Actions">
+                                        <a asp-page="/Appointment/Change" asp-route-id="@appointment.AppointmentId"
+                                           class="btn btn-sm btn-warning d-flex align-items-center"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Modify Appointment">
+                                            <i class="bi bi-pencil-square me-1"></i> Change
+                                        </a>
+
+                                        <button type="button" class="btn btn-sm btn-danger d-flex align-items-center"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#cancelModal_@appointment.AppointmentId"
+                                                data-bs-placement="top"
+                                                title="Cancel Appointment">
+                                            <i class="bi bi-x-circle me-1"></i> Cancel
+                                        </button>
+                                    </div>
+                                }
+                                <div class="modal fade" id="cancelModal_@appointment.AppointmentId" tabindex="-1"
+                                     aria-labelledby="cancelModalLabel_@appointment.AppointmentId" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="cancelModalLabel_@appointment.AppointmentId">Cancel Appointment</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <!-- Changed to POST method since we're updating data -->
+                                            <form method="post" asp-page-handler="Cancel" asp-route-id="@appointment.AppointmentId">
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to cancel this appointment?</p>
+                                                    <input type="hidden" name="id" value="@appointment.AppointmentId" />
+                                                    <div class="mb-3">
+                                                        <label for="cancelNotes_@appointment.AppointmentId" class="form-label">Reason for Cancellation</label>
+                                                        <textarea class="form-control"
+                                                                  id="cancelNotes_@appointment.AppointmentId"
+                                                                  name="cancelNotes"
+                                                                  rows="3"
+                                                                  placeholder="Enter reason here..."
+                                                                  required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Confirm Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-page="/Appointment/Index" asp-route-num="@(Model.CurrentPage - 1)">Previous</a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-page="/Appointment/Index" asp-route-num="@i">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.CurrentPage >= Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" asp-page="/Appointment/Index" asp-route-num="@(Model.CurrentPage + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            No appointments found.
+        </div>
+    }
+</div>
+@* @section Styles { *@
+@*     <style> *@
+@*         .table { *@
+@*             width: 100%; *@
+@*             margin-bottom: 1rem; *@
+@*         } *@
+@* *@
+@*         .table th, .table td { *@
+@*             padding: 0.75rem; *@
+@*             vertical-align: middle; *@
+@*         } *@
+@* *@
+@*         .table-hover tbody tr:hover { *@
+@*             background-color: rgba(0,0,0,.075); *@
+@*         } *@
+@* *@
+@*         .thead-dark th { *@
+@*             background-color: #343a40; *@
+@*             color: white; *@
+@*         } *@
+@*     </style> *@
+}

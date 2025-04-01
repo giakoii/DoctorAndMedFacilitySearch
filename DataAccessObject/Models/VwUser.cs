@@ -11,10 +11,6 @@ public partial class VwUser
 
     public string Email { get; set; } = null!;
 
-    public string PhoneNumber { get; set; } = null!;
-
-    public string PasswordHash { get; set; } = null!;
-
     public int RoleId { get; set; }
 
     public DateTime CreatedAt { get; set; }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DataAccessObject.Models;
+﻿namespace DataAccessObject.Models;
 
 public partial class User
 {
@@ -10,10 +7,6 @@ public partial class User
     public string FullName { get; set; } = null!;
 
     public string Email { get; set; } = null!;
-
-    public string PhoneNumber { get; set; } = null!;
-
-    public string PasswordHash { get; set; } = null!;
 
     public int RoleId { get; set; }
 
@@ -29,7 +22,13 @@ public partial class User
 
     public virtual DoctorProfile? DoctorProfile { get; set; }
 
+    public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
+
+    public virtual ICollection<MedicalFile> MedicalFiles { get; set; } = new List<MedicalFile>();
+
     public virtual PatientProfile? PatientProfile { get; set; }
 
     public virtual Role Role { get; set; } = null!;
+
+    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

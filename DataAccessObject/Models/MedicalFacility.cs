@@ -31,11 +31,9 @@ public partial class MedicalFacility
 
     public string CreatedBy { get; set; } = null!;
 
-    public int DoctorId { get; set; }
-
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
-    public virtual DoctorProfile Doctor { get; set; } = null!;
-
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+    public virtual ICollection<DoctorProfile> Doctors { get; set; } = new List<DoctorProfile>();
 }
