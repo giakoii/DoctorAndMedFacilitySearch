@@ -1,10 +1,10 @@
-﻿using System.Security.Claims;
-using BusinessLogic;
+﻿using BusinessLogic;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -17,11 +17,11 @@ namespace Application.Pages
         private readonly IDoctorProfileService _doctorProfileService;
         private readonly IUserService _userService;
         private readonly IPatientProfileService _patientProfileService;
-        
+
         [BindProperty(SupportsGet = true)] public PatientProfileViewModel PatientViewModel { get; set; }
 
         public bool ShowPatientModal { get; set; } = false;
-        
+
         [TempData] public string PatientMessage { get; set; }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Application.Pages
             {
                 return RedirectToPage("/Doctor/Index");
             }
-            
+
             var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             var patient = _patientProfileService.FindView(x => x.Email == email).FirstOrDefault();
 
@@ -131,6 +131,7 @@ namespace Application.Pages
                 .Take(PageSizeDoctors)
                 .Select(x => new DoctorViewModel
                 {
+                    DoctorId = x.DoctorId,
                     Name = x.FullName,
                     Specialty = x.Specialty,
                     ExperienceYears = x.ExperienceYears,
@@ -245,7 +246,7 @@ namespace Application.Pages
             input = Regex.Replace(input, @"\s+", " ");
             return input.Trim();
         }
-        
+
         /// <summary>
         /// Update patient profile
         /// </summary>

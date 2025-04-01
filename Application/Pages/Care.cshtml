@@ -95,6 +95,12 @@
                                        asp-route-SelectedDoctor="@doctor.Name">
                                         Book Appointment
                                     </a>
+                                    <a class="btn btn-primary"
+                                       asp-page="/DetailCare/Doctor"
+                                       asp-route-id="@doctor.DoctorId">
+                                        View Details
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -170,6 +176,11 @@
                                        asp-route-SelectedLocation="@facility.FacilityId"
                                     >
                                         Book Appointment
+                                    </a>
+                                    <a class="btn btn-primary"
+                                       asp-page="/DetailCare/MedicalFacilities"
+                                       asp-route-id="@facility.FacilityId">
+                                        View Details
                                     </a>
                                 </div>
                             </div>

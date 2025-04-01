@@ -1,9 +1,11 @@
+using Application.Hubs;
 using AutoMapper;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
 using DataAccessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -15,13 +17,14 @@ namespace Application.Pages.DetailCare
         private readonly IReviewService _reviewService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-
-        public MedicalFacilitiesModel(IMedicalFacilityService medicalFacilityService, IReviewService reviewService, IUserService userService, IMapper mapper)
+        private readonly IHubContext<ReviewHub> _hubContext;
+        public MedicalFacilitiesModel(IMedicalFacilityService medicalFacilityService, IReviewService reviewService, IUserService userService, IMapper mapper, IHubContext<ReviewHub> hubContext)
         {
             _medicalFacilityService = medicalFacilityService;
             _reviewService = reviewService;
             _userService = userService;
             _mapper = mapper;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -55,6 +58,7 @@ namespace Application.Pages.DetailCare
             if (NewReview.Rating < 1 || NewReview.Rating > 5)
             {
                 ModelState.AddModelError("NewReview.Rating", "Please choose star");
+                TempData["Error"] = "Please choose star.";
                 await OnGetAsync(NewReview.FacilityId);
                 return Page();
             }
@@ -65,11 +69,18 @@ namespace Application.Pages.DetailCare
                 await OnGetAsync(NewReview.FacilityId);
                 return Page();
             }
+            if (userObj.PatientProfile == null)
+            {
+                ModelState.AddModelError(string.Empty, "Patient profile not found.");
+                await OnGetAsync(NewReview.FacilityId);
+                return Page();
+            }
             NewReview.PatientId = userObj.PatientProfile.PatientId;
             NewReview.PatientName = userObj.FullName;
             NewReview.PatientEmail = userObj.Email;
             var reviewEntity = _mapper.Map<Review>(NewReview);
             await _reviewService.AddAsyncReview(reviewEntity);
+            await _hubContext.Clients.All.SendAsync("ReceiveReview", NewReview);
             return RedirectToPage(new { id = NewReview.FacilityId });
         }
     }

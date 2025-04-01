@@ -2,6 +2,7 @@
 using BusinessLogic;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
+using DataAccessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -14,22 +15,31 @@ namespace Application.Pages.DoctorWork
         private readonly IDoctorAppointmentsService _appointmentService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IMedicalHistoryService _medicalHistoryService;
 
-        public IndexModel(IDoctorAppointmentsService appointmentService, IUserService userService, IMapper mapper)
+        public IndexModel(IDoctorAppointmentsService appointmentService, IUserService userService, IMapper mapper, IMedicalHistoryService medicalHistoryService)
         {
             _appointmentService = appointmentService;
             _userService = userService;
             _mapper = mapper;
+            _medicalHistoryService = medicalHistoryService;
         }
+
+
 
         // Danh sách các appointment hiển thị trong view
         public List<AppointmentViewModel> Appointments { get; set; } = new List<AppointmentViewModel>();
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public DateTime? SearchDate { get; set; }
         public string Message { get; set; } = "";
         public int CurrentPage { get; set; } = 1;
         public int PageSize { get; set; } = 5;
         public int TotalPages { get; set; }
-
+        [BindProperty]
+        public MedicalHistoryViewModel MedicalHistory { get; set; } = new MedicalHistoryViewModel();
         public async Task<IActionResult> OnGetAsync(int? num = 1)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
@@ -53,15 +63,25 @@ namespace Application.Pages.DoctorWork
 
         private async Task LoadAppointment(int doctorId, int? num)
         {
-            // Lấy tất cả các appointment của bác sĩ theo doctorId từ service
             var vwAppointments = await _appointmentService.GetAppointmentsByDoctorAsync(doctorId);
             var filteredAppointments = vwAppointments
-                .Where(x => x.Status == ConstantEnum.AppointmentStatus.Pending.ToString())
-                .OrderByDescending(a => a.AppointmentCreatedAt)
-                .ToList();
+                .Where(x => x.Status == ConstantEnum.AppointmentStatus.Pending.ToString());
 
-            // Tính totalCount và totalPages dựa trên danh sách đã lọc
-            int totalCount = filteredAppointments.Count;
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                filteredAppointments = filteredAppointments
+                    .Where(a => a.PatientName != null && a.PatientName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (SearchDate.HasValue)
+            {
+                filteredAppointments = filteredAppointments
+                    .Where(a => a.AppointmentDate.Date == SearchDate.Value.Date);
+            }
+
+            filteredAppointments = filteredAppointments.OrderByDescending(a => a.AppointmentCreatedAt);
+
+            int totalCount = filteredAppointments.Count();
             CurrentPage = num ?? 1;
             TotalPages = (int)Math.Ceiling(totalCount / (double)PageSize);
 
@@ -74,6 +94,21 @@ namespace Application.Pages.DoctorWork
         }
         public async Task<IActionResult> OnPostFinishAsync(int id)
         {
+            var appointment = await _appointmentService.GetByIdAsync(id);
+            if (appointment == null)
+            {
+                TempData["Error"] = "Appointment not found.";
+                return RedirectToPage();
+            }
+            var medicalHistoryEntity = _mapper.Map<MedicalHistory>(MedicalHistory);
+            medicalHistoryEntity.PatientId = (int)appointment.PatientId;
+            medicalHistoryEntity.RecordDate = MedicalHistory.RecordDate; // value từ form (datetime-local)
+            medicalHistoryEntity.CreatedAt = DateTime.Now;
+            medicalHistoryEntity.UpdatedAt = DateTime.Now;
+            medicalHistoryEntity.CreatedBy = User.Identity?.Name ?? "system";
+            medicalHistoryEntity.UpdatedBy = User.Identity?.Name ?? "system";
+            medicalHistoryEntity.IsActive = true;
+            await _medicalHistoryService.AddMedicalHistoryAsync(medicalHistoryEntity);
             bool updateResult = await _appointmentService.FinishAppointmentAsync(id);
 
             if (updateResult)

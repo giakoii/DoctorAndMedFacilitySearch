@@ -62,6 +62,32 @@
             color: #ffc107;
         }
 </style>
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+    <!-- Toast Thành công -->
+    @if (TempData["Debug"] != null)
+    {
+        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["Debug"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+    <!-- Toast Lỗi -->
+    @if (TempData["Error"] != null)
+    {
+        <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["Error"]
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+</div>
 
 <!-- Spinner -->
 <div id="spinner">
@@ -249,3 +275,44 @@
         $("#spinner").addClass("hide");
     });
 </script>
+<!-- Thêm SignalR client từ CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+<script>
+    // Khởi tạo kết nối đến hub tại /reviewHub
+    const connection = new signalR.HubConnectionBuilder()
+         .withUrl("/reviewHub")
+         .build();
+
+    // Đăng ký sự kiện nhận review mới
+    connection.on("ReceiveReview", function(review) {
+         // Tạo HTML cho review mới
+         let fullStars = "★".repeat(review.rating);
+         let emptyStars = "☆".repeat(5 - review.rating);
+         let reviewHtml = `<div class="list-group-item">
+              <strong>${review.patientName}</strong> - ${fullStars}${emptyStars}
+              <p>${review.comment}</p>
+         </div>`;
+         // Chèn review mới vào đầu danh sách (hoặc append vào cuối)
+         document.querySelector(".list-group").insertAdjacentHTML("afterbegin", reviewHtml);
+    });
+
+    // Bắt đầu kết nối
+    connection.start().catch(err => console.error(err.toString()));
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Nếu có toast thành công, hiển thị nó
+        var successToastEl = document.getElementById("successToast");
+        if (successToastEl) {
+            var successToast = new bootstrap.Toast(successToastEl, { delay: 5000 });
+            successToast.show();
+        }
+        // Nếu có toast lỗi, hiển thị nó
+        var errorToastEl = document.getElementById("errorToast");
+        if (errorToastEl) {
+            var errorToast = new bootstrap.Toast(errorToastEl, { delay: 5000 });
+            errorToast.show();
+        }
+    });
+</script>
+
