@@ -27,6 +27,8 @@ public partial class User
 
     public virtual ICollection<DoctorSchedule> DoctorSchedules { get; set; } = new List<DoctorSchedule>();
 
+    public virtual ICollection<MedicalFile> MedicalFiles { get; set; } = new List<MedicalFile>();
+
     public virtual PatientProfile? PatientProfile { get; set; }
 
     public virtual Role Role { get; set; } = null!;

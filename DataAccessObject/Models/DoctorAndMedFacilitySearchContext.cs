@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccessObject.Models;
@@ -22,7 +24,11 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
 
+    public virtual DbSet<HealthArticle> HealthArticles { get; set; }
+
     public virtual DbSet<MedicalFacility> MedicalFacilities { get; set; }
+
+    public virtual DbSet<MedicalFile> MedicalFiles { get; set; }
 
     public virtual DbSet<PatientProfile> PatientProfiles { get; set; }
 
@@ -200,6 +206,20 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasColumnName("update_by");
         });
 
+        modelBuilder.Entity<HealthArticle>(entity =>
+        {
+            entity.HasKey(e => e.ArticleId).HasName("PK__HealthAr__9C6270E8CD9ED7AD");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.Title).HasMaxLength(255);
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<MedicalFacility>(entity =>
         {
             entity.HasKey(e => e.FacilityId).HasName("PK__MedicalF__5FB08B94E0B9F716");
@@ -218,6 +238,21 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Rating).HasDefaultValue(0.0);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<MedicalFile>(entity =>
+        {
+            entity.HasKey(e => e.FileId).HasName("PK__MedicalF__6F0F98BF9E51E2EC");
+
+            entity.Property(e => e.FileName).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.UploadedAt).HasColumnType("datetime");
+            entity.Property(e => e.UploadedBy).HasMaxLength(50);
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalFiles)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MedicalFiles_Users");
         });
 
         modelBuilder.Entity<PatientProfile>(entity =>
@@ -304,7 +339,12 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
             entity.Property(e => e.ScheduleId).HasColumnName("ScheduleID");
             entity.Property(e => e.SlotId).HasColumnName("SlotID");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.IsBooked).HasDefaultValue(false);
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50);
 
             entity.HasOne(d => d.Schedule).WithMany(p => p.ScheduleSlots)
                 .HasForeignKey(d => d.ScheduleId)

@@ -15,8 +15,6 @@ public class IndexModel : PageModel
     private readonly IMedicalFacilityService _medicalFacilityService;
     private readonly IDoctorProfileService _doctorProfileService;
     private readonly IUserService _userService;
-    
-    
 
     public IndexModel(HttpClient httpClient, IMedicalFacilityService medicalFacilityService,
         IDoctorProfileService doctorProfileService, IUserService userService)
