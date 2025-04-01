@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObject.Models;
 
@@ -28,6 +29,10 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<MedicalFile> MedicalFiles { get; set; }
 
+    public virtual DbSet<MedicalHistory> MedicalHistories { get; set; }
+
+    public virtual DbSet<MedicalHistoryShare> MedicalHistoryShares { get; set; }
+
     public virtual DbSet<PatientProfile> PatientProfiles { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
@@ -46,9 +51,13 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<VwAppointment> VwAppointments { get; set; }
 
+    public virtual DbSet<VwDoctorAppointment> VwDoctorAppointments { get; set; }
+
     public virtual DbSet<VwDoctorProfile> VwDoctorProfiles { get; set; }
 
     public virtual DbSet<VwDoctorSchedule> VwDoctorSchedules { get; set; }
+
+    public virtual DbSet<VwDoctorsWithoutFacility> VwDoctorsWithoutFacilities { get; set; }
 
     public virtual DbSet<VwEmailTemplate> VwEmailTemplates { get; set; }
 
@@ -66,19 +75,10 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<VwUser> VwUsers { get; set; }
 
-    private string GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true)
-            .Build();
-        var strConn = config["ConnectionStrings:DefaultConnection"];
-
-        return strConn;
-    }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=database.techtheworld.id.vn;Database=DoctorAndMedFacilitySearch;User Id=abc;Password=B82E3D33-F7B4-46F7-AAF8-6F84B826524A;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -253,6 +253,52 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasForeignKey(d => d.PatientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MedicalFiles_Users");
+        });
+
+        modelBuilder.Entity<MedicalHistory>(entity =>
+        {
+            entity.HasKey(e => e.HistoryId).HasName("PK__MedicalH__4D7B4ADDEFA70C26");
+
+            entity.ToTable("MedicalHistory");
+
+            entity.Property(e => e.HistoryId).HasColumnName("HistoryID");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.Diagnosis).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.PatientId).HasColumnName("PatientID");
+            entity.Property(e => e.RecordDate).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalHistories)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MedicalHistory_PatientProfiles");
+        });
+
+        modelBuilder.Entity<MedicalHistoryShare>(entity =>
+        {
+            entity.HasKey(e => e.ShareId).HasName("PK__MedicalH__D32A3FEEEA59CE1A");
+
+            entity.ToTable("MedicalHistoryShare");
+
+            entity.HasIndex(e => new { e.PatientId, e.DoctorId }, "UQ_PatientDoctor").IsUnique();
+
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.SharedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Doctor).WithMany(p => p.MedicalHistoryShareDoctors)
+                .HasForeignKey(d => d.DoctorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MedicalHi__Docto__2CF2ADDF");
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalHistorySharePatients)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MedicalHi__Patie__2BFE89A6");
         });
 
         modelBuilder.Entity<PatientProfile>(entity =>
@@ -439,6 +485,38 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
         });
 
+        modelBuilder.Entity<VwDoctorAppointment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_DoctorAppointments");
+
+            entity.Property(e => e.AppointmentCreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.AppointmentDate).HasColumnType("datetime");
+            entity.Property(e => e.AppointmentId).HasColumnName("AppointmentID");
+            entity.Property(e => e.BloodType).HasMaxLength(5);
+            entity.Property(e => e.DoctorEmail).HasMaxLength(255);
+            entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
+            entity.Property(e => e.DoctorName).HasMaxLength(255);
+            entity.Property(e => e.DoctorQualification).HasMaxLength(255);
+            entity.Property(e => e.DoctorSpecialty).HasMaxLength(255);
+            entity.Property(e => e.EmergencyContact).HasMaxLength(255);
+            entity.Property(e => e.FacilityAddress).HasMaxLength(255);
+            entity.Property(e => e.FacilityEmail).HasMaxLength(255);
+            entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
+            entity.Property(e => e.FacilityName).HasMaxLength(255);
+            entity.Property(e => e.FacilityPhone).HasMaxLength(50);
+            entity.Property(e => e.PatientAddress).HasMaxLength(255);
+            entity.Property(e => e.PatientDob).HasColumnName("PatientDOB");
+            entity.Property(e => e.PatientEmail).HasMaxLength(255);
+            entity.Property(e => e.PatientId).HasColumnName("PatientID");
+            entity.Property(e => e.PatientName).HasMaxLength(255);
+            entity.Property(e => e.PaymentStatus).HasMaxLength(50);
+            entity.Property(e => e.ScheduleId).HasColumnName("ScheduleID");
+            entity.Property(e => e.SlotId).HasColumnName("SlotID");
+            entity.Property(e => e.Status).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<VwDoctorProfile>(entity =>
         {
             entity
@@ -471,6 +549,20 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.StartTime).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<VwDoctorsWithoutFacility>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("VW_DoctorsWithoutFacility");
+
+            entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
+            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.FullName).HasMaxLength(255);
+            entity.Property(e => e.Qualification).HasMaxLength(255);
+            entity.Property(e => e.Specialty).HasMaxLength(255);
+            entity.Property(e => e.WorkSchedule).HasMaxLength(255);
         });
 
         modelBuilder.Entity<VwEmailTemplate>(entity =>
