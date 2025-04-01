@@ -1,5 +1,5 @@
-using System.Linq.Expressions;
 using DataAccessObject;
+using System.Linq.Expressions;
 
 namespace BusinessLogic.Services;
 
@@ -18,7 +18,7 @@ public class BaseService<T, TU, TView> : IBaseService<T, TU, TView> where T : cl
 
     public async Task<IQueryable<T?>> FindAsync(Expression<Func<T, bool>> predicate = null, bool isTracking = true, params Expression<Func<T, object>>[] includes)
     {
-        return await _repository.FindAsync();
+        return await _repository.FindAsync(predicate, isTracking, includes);
     }
 
     /// <summary>

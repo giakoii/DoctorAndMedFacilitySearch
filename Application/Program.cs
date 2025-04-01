@@ -3,7 +3,6 @@ using BusinessLogic.Mappings;
 using BusinessLogic.Services;
 using Client.Logics.Commons.MomoLogics;
 using DataAccessObject;
-using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using DataAccessObject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -24,7 +23,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapping));
 
 // AddScoped Base
 builder.Services.AddScoped(typeof(IBaseRepository<,,>), typeof(BaseRepository<,,>));
-builder.Services.AddScoped(typeof(IBaseService<, ,>), typeof(BaseService<, ,>));
+builder.Services.AddScoped(typeof(IBaseService<,,>), typeof(BaseService<,,>));
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 // AddScoped Service
@@ -40,6 +39,7 @@ builder.Services.AddScoped<BusinessLogic.Services.Appointment.IAppointmentServic
 builder.Services.AddScoped<IMomoService, MomoService>();
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

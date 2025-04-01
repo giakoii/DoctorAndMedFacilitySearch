@@ -84,4 +84,10 @@ public class DoctorProfileService : BaseService<DoctorProfile, int, VwDoctorProf
             return true;
         });
     }
+
+    public async Task<DoctorProfile> GetDoctorsById(int id)
+    {
+        var doctorEntity = await base.GetByIdAsync(id);
+        return doctorEntity;
+    }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLogic.ViewModels
+﻿namespace BusinessLogic.ViewModels
 {
     public class MedicalFacilitiesViewModel
     {
@@ -17,5 +11,6 @@ namespace BusinessLogic.ViewModels
         public string? OpeningHours { get; set; }
         public double? Rating { get; set; }
         public bool IsActive { get; set; }
+        public IEnumerable<DoctorProfilesViewModel> Doctors { get; set; } = new List<DoctorProfilesViewModel>();
     }
 }

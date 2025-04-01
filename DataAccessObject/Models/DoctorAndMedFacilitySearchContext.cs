@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccessObject.Models;
@@ -53,6 +51,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     public virtual DbSet<VwDoctorSchedule> VwDoctorSchedules { get; set; }
 
     public virtual DbSet<VwEmailTemplate> VwEmailTemplates { get; set; }
+
+    public virtual DbSet<VwFacilityReviewsDetail> VwFacilityReviewsDetails { get; set; }
 
     public virtual DbSet<VwMedicalFacility> VwMedicalFacilities { get; set; }
 
@@ -280,6 +280,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
         {
             entity.HasKey(e => e.ReviewId).HasName("PK__Reviews__74BC79AE310F54FD");
 
+            entity.ToTable(tb => tb.HasTrigger("trg_UpdateFacilityRating"));
+
             entity.Property(e => e.ReviewId).HasColumnName("ReviewID");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.CreatedBy).HasMaxLength(50);
@@ -501,6 +503,29 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("update_by");
+        });
+
+        modelBuilder.Entity<VwFacilityReviewsDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_FacilityReviewsDetails");
+
+            entity.Property(e => e.BloodType).HasMaxLength(5);
+            entity.Property(e => e.EmergencyContact).HasMaxLength(255);
+            entity.Property(e => e.FacilityAddress).HasMaxLength(255);
+            entity.Property(e => e.FacilityEmail).HasMaxLength(255);
+            entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
+            entity.Property(e => e.FacilityName).HasMaxLength(255);
+            entity.Property(e => e.FacilityOpeningHours).HasMaxLength(255);
+            entity.Property(e => e.FacilityPhone).HasMaxLength(50);
+            entity.Property(e => e.PatientAddress).HasMaxLength(255);
+            entity.Property(e => e.PatientDob).HasColumnName("PatientDOB");
+            entity.Property(e => e.PatientEmail).HasMaxLength(255);
+            entity.Property(e => e.PatientId).HasColumnName("PatientID");
+            entity.Property(e => e.PatientName).HasMaxLength(255);
+            entity.Property(e => e.ReviewCreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.ReviewId).HasColumnName("ReviewID");
         });
 
         modelBuilder.Entity<VwMedicalFacility>(entity =>
