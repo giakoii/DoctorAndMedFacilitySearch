@@ -89,7 +89,8 @@
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <img class="rounded-circle mt-5" width="150px"
+                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
                 <span class="font-weight-bold">@User.Identity.Name</span>
                 <span class="text-black-50">@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value</span>
             </div>
@@ -100,40 +101,53 @@
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">Full Name</label><input type="text" class="form-control" value="@User.Identity.Name" readonly></div>
-                    <div class="col-md-12"><label class="labels">Role</label><input type="text" class="form-control" value="@User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value" readonly></div>
+                    <div class="col-md-12"><label class="labels">Full Name</label><input type="text"
+                                                                                         class="form-control"
+                                                                                         value="@User.Identity.Name"
+                                                                                         readonly></div>
+                    <div class="col-md-12"><label class="labels">Role</label><input type="text" class="form-control"
+                                                                                    value="@User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value"
+                                                                                    readonly></div>
                 </div>
 
                 @if (User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.Patient.ToString())
                 {
                     <div class="row mt-3">
-                        <input type="hidden" name="PatientId" value="@Model.PatientProfileViewModel?.PatientId" />
+                        <input type="hidden" name="PatientId" value="@Model.PatientProfileViewModel?.PatientId"/>
                         <div class="col-md-12">
                             <label class="labels">Gender</label>
-                            <input type="text" class="form-control" value="@(Model.PatientProfileViewModel?.Gender == 1 ? "Male" : (Model.PatientProfileViewModel?.Gender == 2 ? "Female" : "Other"))" readonly> </div>
+                            <input type="text" class="form-control"
+                                   value="@(Model.PatientProfileViewModel?.Gender == 1 ? "Male" : (Model.PatientProfileViewModel?.Gender == 2 ? "Female" : "Other"))"
+                                   readonly></div>
                         <div class="col-md-12">
                             <label class="labels">Date Of Birth</label>
-                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.DateOfBirth" readonly>
+                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.DateOfBirth"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Address</label>
-                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.Address" readonly>
+                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.Address"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Medical History</label>
-                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.MedicalHistory" readonly>
+                            <input type="text" class="form-control"
+                                   value="@Model.PatientProfileViewModel?.MedicalHistory" readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Allergies</label>
-                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.Allergies" readonly>
+                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.Allergies"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">BloodType</label>
-                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.BloodType" readonly>
+                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.BloodType"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">EmergencyContact</label>
-                            <input type="text" class="form-control" value="@Model.PatientProfileViewModel?.EmergencyContact" readonly>
+                            <input type="text" class="form-control"
+                                   value="@Model.PatientProfileViewModel?.EmergencyContact" readonly>
                         </div>
                     </div>
                 }
@@ -141,38 +155,46 @@
                 else if (User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.MedicalExpert.ToString())
                 {
                     <div class="row mt-3">
-                        <input type="hidden" class="form-control" value="@Model.DoctorProfileViewModel?.DoctorId" />
+                        <input type="hidden" class="form-control" value="@Model.DoctorProfileViewModel?.DoctorId"/>
                         <div class="col-md-12">
                             <label class="labels">Specialization</label>
-                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.Specialty" readonly>
+                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.Specialty"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Experience</label>
-                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.ExperienceYears" readonly>
+                            <input type="text" class="form-control"
+                                   value="@Model.DoctorProfileViewModel?.ExperienceYears" readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Consultation Fee</label>
-                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.ConsultationFee" readonly>
+                            <input type="text" class="form-control"
+                                   value="@Model.DoctorProfileViewModel?.ConsultationFee" readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Availability</label>
-                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.Availability" readonly>
+                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.Availability"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Qualification</label>
-                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.Qualification" readonly>
+                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.Qualification"
+                                   readonly>
                         </div>
                         <div class="col-md-12">
                             <label class="labels">WorkSchedule</label>
-                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.WorkSchedule" readonly>
+                            <input type="text" class="form-control" value="@Model.DoctorProfileViewModel?.WorkSchedule"
+                                   readonly>
                         </div>
                     </div>
                 }
                 <div class="mt-5 text-center">
-                    <button type="button" class="btn btn-primary profile-button" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                    <button type="button" class="btn btn-primary profile-button" data-bs-toggle="modal"
+                            data-bs-target="#editProfileModal">
                         Edit Profile
                     </button>
-                </div>            </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -189,63 +211,78 @@
                 <form method="post" asp-page-handler="EditProfile">
                     @if (User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.MedicalExpert.ToString())
                     {
-                        <input type="hidden" asp-for="@Model.DoctorProfileViewModel!.DoctorId" value="@Model.DoctorProfileViewModel?.DoctorId" />
+                        <input type="hidden" asp-for="@Model.DoctorProfileViewModel!.DoctorId"
+                               value="@Model.DoctorProfileViewModel?.DoctorId"/>
 
                         <div class="col-md-12">
                             <label class="labels">Specialization</label>
-                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.Specialty" class="form-control" value="@Model.DoctorProfileViewModel?.Specialty">
+                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.Specialty" class="form-control"
+                                   value="@Model.DoctorProfileViewModel?.Specialty">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Experience</label>
-                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.ExperienceYears" class="form-control" value="@Model.DoctorProfileViewModel?.ExperienceYears">
+                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.ExperienceYears"
+                                   class="form-control" value="@Model.DoctorProfileViewModel?.ExperienceYears">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Consultation Fee</label>
-                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.ConsultationFee" class="form-control" value="@Model.DoctorProfileViewModel?.ConsultationFee">
+                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.ConsultationFee"
+                                   class="form-control" value="@Model.DoctorProfileViewModel?.ConsultationFee">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Availability</label>
-                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.Availability" class="form-control" value="@Model.DoctorProfileViewModel?.Availability">
+                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.Availability"
+                                   class="form-control" value="@Model.DoctorProfileViewModel?.Availability">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Qualification</label>
-                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.Qualification" class="form-control" value="@Model.DoctorProfileViewModel?.Qualification">
+                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.Qualification"
+                                   class="form-control" value="@Model.DoctorProfileViewModel?.Qualification">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">WorkSchedule</label>
-                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.WorkSchedule" class="form-control" value="@Model.DoctorProfileViewModel?.WorkSchedule">
+                            <input type="text" asp-for="@Model.DoctorProfileViewModel!.WorkSchedule"
+                                   class="form-control" value="@Model.DoctorProfileViewModel?.WorkSchedule">
                         </div>
-                    } 
+                    }
                     else if (User.Claims.FirstOrDefault(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.Patient.ToString())
                     {
-                        <input type="hidden" asp-for="@Model.PatientProfileViewModel!.PatientId" value="@Model.PatientProfileViewModel?.PatientId" />
+                        <input type="hidden" asp-for="@Model.PatientProfileViewModel!.PatientId"
+                               value="@Model.PatientProfileViewModel?.PatientId"/>
 
                         <div class="col-md-12">
                             <label class="labels">Gender</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.Gender" value="@(Model.PatientProfileViewModel?.Gender == 1 ? "Male" : (Model.PatientProfileViewModel?.Gender == 2 ? "Female" : "Other"))" readonly> </div>
+                            <select class="form-control" asp-for="PatientProfileViewModel.Gender">
+                                <option value="1" selected="@(Model.PatientProfileViewModel?.Gender == 1)">Male</option>
+                                <option value="2" selected="@(Model.PatientProfileViewModel?.Gender == 2)">Female
+                                </option>
+                                <option value="3" selected="@(Model.PatientProfileViewModel?.Gender == 3)">Other
+                                </option>
+                            </select>
+                        </div>
                         <div class="col-md-12">
                             <label class="labels">Date Of Birth</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.DateOfBirth" value="@Model.PatientProfileViewModel?.DateOfBirth">
+                            <input type="text" class="form-control"asp-for="@Model.PatientProfileViewModel!.DateOfBirth"value="@Model.PatientProfileViewModel?.DateOfBirth">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Address</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.Address" value="@Model.PatientProfileViewModel?.Address">
+                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.Address"value="@Model.PatientProfileViewModel?.Address">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Medical History</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.MedicalHistory" value="@Model.PatientProfileViewModel?.MedicalHistory">
+                            <input type="text" class="form-control"asp-for="@Model.PatientProfileViewModel!.MedicalHistory"value="@Model.PatientProfileViewModel?.MedicalHistory">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Allergies</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.Allergies" value="@Model.PatientProfileViewModel?.Allergies">
+                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.Allergies"value="@Model.PatientProfileViewModel?.Allergies">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">BloodType</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.BloodType" value="@Model.PatientProfileViewModel?.BloodType">
+                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.BloodType"value="@Model.PatientProfileViewModel?.BloodType">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">EmergencyContact</label>
-                            <input type="text" class="form-control" asp-for="@Model.PatientProfileViewModel!.EmergencyContact" value="@Model.PatientProfileViewModel?.EmergencyContact">
+                            <input type="text" class="form-control"asp-for="@Model.PatientProfileViewModel!.EmergencyContact"value="@Model.PatientProfileViewModel?.EmergencyContact">
                         </div>
                     }
                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -272,8 +309,8 @@
         // 
         fetch('/User/Profile', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ latitude, longitude })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({latitude, longitude})
         })
             .then(response => response.json())
             .then(data => {
