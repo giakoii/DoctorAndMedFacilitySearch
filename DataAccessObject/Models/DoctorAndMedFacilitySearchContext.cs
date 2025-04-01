@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace DataAccessObject.Models;
@@ -27,6 +29,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     public virtual DbSet<MedicalFacility> MedicalFacilities { get; set; }
 
     public virtual DbSet<MedicalFile> MedicalFiles { get; set; }
+
+    public virtual DbSet<MedicalHistoryShare> MedicalHistoryShares { get; set; }
 
     public virtual DbSet<PatientProfile> PatientProfiles { get; set; }
 
@@ -78,7 +82,9 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=database.techtheworld.id.vn;Database=DoctorAndMedFacilitySearch;User Id=abc;Password=B82E3D33-F7B4-46F7-AAF8-6F84B826524A;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -238,6 +244,45 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Rating).HasDefaultValue(0.0);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<MedicalFile>(entity =>
+        {
+            entity.HasKey(e => e.FileId).HasName("PK__MedicalF__6F0F98BF9E51E2EC");
+
+            entity.Property(e => e.FileName).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.UploadedAt).HasColumnType("datetime");
+            entity.Property(e => e.UploadedBy).HasMaxLength(50);
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalFiles)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MedicalFiles_Users");
+        });
+
+        modelBuilder.Entity<MedicalHistoryShare>(entity =>
+        {
+            entity.HasKey(e => e.ShareId).HasName("PK__MedicalH__D32A3FEEEA59CE1A");
+
+            entity.ToTable("MedicalHistoryShare");
+
+            entity.HasIndex(e => new { e.PatientId, e.DoctorId }, "UQ_PatientDoctor").IsUnique();
+
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.SharedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.Doctor).WithMany(p => p.MedicalHistoryShareDoctors)
+                .HasForeignKey(d => d.DoctorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MedicalHi__Docto__2CF2ADDF");
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalHistorySharePatients)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__MedicalHi__Patie__2BFE89A6");
         });
 
         modelBuilder.Entity<MedicalFile>(entity =>

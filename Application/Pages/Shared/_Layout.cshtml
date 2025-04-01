@@ -111,12 +111,12 @@
         </div>
     </div>
 <!-- Spinner Start -->
-<div id="spinner"
+@* <div id="spinner"
      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
         <span class="sr-only">Loading...</span>
     </div>
-</div>
+</div> *@
 <!-- Spinner End -->
 
 
@@ -149,129 +149,253 @@
 <!-- Navbar & Hero Start -->
 <div class="container-fluid position-relative p-0">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
-        <a href="index.html" class="navbar-brand p-0">
-            <h1 class="text-primary m-0"><i class="fas fa-star-of-life me-3"></i>Terapia</h1>
-        </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white px-4 px-lg-5 py-3 py-lg-0">
+            <a href="index.html" class="navbar-brand p-0">
+                <h1 class="text-primary m-0"><i class="fas fa-star-of-life me-3"></i>Terapia</h1>
+            </a>
 
-        <div class="d-flex flex-grow-1 justify-content-center mx-3">
-            <!-- Dropdown mở form tìm kiếm nâng cao -->
-            @* <div class="dropdown"> *@
-            @*     <button class="btn btn-primary me-2 search-button dropdown-toggle" type="button" id="searchDropdownBtn" *@
-            @*             data-bs-toggle="dropdown" aria-expanded="false"> *@
-            @*         Advanced Search *@
-            @*     </button> *@
+            <div class="d-flex flex-grow-1 justify-content-center mx-3">
+                <!-- Dropdown mở form tìm kiếm nâng cao -->
+                <div class="dropdown">
+                    <button class="btn btn-primary me-2 search-button dropdown-toggle" type="button" id="searchDropdownBtn"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Advanced Search
+                    </button>
 
-            @*     <!-- Form tìm kiếm nâng cao --> *@
-            @*     <div class="dropdown-menu p-3" id="searchFormContainer"> *@
-            @*         <form method="get" asp-page-handler="Index/ỎnGet"> *@
-            @*             <div class="form-group"> *@
-            @*                 <label for="specialty">Specialty</label> *@
-            @*                 <input type="text" class="form-control" id="specialty" name="Specialty" *@
-            @*                        value="@ViewData["Specialty"]"> *@
-            @*             </div> *@
-            @*             <div class="form-group"> *@
-            @*                 <label for="rating">Minimum Rating</label> *@
-            @*                 <input type="range" class="form-range" id="rating" name="Rating" min="1" max="5" *@
-            @*                        value="@ViewData["Rating"]"> *@
-            @*                 <span id="ratingValue">⭐⭐⭐</span> *@
-            @*             </div> *@
-            @*             <div class="form-group"> *@
-            @*                 <label for="fee">Max Fee</label> *@
-            @*                 <input type="number" class="form-control" id="fee" name="Fee" value="@ViewData["Fee"]"> *@
-            @*             </div> *@
-            @*             <button type="submit" class="btn btn-success mt-2">Apply</button> *@
-            @*         </form> *@
-            @*     </div> *@
-            @* </div> *@
-                <div class="d-flex flex-grow-1 justify-content-start">
-                    <!-- Ô tìm kiếm chính -->
-                    <form method="get" asp-page="/Care">
-                        <div class="search-container d-flex align-items-center ms-2">
-                            <!-- Ô tìm kiếm cơ bản -->
-                            <input type="text" class="search-input form-control me-2" id="keyword" name="Keyword"
-                                   placeholder="Search Medical facility, Doctor, . . ."
-                                   value="@ViewData["Keyword"]">
-                            <!-- Trường ẩn đánh dấu đây là yêu cầu search -->
-                            <input type="hidden" name="IsSearch" value="true">
-                            <!-- Nút Search -->
-                            <button type="submit" class="search-button btn btn-primary me-2">
-                                <i class="fas fa-search me-1"></i>
-                            </button>
-                            <!-- Nút Advanced Search: mở modal -->
-                            <button type="button" class="search-button btn btn-outline-primary me-2"
-                                    data-bs-toggle="modal" data-bs-target="#advancedSearchModal">
-                                <i class="fas fa-filter me-1"></i>
-                            </button>
-                            <!-- Nút Find Nearby -->
-                            <button id="btnFindNearby" class="search-button btn btn-outline-primary" type="button">
-                                <i class="fas fa-map-marker-alt me-1"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-        </div>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu m-0">
-                            <a asp-page="/Appointment/Index" class="dropdown-item">My Appointment</a>
-                            <a asp-page="./Care"
-                               asp-route-IsSearch="true"
-                               asp-route-Keyword="" class="dropdown-item">Booking</a>
+                    <!-- Form tìm kiếm nâng cao -->
+                    <div class="dropdown-menu p-3" id="searchFormContainer">
+                        <form method="get" asp-page-handler="Index/ỎnGet">
+                            <div class="form-group">
+                                <label for="specialty">Specialty</label>
+                                <input type="text" class="form-control" id="specialty" name="Specialty"
+                                       value="@ViewData["Specialty"]">
+                            </div>
+                            <div class="form-group">
+                                <label for="rating">Minimum Rating</label>
+                                <input type="range" class="form-range" id="rating" name="Rating" min="1" max="5"
+                                       value="@ViewData["Rating"]">
+                                <span id="ratingValue">⭐⭐⭐</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="fee">Max Fee</label>
+                                <input type="number" class="form-control" id="fee" name="Fee" value="@ViewData["Fee"]">
+                            </div>
+                            <button type="submit" class="btn btn-success mt-2">Apply</button>
+                        </form>
                     </div>
                 </div>
-            </div>
-            @if (!User.Identity.IsAuthenticated)
-            {
-                <a asp-page="/User/Login"
-                   class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">Book
-                    Appointment</a>
-            }
-            else
-            {
-                <div class="d-flex align-items-center">
-                    <a asp-page="User/Profile" class="me-3 text-black-50">Hello, @User.Identity.Name</a>
-                    <form method="post" asp-page="/User/Logout">
-                        <button type="submit"
-                                class="btn btn-danger rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">
-                            Logout
+
+                <!-- Ô tìm kiếm chính -->
+                <form method="get">
+                    <div class="search-container d-flex align-items-center ms-2">
+                        <input type="text" class="search-input form-control me-2" id="keyword" name="Keyword"
+                               placeholder="Search Medical facility, Doctor, . . ."
+                               value="@ViewData["Keyword"]">
+                        <input type="hidden" name="IsSearch" value="true">
+                        <button type="submit" class="search-button btn btn-primary me-2">Search</button>
+                        <button id="btnFindNearby" class="search-button btn btn-outline-primary" type="button">
+                            Find Nearby
                         </button>
-                    </form>
+                    </div>
+                </form>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+                    <a href="HealthArticles/HealthInfo" class="dropdown-item">HealthArticles</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="appointment.html" class="dropdown-item">Appointment</a>
+                            <a href="feature.html" class="dropdown-item">Features</a>
+                        </div>
+                    </div>
+                </div>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a asp-page="/User/Login"
+                       class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">
+                        Book
+                        Appointment
+                    </a>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center">
+                        <a asp-page="User/Profile" class="me-3 text-black-50">Hello, @User.Identity.Name</a>
+                        <form method="post" asp-page="/User/Logout">
+                            <button type="submit"
+                                    class="btn btn-danger rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </nav>
+
+    <div class="container mt-5">
+        <div id="result" class="row mt-3">
+        </div>
+    </div>
+
+    @{
+        var isSearch = ViewData["IsSearch"] as bool? ?? false;
+        var keyword = ViewData["Keyword"] as string;
+        var doctors = ViewData["Doctors"] as List<DoctorViewModel> ?? new List<DoctorViewModel>();
+        var medicalFacilities = ViewData["MedicalFacilities"] as List<MedicalFacilityViewModel> ?? new List<MedicalFacilityViewModel>();
+    }
+
+    @if (isSearch)
+    {
+        @if (doctors.Any() || medicalFacilities.Any())
+        {
+            <h4>🔍 Search Results for "@keyword":</h4>
+
+            @if (doctors.Any())
+            {
+                <h5>👨‍⚕️ Doctors</h5>
+                <div class="row">
+                    @foreach (var doctor in doctors)
+                    {
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="feature-item p-4 shadow-sm rounded bg-light">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-user-md fa-4x text-primary"></i>
+                                </div>
+                                <h5 class="text-center">@doctor.Name</h5>
+                                <ul class="list-unstyled mt-3">
+                                    <li><strong>Availability:</strong> @doctor.Availability</li>
+                                    <li><strong>Qualification:</strong> @doctor.Qualification</li>
+                                    <li><strong>Specialty:</strong> @doctor.Specialty</li>
+                                    <li><strong>Consultation Fee:</strong> @doctor.ConsultationFee</li>
+                                    <li><strong>Experience Years:</strong> @doctor.ExperienceYears</li>
+                                    <li><strong>Work Schedule:</strong> @doctor.WorkSchedule</li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Phân trang Doctors -->
+                <div class="pagination mt-3">
+                    <a href="?IsSearch=true
+                            &Keyword=@ViewData["Keyword"]
+                            &Specialty=@ViewData["Specialty"]
+                            &Rating=@ViewData["Rating"]
+                            &Fee=@ViewData["Fee"]
+                            &Services=@ViewData["Services"]
+                            &PageNumberDoctors=@((int)ViewData["PageNumberDoctors"] - 1)"
+                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberDoctors"] <= 1 ? "disabled" : "")">
+                        Previous
+                    </a>
+
+                    <span class="align-self-center">Page @(ViewData["PageNumberDoctors"]) / @(ViewData["TotalPagesDoctors"])</span>
+
+                    <a href="?IsSearch=true
+                        &Keyword=@ViewData["Keyword"]
+                        &Specialty=@ViewData["Specialty"]
+                        &Rating=@ViewData["Rating"]
+                        &Fee=@ViewData["Fee"]
+                        &Services=@ViewData["Services"]
+                        &PageNumberDoctors=@((int)ViewData["PageNumberDoctors"] + 1)"
+                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberDoctors"] >= (int)ViewData["TotalPagesDoctors"] ? "disabled" : "")">
+                        Next
+                    </a>
                 </div>
             }
-        </div>
-    </nav>
+
+            @if (medicalFacilities.Any())
+            {
+                <h5>🏥 Medical Facilities</h5>
+                <div class="row">
+                    @foreach (var facility in medicalFacilities)
+                    {
+                        <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <div class="feature-item p-4 shadow-sm rounded bg-light">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-hospital-alt fa-4x text-primary"></i>
+                                </div>
+                                <h5 class="text-center">@facility.Name</h5>
+                                <ul class="list-unstyled mt-3">
+                                    <li><strong>Address:</strong> @facility.Address</li>
+                                    <li><strong>Phone number:</strong> @facility.Phone</li>
+                                    <li><strong>Email:</strong> @facility.Email</li>
+                                    <li><strong>Services:</strong> @facility.Services</li>
+                                    <li><strong>Opening Hours:</strong> @facility.OpeningHours</li>
+                                    <li><strong>Ratings:</strong> ⭐@facility.Rating</li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+                
+                <!-- Phân trang Medical Facilities -->
+                <div class="pagination mt-3">
+                    <a href="?IsSearch=true
+                        &Keyword=@ViewData["Keyword"]
+                        &Specialty=@ViewData["Specialty"]
+                        &Rating=@ViewData["Rating"]
+                        &Fee=@ViewData["Fee"]
+                        &Services=@ViewData["Services"]
+                        &PageNumberMedicalFacilities=@((int)ViewData["PageNumberMedicalFacilities"] - 1)"
+                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberMedicalFacilities"] <= 1 ? "disabled" : "")">
+                        Previous
+                    </a>
+
+                    <span class="align-self-center">Page @(ViewData["PageNumberMedicalFacilities"]) / @(ViewData["TotalPagesMedicalFacilities"])</span>
+
+                    <a href="?IsSearch=true
+                        &Keyword=@ViewData["Keyword"]
+                        &Specialty=@ViewData["Specialty"]
+                        &Rating=@ViewData["Rating"]
+                        &Fee=@ViewData["Fee"]
+                        &Services=@ViewData["Services"]
+                        &PageNumberMedicalFacilities=@((int)ViewData["PageNumberMedicalFacilities"] + 1)"
+                       class="btn btn-primary mx-2 @( (int)ViewData["PageNumberMedicalFacilities"] >= (int)ViewData["TotalPagesMedicalFacilities"] ? "disabled" : "")">
+                        Next
+                    </a>
+                </div>            }
+        }
+        else
+        {
+            <p class="text-muted text-center">No results found for "@keyword".</p>
+        }
+    }
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel">
         <div class="header-carousel-item">
             <img src="img/hos.jpg" class="img-fluid w-100" alt="Image">
             <div class="carousel-caption">
                 <div class="carousel-caption-content p-3">
-                    <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Physiotherapy
-                        Center</h5>
-                    <h1 class="display-1 text-capitalize text-white mb-4">Best Solution For Painful Life</h1>
-                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    </p>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <a class="btn btn-primary rounded-pill text-white py-3 px-5" asp-page="/User/Login">Book
-                            Appointment</a>
-                    }
-                    else
-                    {
-                        <a class="btn btn-primary rounded-pill text-white py-3 px-5" asp-page="/Appointment/Booking">Book
-                            Appointment</a>
-                    }
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-page="/User/Login"
+                               class="btn btn-primary rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">
+                                Book
+                                Appointment
+                            </a>
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center">
+                                <a asp-page="User/Profile" class="me-3 text-black-50">Hello, @User.Identity.Name</a>
+                                <form method="post" asp-page="/User/Logout">
+                                    <button type="submit"
+                                            class="btn btn-danger rounded-pill text-white py-2 px-4 flex-wrap flex-sm-shrink-0">
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        }
+
                 </div>
             </div>
         </div>
@@ -279,12 +403,9 @@
             <img src="img/hos2.jpg" class="img-fluid w-100" alt="Image">
             <div class="carousel-caption">
                 <div class="carousel-caption-content p-3">
-                    <h5 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Physiotherapy
-                        Center</h5>
-                    <h1 class="display-1 text-capitalize text-white mb-4">Best Solution For Painful Life</h1>
-                    <p class="mb-5 fs-5 animated slideInDown">Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
-                        1500s,
+                 
+              
+                    <p class="mb-5 fs-5 animated slideInDown">
                     </p>
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -321,9 +442,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-item d-flex flex-column">
                     <h4 class="text-white mb-4"><i class="fas fa-star-of-life me-3"></i>Terapia</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus dolorem impedit eos autem
-                        dolores laudantium quia, qui similique
-                    </p>
+                    
                     <div class="d-flex align-items-center">
                         <i class="fas fa-share fa-2x text-white me-2"></i>
                         <a class="btn-square btn btn-primary text-white rounded-circle mx-1" href=""><i
@@ -419,5 +538,6 @@
 <!-- Template Javascript -->
 <script src="js/main.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

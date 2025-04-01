@@ -73,7 +73,7 @@ public class AppDbContext : DoctorAndMedFacilitySearchContext
             try
             {
                 newEntity.IsActive = true;
-                newEntity.CreatedAt = now;
+              
                 newEntity.CreatedBy = updateUser;
                 newEntity.UpdatedBy = updateUser;
                 newEntity.UpdatedAt = now;

@@ -40,11 +40,7 @@ public class Index : PageModel
     
     public async Task<IActionResult> OnPostSaveProfile()
     {
-        if (!ModelState.IsValid)
-        {
-            ShowModal = true;
-            return Page();
-        }
+       
         var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value!;
 
         await _doctorProfileService.AddDoctorProfile(DoctorViewModel, email);

@@ -3,6 +3,7 @@ using BusinessLogic.Mappings;
 using BusinessLogic.Services;
 using Client.Logics.Commons.MomoLogics;
 using DataAccessObject;
+using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using DataAccessObject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<DoctorAndMedFacilitySearchContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -38,6 +41,7 @@ builder.Services.AddScoped<BusinessLogic.Services.Appointment.IAppointmentServic
 
 builder.Services.AddScoped<IMomoService, MomoService>();
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IHealthInfoService, HealthInfoService>();
 
 builder.Services.AddScoped<IReviewService, ReviewService>();
 
@@ -75,7 +79,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
-
+builder.Services.AddScoped<IBaseRepository<MedicalFile, int, MedicalFile>, BaseRepository<MedicalFile, int, MedicalFile>>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
