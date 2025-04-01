@@ -13,5 +13,6 @@ namespace DataAccessObject.Repositories
         Task<bool> DeleteSlot(int scheduleId, int slotId);
         Task<List<Schedule>> GetSchedulesFromRange(string doctorEmail, DateOnly startDate, DateOnly endDate);
         Task<List<Slot>> GetSlots();
+        Task<List<Slot>> GetDoctorSlots(string doctorEmail, DateOnly date);
     }
 }

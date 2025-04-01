@@ -30,6 +30,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<MedicalFile> MedicalFiles { get; set; }
 
+    public virtual DbSet<MedicalHistory> MedicalHistories { get; set; }
+
     public virtual DbSet<MedicalHistoryShare> MedicalHistoryShares { get; set; }
 
     public virtual DbSet<PatientProfile> PatientProfiles { get; set; }
@@ -49,6 +51,8 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<VwAppointment> VwAppointments { get; set; }
+
+    public virtual DbSet<VwDoctorAppointment> VwDoctorAppointments { get; set; }
 
     public virtual DbSet<VwDoctorProfile> VwDoctorProfiles { get; set; }
 
@@ -76,7 +80,7 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
     {
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json",true,true)
+            .AddJsonFile("appsettings.json", true, true)
             .Build();
         var strConn = config["ConnectionStrings:DefaultConnection"];
 
@@ -85,6 +89,7 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(GetConnectionString());
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -259,6 +264,28 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasForeignKey(d => d.PatientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MedicalFiles_Users");
+        });
+
+        modelBuilder.Entity<MedicalHistory>(entity =>
+        {
+            entity.HasKey(e => e.HistoryId).HasName("PK__MedicalH__4D7B4ADDEFA70C26");
+
+            entity.ToTable("MedicalHistory");
+
+            entity.Property(e => e.HistoryId).HasColumnName("HistoryID");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.CreatedBy).HasMaxLength(50);
+            entity.Property(e => e.Diagnosis).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.PatientId).HasColumnName("PatientID");
+            entity.Property(e => e.RecordDate).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
+            entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalHistories)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MedicalHistory_PatientProfiles");
         });
 
         modelBuilder.Entity<MedicalHistoryShare>(entity =>
@@ -467,6 +494,38 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<VwDoctorAppointment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vw_DoctorAppointments");
+
+            entity.Property(e => e.AppointmentCreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.AppointmentDate).HasColumnType("datetime");
+            entity.Property(e => e.AppointmentId).HasColumnName("AppointmentID");
+            entity.Property(e => e.BloodType).HasMaxLength(5);
+            entity.Property(e => e.DoctorEmail).HasMaxLength(255);
+            entity.Property(e => e.DoctorId).HasColumnName("DoctorID");
+            entity.Property(e => e.DoctorName).HasMaxLength(255);
+            entity.Property(e => e.DoctorQualification).HasMaxLength(255);
+            entity.Property(e => e.DoctorSpecialty).HasMaxLength(255);
+            entity.Property(e => e.EmergencyContact).HasMaxLength(255);
+            entity.Property(e => e.FacilityAddress).HasMaxLength(255);
+            entity.Property(e => e.FacilityEmail).HasMaxLength(255);
+            entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
+            entity.Property(e => e.FacilityName).HasMaxLength(255);
+            entity.Property(e => e.FacilityPhone).HasMaxLength(50);
+            entity.Property(e => e.PatientAddress).HasMaxLength(255);
+            entity.Property(e => e.PatientDob).HasColumnName("PatientDOB");
+            entity.Property(e => e.PatientEmail).HasMaxLength(255);
+            entity.Property(e => e.PatientId).HasColumnName("PatientID");
+            entity.Property(e => e.PatientName).HasMaxLength(255);
+            entity.Property(e => e.PaymentStatus).HasMaxLength(50);
+            entity.Property(e => e.ScheduleId).HasColumnName("ScheduleID");
+            entity.Property(e => e.SlotId).HasColumnName("SlotID");
+            entity.Property(e => e.Status).HasMaxLength(50);
         });
 
         modelBuilder.Entity<VwDoctorProfile>(entity =>

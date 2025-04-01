@@ -41,6 +41,25 @@ namespace BusinessLogic.Services
             }
         }
 
+        public async Task<List<SlotModel>> GetDoctorSlotsAsync(string doctorEmail, DateOnly date)
+        {
+            try
+            {
+                var slots = await _scheduleRepository.GetDoctorSlots(doctorEmail, date);
+                var slotModels = slots.Select(slot => new SlotModel
+                {
+                    SlotId = slot.SlotId,
+                    StartTime = slot.StartTime,
+                    EndTime = slot.EndTime
+                }).ToList();
+                return slotModels;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<ScheduleViewModel>> GetSchedulesFromRangeAsync(string doctorEmail, DateOnly startDate, DateOnly endDate)
         {
             try

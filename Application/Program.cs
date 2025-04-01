@@ -36,6 +36,7 @@ builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IMedicalFacilityService, MedicalFacilityService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
 builder.Services.AddScoped<IPatientProfileService, PatientProfileService>();
+builder.Services.AddScoped<IDoctorAppointmentsService, DoctorAppointmentsService>();
 builder.Services.AddScoped<BusinessLogic.Services.Appointment.IAppointmentService, BusinessLogic.Services.Appointment.AppointmentService>();
 
 builder.Services.AddScoped<IMomoService, MomoService>();
