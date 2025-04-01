@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<DoctorAndMedFacilitySearchContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -32,6 +34,7 @@ builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IMedicalFacilityService, MedicalFacilityService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
+builder.Services.AddScoped<IHealthInfoService, HealthInfoService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -67,7 +70,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
-
+builder.Services.AddScoped<IBaseRepository<MedicalFile, int, MedicalFile>, BaseRepository<MedicalFile, int, MedicalFile>>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObject.Models;
 
@@ -22,7 +23,11 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
 
+    public virtual DbSet<HealthArticle> HealthArticles { get; set; }
+
     public virtual DbSet<MedicalFacility> MedicalFacilities { get; set; }
+
+    public virtual DbSet<MedicalFile> MedicalFiles { get; set; }
 
     public virtual DbSet<PatientProfile> PatientProfiles { get; set; }
 
@@ -60,19 +65,10 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<VwUser> VwUsers { get; set; }
 
-    private string GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json",true,true)
-            .Build();
-        var strConn = config["ConnectionStrings:DefaultConnection"];
-
-        return strConn;
-    }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionString());
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=database.techtheworld.id.vn;Database=DoctorAndMedFacilitySearch;User Id=abc;Password=B82E3D33-F7B4-46F7-AAF8-6F84B826524A;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -103,6 +99,11 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.HasOne(d => d.Patient).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.PatientId)
                 .HasConstraintName("FK__Appointme__Patie__59063A47");
+
+            entity.HasOne(d => d.ScheduleSlot).WithMany(p => p.Appointments)
+                .HasForeignKey(d => new { d.ScheduleId, d.SlotId })
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Appointment_ScheduleSlot");
         });
 
         modelBuilder.Entity<DoctorProfile>(entity =>
@@ -195,6 +196,20 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasColumnName("update_by");
         });
 
+        modelBuilder.Entity<HealthArticle>(entity =>
+        {
+            entity.HasKey(e => e.ArticleId).HasName("PK__HealthAr__9C6270E8CD9ED7AD");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.Title).HasMaxLength(255);
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<MedicalFacility>(entity =>
         {
             entity.HasKey(e => e.FacilityId).HasName("PK__MedicalF__5FB08B94E0B9F716");
@@ -213,6 +228,21 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
             entity.Property(e => e.Rating).HasDefaultValue(0.0);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<MedicalFile>(entity =>
+        {
+            entity.HasKey(e => e.FileId).HasName("PK__MedicalF__6F0F98BF9E51E2EC");
+
+            entity.Property(e => e.FileName).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.UploadedAt).HasColumnType("datetime");
+            entity.Property(e => e.UploadedBy).HasMaxLength(50);
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalFiles)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MedicalFiles_Users");
         });
 
         modelBuilder.Entity<PatientProfile>(entity =>

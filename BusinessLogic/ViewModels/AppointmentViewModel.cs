@@ -15,6 +15,8 @@ namespace BusinessLogic.ViewModels
         public string? Notes { get; set; }
         public string PatientName { get; set; }
         public string DoctorName { get; set; }
+        public int? DoctorId { get; set; }
+        public int? FacilityId   { get; set; }
         public string FacilityName { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }

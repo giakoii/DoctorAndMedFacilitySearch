@@ -4,6 +4,8 @@ namespace BusinessLogic.ViewModels;
 
 public class PatientProfileViewModel
 {
+
+    public int PatientId { get; set; }
     [Required(ErrorMessage = "Date of birth is required")]
     public DateOnly DateOfBirth { get; set; }
 
@@ -24,4 +26,6 @@ public class PatientProfileViewModel
 
     [Required(ErrorMessage = "Emergency contact is required")]
     public string? EmergencyContact { get; set; }
+    public ICollection<AppointmentViewModel> Appointments { get; set; } = new List<AppointmentViewModel>();
+    public ICollection<MedicalFileViewModel> MedicalFiles { get; set; } = new List<MedicalFileViewModel>();
 }
