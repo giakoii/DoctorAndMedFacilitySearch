@@ -1,6 +1,6 @@
 ﻿namespace BusinessLogic.ViewModels
 {
-    public class ReviewViewModel
+    public class AppointmentCreationModel
     {
         public int ReviewId { get; set; }
         public int Rating { get; set; }

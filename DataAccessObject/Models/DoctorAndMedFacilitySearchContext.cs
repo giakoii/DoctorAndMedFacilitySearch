@@ -69,6 +69,17 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
 
     public virtual DbSet<VwUser> VwUsers { get; set; }
 
+    private string GetConnectionString()
+    {
+        IConfiguration config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+        var strConn = config["ConnectionStrings:DefaultConnection"];
+
+        return strConn;
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=database.techtheworld.id.vn;Database=DoctorAndMedFacilitySearch;User Id=abc;Password=B82E3D33-F7B4-46F7-AAF8-6F84B826524A;TrustServerCertificate=True;");
@@ -271,6 +282,21 @@ public partial class DoctorAndMedFacilitySearchContext : DbContext
                 .HasForeignKey(d => d.PatientId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__MedicalHi__Patie__2BFE89A6");
+        });
+
+        modelBuilder.Entity<MedicalFile>(entity =>
+        {
+            entity.HasKey(e => e.FileId).HasName("PK__MedicalF__6F0F98BF9E51E2EC");
+
+            entity.Property(e => e.FileName).HasMaxLength(255);
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.UploadedAt).HasColumnType("datetime");
+            entity.Property(e => e.UploadedBy).HasMaxLength(50);
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.MedicalFiles)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MedicalFiles_Users");
         });
 
         modelBuilder.Entity<PatientProfile>(entity =>

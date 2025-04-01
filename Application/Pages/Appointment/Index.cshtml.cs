@@ -2,10 +2,7 @@ using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Application.Pages.Appointment
 {
@@ -34,7 +31,8 @@ namespace Application.Pages.Appointment
             CurrentPage = num ?? 1;
             TotalPages = (int)Math.Ceiling(totalCount / (double)PageSize);
             var medicines = await _appointmentService.GetAppointmentsViewModel(email, CurrentPage, PageSize);
-            Appointments = medicines ?? new List<AppointmentViewModel>();
+            Appointments = (medicines?.OrderByDescending(a => a.CreatedAt).ToList())
+               ?? new List<AppointmentViewModel>();
         }
         public async Task<IActionResult> OnPostCancelAsync(int id, string cancelNotes)
         {

@@ -1,7 +1,8 @@
+using BusinessLogic.Logics.MomoLogics;
 using BusinessLogic.Mappings;
 using BusinessLogic.Services;
+using Client.Logics.Commons.MomoLogics;
 using DataAccessObject;
-using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using DataAccessObject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -24,7 +25,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapping));
 
 // AddScoped Base
 builder.Services.AddScoped(typeof(IBaseRepository<,,>), typeof(BaseRepository<,,>));
-builder.Services.AddScoped(typeof(IBaseService<, ,>), typeof(BaseService<, ,>));
+builder.Services.AddScoped(typeof(IBaseService<,,>), typeof(BaseService<,,>));
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 // AddScoped Service
@@ -34,7 +35,14 @@ builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IMedicalFacilityService, MedicalFacilityService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
+builder.Services.AddScoped<IPatientProfileService, PatientProfileService>();
+builder.Services.AddScoped<BusinessLogic.Services.Appointment.IAppointmentService, BusinessLogic.Services.Appointment.AppointmentService>();
+
+builder.Services.AddScoped<IMomoService, MomoService>();
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IHealthInfoService, HealthInfoService>();
+
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -80,6 +88,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -88,6 +97,10 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapFallbackToPage("/Care");
+});
 
 app.Run();

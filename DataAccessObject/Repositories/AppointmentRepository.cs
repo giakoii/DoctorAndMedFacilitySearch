@@ -1,11 +1,6 @@
 ﻿using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessObject.Repositories
 {
@@ -42,7 +37,7 @@ namespace DataAccessObject.Repositories
                 var schedule = await _context.Schedules.Include(s => s.ScheduleSlots).FirstOrDefaultAsync(s => s.DoctorId == doctorId && s.ScheduleDate == selectedDate);
                 if (schedule == null) return "Schedule not found.";
 
-                var existingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.ScheduleId == schedule.ScheduleId && a.SlotId == slotId);
+                var existingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => (a.ScheduleId == schedule.ScheduleId && a.SlotId == slotId) && (a.IsActive == true));
                 if (existingAppointment != null) return "Slot already booked.";
 
                 var facility = await _context.MedicalFacilities.FirstOrDefaultAsync(mf => mf.FacilityId == facilityId);
@@ -59,7 +54,7 @@ namespace DataAccessObject.Repositories
                     SlotId = slotToBook.SlotId,
                     FacilityId = facility.FacilityId,
                     AppointmentDate = DateTime.Parse(selectedDate.ToString() + " " + GetStartTimeFromSlotId(slotId)),
-                    Status = "Confirmed",
+                    Status = "Pending",
                     PaymentStatus = "Paid",
                     Notes = null,
                     CreatedAt = DateTime.UtcNow,
@@ -161,7 +156,9 @@ namespace DataAccessObject.Repositories
         {
             try
             {
-                return await _context.DoctorProfiles.Include(d => d.Doctor).ToListAsync();
+                return await _context.DoctorProfiles.Include(d => d.Doctor)
+                    .Include(d => d.Facilities)
+                    .ToListAsync();
             }
             catch (Exception ex)
             {

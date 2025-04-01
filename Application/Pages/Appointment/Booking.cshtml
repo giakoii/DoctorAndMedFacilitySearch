@@ -146,8 +146,11 @@
     <script>
         // Load doctor data from the model
         const doctors = @Html.Raw(Model.DoctorsJson);
+        const preselectedDoctorId = '@Model.SelectedDoctor';
+        console.log(doctors);
 
         // Get DOM elements
+        const locationSelect = document.getElementById('location');
         const doctorSelect = document.getElementById('doctor');
         const doctorInfoDiv = document.getElementById('doctorInfo');
         const doctorName = document.getElementById('doctorName');
@@ -158,6 +161,33 @@
         const doctorFee = document.getElementById('doctorFee');
         const doctorAvailability = document.getElementById('doctorAvailability');
 
+        function updateDoctorOptions() {
+            console.log("locationSelect",locationSelect.value)
+            const selectedFacility = locationSelect.value; // không parseInt, giữ chuỗi
+            let filteredDoctors = [];
+
+            if (!selectedFacility) {
+                filteredDoctors = doctors;
+            } else {
+                filteredDoctors = doctors.filter(doc =>
+                    doc.FacilityIds && doc.FacilityIds.includes(selectedFacility)
+                );
+            }
+
+            doctorSelect.innerHTML = '<option value="">-- Select Doctor --</option>';
+
+            filteredDoctors.forEach(doc => {
+                const option = document.createElement('option');
+                option.value = doc.DoctorId;
+                option.textContent = doc.DoctorName;
+                 if (doc.DoctorId === preselectedDoctorId) {
+                option.selected = true;
+                 }
+                doctorSelect.appendChild(option);
+            });
+        }
+        window.addEventListener('DOMContentLoaded', updateDoctorOptions);
+        locationSelect.addEventListener('change', updateDoctorOptions);
         // Event listener for doctor selection
         doctorSelect.addEventListener('change', function () {
             const selectedDoctorId = this.value;

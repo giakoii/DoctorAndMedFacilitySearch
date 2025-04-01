@@ -15,10 +15,20 @@ public class Profile : PageModel
     public List<UserViewModel> SharedDoctors { get; set; }
 
     private readonly IUserService _userService;
+    private readonly IDoctorProfileService _doctorProfileService;
+    private readonly IPatientProfileService _patientProfileService;
 
-    public Profile(IUserService userService)
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="userService"></param>
+    /// <param name="doctorProfileService"></param>
+    /// <param name="patientProfileService"></param>
+    public Profile(IUserService userService, IDoctorProfileService doctorProfileService, IPatientProfileService patientProfileService)
     {
         _userService = userService;
+        _doctorProfileService = doctorProfileService;
+        _patientProfileService = patientProfileService;
     }
 
     public void OnGet()

@@ -1,13 +1,7 @@
 ﻿using BusinessLogic.ViewModels;
-using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using DataAccessObject.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
@@ -86,7 +80,7 @@ namespace BusinessLogic.Services
             }
             catch (Exception ex)
             {
-               return $"Error: {ex.Message}";
+                return $"Error: {ex.Message}";
             }
         }
 
@@ -126,7 +120,7 @@ namespace BusinessLogic.Services
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message); 
+                throw new Exception(ex.Message);
             }
         }
 
@@ -200,7 +194,20 @@ namespace BusinessLogic.Services
                     Specialty = dp.Specialty,
                     ExperienceYears = dp.ExperienceYears,
                     ConsultationFee = dp.ConsultationFee,
-                    Availability = dp.Availability
+                    Availability = dp.Availability,
+                    Facilities = dp.Facilities != null
+                         ? dp.Facilities.Select(f => new MedicalFacilityViewModel
+                         {
+                             FacilityId = f.FacilityId,
+                             Name = f.Name,
+                             Address = f.Address,
+                             Phone = f.Phone,
+                             Email = f.Email,
+                             Services = f.Services,
+                             OpeningHours = f.OpeningHours,
+                             Rating = f.Rating,
+                         }).ToList()
+                         : new List<MedicalFacilityViewModel>()
                 })
                 .ToList();
 

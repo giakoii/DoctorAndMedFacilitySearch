@@ -1,7 +1,9 @@
 using BusinessLogic.Logics.MomoLogics;
+using BusinessLogic.ViewModels;
 using Client.Logics.Commons.MomoLogics;
 using DataAccessObject;
 using DataAccessObject.Models;
+using DataAccessObject.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Services.Appointment;
@@ -12,6 +14,7 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
     private readonly IBaseRepository<MedicalFacility, int, VwMedicalFacility> _medicalFacilityRepository;
     private readonly IUserService _userService;
     private readonly IMomoService _momoLogic;
+    private readonly IAppointmentRepository _appointmentRepository;
 
     /// <summary>
     /// Constructor
@@ -23,12 +26,13 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
     /// <param name="momoLogic"></param>
     public AppointmentService(IBaseRepository<DataAccessObject.Models.Appointment, int, VwAppointment> repository,
         IBaseRepository<Schedule, int, VwDoctorSchedule> scheduleRepository, IUserService userService,
-        IBaseRepository<MedicalFacility, int, VwMedicalFacility> medicalFacilityRepository, IMomoService momoLogic) : base(repository)
+        IBaseRepository<MedicalFacility, int, VwMedicalFacility> medicalFacilityRepository, IMomoService momoLogic, IAppointmentRepository appointmentRepository) : base(repository)
     {
         _scheduleRepository = scheduleRepository;
         _userService = userService;
         _medicalFacilityRepository = medicalFacilityRepository;
         _momoLogic = momoLogic;
+        _appointmentRepository = appointmentRepository;
     }
 
     /// <summary>
@@ -50,7 +54,7 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
             return "Patient not found.";
 
         // Check if doctor exists
-        var doctor = await _userService.Find(u => u.UserId == doctorId).FirstOrDefaultAsync();
+        var doctor = await _userService.Find(u => u.UserId == doctorId, true, x => x.DoctorProfile).FirstOrDefaultAsync();
         if (doctor == null)
             return "Doctor not found.";
 
@@ -89,27 +93,28 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
                 SlotId = slotToBook.SlotId,
                 FacilityId = facility.FacilityId,
                 AppointmentDate = DateTime.Parse(selectedDate.ToString() + " " + GetStartTimeFromSlotId(slotId)),
-                Status = ConstantEnum.AppointmentStatus.Confirmed.ToString(),
+                Status = ConstantEnum.AppointmentStatus.Pending.ToString(),
                 PaymentStatus = "Paid",
                 Notes = null,
             };
             slotToBook.IsBooked = true;
             _repository.Add(appointment);
-            
+            _repository.SaveChanges(email);
+
             var momoExcuteResponseModel = new MomoExecuteResponseModel
             {
                 FullName = $"{patient.FullName}",
-                Amount = "30000",
-                OrderId = $"{appointment.AppointmentId}-{Guid.NewGuid().ToString()}",                
+                Amount = ((Int64) doctor.DoctorProfile.ConsultationFee).ToString(),
+                OrderId = $"{appointment.AppointmentId}-{Guid.NewGuid().ToString()}",
                 OrderInfo = $"{patient.FullName} Payment for AppointmentID {appointment.AppointmentId}",
             };
-            
+
             var momoPayment = await _momoLogic.CreatePaymentOrderAsync(momoExcuteResponseModel);
-            
-            if (momoPayment.ErrorCode != (byte)ConstantEnum.PaymentStatus.Success || 
-                string.IsNullOrEmpty(momoPayment.PayUrl)||
-                string.IsNullOrEmpty(momoPayment.QrCodeUrl)||
-                string.IsNullOrEmpty(momoPayment?.DeeplinkWebInApp)||
+
+            if (momoPayment.ErrorCode != (byte)ConstantEnum.PaymentStatus.Success ||
+                string.IsNullOrEmpty(momoPayment.PayUrl) ||
+                string.IsNullOrEmpty(momoPayment.QrCodeUrl) ||
+                string.IsNullOrEmpty(momoPayment?.DeeplinkWebInApp) ||
                 string.IsNullOrEmpty(momoPayment?.Deeplink))
             {
                 return false;
@@ -119,6 +124,26 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
             return true;
         });
         return momoPaymentUrl;
+    }
+
+    public async Task<List<ScheduleViewModel>> GetSchedulesAsync(int doctorId, DateOnly selectedDate)
+    {
+        var schedules = await _appointmentRepository.GetSchedules(doctorId, selectedDate);
+
+        var list = schedules.Select(s => new ScheduleViewModel
+        {
+            ScheduleId = s.ScheduleId,
+            DoctorId = s.DoctorId,
+            ScheduleDate = s.ScheduleDate,
+            ScheduleSlots = s.ScheduleSlots.Select(ss => new ScheduleSlotViewModel
+            {
+                SlotId = ss.SlotId,
+                StartTime = ss.Slot.StartTime,
+                EndTime = ss.Slot.EndTime
+            }).ToList()
+        }).ToList();
+
+        return list;
     }
 
 

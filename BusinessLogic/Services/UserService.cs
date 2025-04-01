@@ -33,8 +33,6 @@ public class UserService : BaseService<User, int, VwUser>, IUserService
         IBaseRepository<MedicalFile, int, MedicalFile> medicalFileRepository) : base(repository)
     {
         _roleService = roleService;
-        _doctorProfileService = doctorProfileService;
-        _patientProfileService = patientProfileService;
         _mapper = mapper;
         _context = context;
         _medicalFileRepository = medicalFileRepository;

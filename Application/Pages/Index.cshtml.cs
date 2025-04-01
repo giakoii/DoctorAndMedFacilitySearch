@@ -16,7 +16,8 @@ public class IndexModel : PageModel
     private readonly IDoctorProfileService _doctorProfileService;
     private readonly IUserService _userService;
 
-    public IndexModel(HttpClient httpClient, IMedicalFacilityService medicalFacilityService, IDoctorProfileService doctorProfileService, IUserService userService)
+    public IndexModel(HttpClient httpClient, IMedicalFacilityService medicalFacilityService,
+        IDoctorProfileService doctorProfileService, IUserService userService)
     {
         _httpClient = httpClient;
         _medicalFacilityService = medicalFacilityService;
@@ -25,21 +26,18 @@ public class IndexModel : PageModel
     }
 
     [HttpGet]
-    public IActionResult OnGet(
-        bool IsSearch = false,
-        string Keyword = null,
-        string Specialty = null,
-        double? Rating = null,
-        decimal? Fee = null,
-        string Services = null,
-        int PageNumberDoctors = 1,
-        int PageSizeDoctors = 4,
-        int PageNumberMedicalFacilities = 1,
-        int PageSizeMedicalFacilities = 4)
+    public IActionResult OnGet(bool IsSearch = false, string Keyword = null, string Specialty = null,
+        double? Rating = null, decimal? Fee = null, string Services = null, int PageNumberDoctors = 1,
+        int PageSizeDoctors = 4, int PageNumberMedicalFacilities = 1, int PageSizeMedicalFacilities = 4)
     {
         if (User.FindFirst(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.MedicalExpert.ToString())
         {
             return RedirectToPage("/Doctor/Index");
+        }
+
+        if (User.FindFirst(c => c.Type == "RoleName")?.Value == ConstantEnum.Role.Patient.ToString())
+        {
+            
         }
 
         if (!IsSearch)

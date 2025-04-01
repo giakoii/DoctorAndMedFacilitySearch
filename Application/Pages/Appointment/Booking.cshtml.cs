@@ -1,8 +1,8 @@
-﻿using System.Text.Json;
-using BusinessLogic.Services;
+﻿using BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
 
 namespace Application.Pages.Appointment
 {
@@ -15,10 +15,10 @@ namespace Application.Pages.Appointment
             _appointmentService = appointmentService;
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string SelectedLocation { get; set; }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public string SelectedDoctor { get; set; }
 
         public List<SelectListItem> Locations { get; set; }
@@ -77,14 +77,18 @@ namespace Application.Pages.Appointment
             Locations = facilities.Select(f => new SelectListItem
             {
                 Value = f.FacilityId.ToString(),
-                Text = f.Name
+                Text = f.Name,
+                Selected = f.FacilityId.ToString() == SelectedLocation
             }).ToList();
 
             Doctors = doctors.Select(d => new SelectListItem
             {
-                Value = d.DoctorId.ToString(),
-                Text = d.DoctorName
+                Value = d.DoctorId.ToString(), // Sử dụng ID làm giá trị
+                Text = d.DoctorName,             // Hiển thị tên bác sĩ
+                Selected = d.DoctorId.ToString() == SelectedDoctor  // So sánh với query string
             }).ToList();
+
+
 
             var doctorDetails = doctors.Select(d => new
             {
@@ -94,7 +98,9 @@ namespace Application.Pages.Appointment
                 Specialty = d.Specialty,
                 ExperienceYears = d.ExperienceYears,
                 ConsultationFee = d.ConsultationFee,
-                Availability = d.Availability ?? "Not specified"
+                Availability = d.Availability ?? "Not specified",
+                FacilityIds = d.Facilities.Select(f => f.FacilityId.ToString()).ToList()
+
             }).ToList();
 
             var facilityDetails = facilities.Select(f => new
