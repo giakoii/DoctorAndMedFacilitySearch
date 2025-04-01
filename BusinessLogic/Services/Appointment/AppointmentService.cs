@@ -104,7 +104,7 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
             var momoExcuteResponseModel = new MomoExecuteResponseModel
             {
                 FullName = $"{patient.FullName}",
-                Amount = ((Int64) doctor.DoctorProfile.ConsultationFee).ToString(),
+                Amount = ((Int64)doctor.DoctorProfile.ConsultationFee).ToString(),
                 OrderId = $"{appointment.AppointmentId}-{Guid.NewGuid().ToString()}",
                 OrderInfo = $"{patient.FullName} Payment for AppointmentID {appointment.AppointmentId}",
             };
@@ -160,4 +160,12 @@ public class AppointmentService : BaseService<DataAccessObject.Models.Appointmen
 
         return slotMap.TryGetValue(slotId, out string startTime) ? startTime : null;
     }
+    public async Task<List<DataAccessObject.Models.Appointment>> GetAppointmentsByDoctorAsync(int doctorId)
+    {
+        var appointments = await _repository
+        .Find(a => a.DoctorId == doctorId, false, a => a.Doctor, a => a.Patient, a => a.Facility)
+        .ToListAsync();
+        return appointments;
+    }
+
 }

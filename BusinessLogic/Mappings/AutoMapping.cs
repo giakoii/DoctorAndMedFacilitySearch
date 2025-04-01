@@ -18,7 +18,7 @@ public class AutoMapping : Profile
 
         CreateMap<VwDoctorProfile, DoctorViewModel>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName));
-        
+
         CreateMap<VwPatientProfile, PatientProfileViewModel>()
             .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName));
 
@@ -32,6 +32,7 @@ public class AutoMapping : Profile
             .ForMember(dest => dest.Facilities, opt => opt.Ignore());
         CreateMap<VwFacilityReviewsDetail, ReviewViewModel>().ReverseMap();
         CreateMap<ReviewViewModel, Review>().ReverseMap();
-
+        CreateMap<VwAppointment, AppointmentViewModel>().ReverseMap();
+        CreateMap<VwDoctorAppointment, AppointmentViewModel>().ReverseMap();
     }
 }

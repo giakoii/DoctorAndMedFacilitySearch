@@ -1,4 +1,7 @@
-﻿namespace DataAccessObject.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccessObject.Models;
 
 public partial class PatientProfile
 {
@@ -29,6 +32,8 @@ public partial class PatientProfile
     public string? CreatedBy { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+    public virtual ICollection<MedicalHistory> MedicalHistories { get; set; } = new List<MedicalHistory>();
 
     public virtual User Patient { get; set; } = null!;
 
