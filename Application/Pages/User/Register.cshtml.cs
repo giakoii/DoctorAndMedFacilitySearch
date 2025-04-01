@@ -56,7 +56,6 @@ public class Register : PageModel
         // Login user
         var claims = new List<Claim>
         {
-            
             new Claim(ClaimTypes.Name, RegisterViewModel.FullName),
             new Claim(ClaimTypes.Email, RegisterViewModel.Email),
             new Claim(ClaimTypes.Role, RegisterViewModel.RoleId.ToString()),

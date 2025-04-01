@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
+namespace BusinessLogic.ViewModels;
 
-namespace DataAccessObject.Models;
-
-public partial class VwDoctorsWithoutFacility
+public class DoctorsWithoutFacilityViewModel
 {
     public int DoctorId { get; set; }
 
