@@ -13,6 +13,10 @@ public class AutoMapping : Profile
         CreateMap<DoctorProfile, DoctorViewModel>();
 
         CreateMap<DoctorViewModel, DoctorProfile>();
+        
+        CreateMap<PatientProfile, PatientProfileViewModel>();
+
+        CreateMap<PatientProfileViewModel, PatientProfile>();
 
         CreateMap<VwDoctorProfile, DoctorViewModel>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FullName));

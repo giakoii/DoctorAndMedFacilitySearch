@@ -85,6 +85,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -93,6 +94,10 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapFallbackToPage("/Care");
+});
 
 app.Run();

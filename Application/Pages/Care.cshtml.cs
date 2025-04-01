@@ -1,4 +1,5 @@
-﻿using BusinessLogic;
+﻿using System.Security.Claims;
+using BusinessLogic;
 using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +16,29 @@ namespace Application.Pages
         private readonly IMedicalFacilityService _medicalFacilityService;
         private readonly IDoctorProfileService _doctorProfileService;
         private readonly IUserService _userService;
+        private readonly IPatientProfileService _patientProfileService;
+        
+        [BindProperty(SupportsGet = true)] public PatientProfileViewModel PatientViewModel { get; set; }
 
-        public CareModel(HttpClient httpClient, IMedicalFacilityService medicalFacilityService, IDoctorProfileService doctorProfileService, IUserService userService)
+        public bool ShowPatientModal { get; set; } = false;
+        
+        [TempData] public string PatientMessage { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="medicalFacilityService"></param>
+        /// <param name="doctorProfileService"></param>
+        /// <param name="userService"></param>
+        /// <param name="patientProfileService"></param>
+        public CareModel(HttpClient httpClient, IMedicalFacilityService medicalFacilityService, IDoctorProfileService doctorProfileService, IUserService userService, IPatientProfileService patientProfileService)
         {
             _httpClient = httpClient;
             _medicalFacilityService = medicalFacilityService;
             _doctorProfileService = doctorProfileService;
             _userService = userService;
+            _patientProfileService = patientProfileService;
         }
 
         [HttpGet]
@@ -43,6 +60,20 @@ namespace Application.Pages
             {
                 return RedirectToPage("/Doctor/Index");
             }
+            
+            var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var patient = _patientProfileService.FindView(x => x.Email == email).FirstOrDefault();
+
+            if (patient == null)
+            {
+                PatientMessage = "Please complete your profile";
+                ShowPatientModal = true;
+                PatientViewModel = new PatientProfileViewModel();
+
+                PatientViewModel.PatientId = _userService.FindView(x => x.Email == email).Select(x => x.UserId).FirstOrDefault();
+
+            }
+
 
             // Lưu Tab vào ViewData để truyền sang Razor
             ViewData["Tab"] = Tab;
@@ -213,6 +244,26 @@ namespace Application.Pages
             input = Regex.Replace(input, @"[^\w\s]", "");
             input = Regex.Replace(input, @"\s+", " ");
             return input.Trim();
+        }
+        
+        /// <summary>
+        /// Update patient profile
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostSaveProfile()
+        {
+            if (!ModelState.IsValid)
+            {
+                ShowPatientModal = true;
+                return Page();
+            }
+            var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value!;
+
+            await _patientProfileService.AddPatientProfile(PatientViewModel, email);
+            PatientMessage = "Profile updated successfully!";
+            ShowPatientModal = false;
+
+            return RedirectToPage();
         }
     }
 }

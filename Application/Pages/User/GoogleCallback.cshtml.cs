@@ -44,7 +44,7 @@ public class GoogleCallback : PageModel
             {
                 return RedirectToPage("/Admin/Index");
             }
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Care");
         }
 
         // 
