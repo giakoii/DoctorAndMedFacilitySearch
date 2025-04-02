@@ -16,7 +16,7 @@ public class AutoMapping : Profile
         CreateMap<DoctorProfile, DoctorViewModel>();
 
         CreateMap<DoctorViewModel, DoctorProfile>();
-        
+
         CreateMap<PatientProfile, PatientProfileViewModel>();
 
         CreateMap<PatientProfileViewModel, PatientProfile>();
@@ -44,7 +44,7 @@ public class AutoMapping : Profile
         CreateMap<VwAppointment, AppointmentViewModel>().ReverseMap();
         
         CreateMap<VwDoctorAppointment, AppointmentViewModel>().ReverseMap();
-        
+        CreateMap<MedicalHistory, MedicalHistoryViewModel>().ReverseMap();
         CreateMap<DoctorsWithoutFacilityViewModel, VwDoctorsWithoutFacility>();
         
         CreateMap<VwDoctorsWithoutFacility, DoctorsWithoutFacilityViewModel>();

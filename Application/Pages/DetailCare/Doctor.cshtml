@@ -19,6 +19,17 @@
     .margin-top-10 {
         margin-top: 10rem;
     }
+
+    #scheduleContainer {
+        max-height: 400px; /* chiều cao tối đa */
+        overflow-y: auto; /* hiển thị thanh cuộn nếu nội dung vượt quá chiều cao tối đa */
+    }
+
+        #scheduleContainer .border.rounded {
+            margin-bottom: 8px;
+            padding: 8px;
+            background-color: #f8f9fa; /* Màu nền nhẹ để dễ nhìn hơn */
+        }
 </style>
 
 <div class="container margin-top-10">

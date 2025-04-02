@@ -1,3 +1,4 @@
+using Application.Hubs;
 using BusinessLogic.Logics.MomoLogics;
 using BusinessLogic.Mappings;
 using BusinessLogic.Services;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 // AddScoped Service
+builder.Services.AddSignalR();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
@@ -37,6 +39,7 @@ builder.Services.AddScoped<IMedicalFacilityService, MedicalFacilityService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
 builder.Services.AddScoped<IPatientProfileService, PatientProfileService>();
 builder.Services.AddScoped<IDoctorAppointmentsService, DoctorAppointmentsService>();
+builder.Services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
 builder.Services.AddScoped<BusinessLogic.Services.Appointment.IAppointmentService, BusinessLogic.Services.Appointment.AppointmentService>();
 
 builder.Services.AddScoped<IMomoService, MomoService>();
@@ -87,7 +90,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
-
+app.MapHub<ReviewHub>("/reviewHub");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

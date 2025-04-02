@@ -10,7 +10,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="container">
-    <h1>My Appointments</h1>
+    <h1>My Work</h1>
+    <form method="get" class="mb-3">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Search by Patient Name:</label>
+                <input type="text" class="form-control" name="SearchTerm" value="@Model.SearchTerm" placeholder="Enter patient name..." />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Search by Date:</label>
+                <input type="date" class="form-control" name="SearchDate" value="@(Model.SearchDate?.ToString("yyyy-MM-dd"))" />
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+                <a asp-page="./Index" class="btn btn-secondary"><i class="bi bi-x-lg"></i> Clear</a>
+            </div>
+        </div>
+    </form>
+
     <div class="mb-3 d-flex gap-2">
         <a href="/" class="btn btn-sm btn-secondary d-flex align-items-center" style="width: fit-content;">
             <i class="bi bi-arrow-left me-1"></i> Back
@@ -82,10 +99,47 @@
                                     {
                                         <div class="btn-group" role="group" aria-label="Appointment Actions">
                                             <form method="post" asp-page-handler="Finish" asp-route-id="@appointment.AppointmentId" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-warning d-flex align-items-center"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Finish Appointment">
+                                                <button type="button" class="btn btn-sm btn-warning d-flex align-items-center"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#finishModal_@appointment.AppointmentId">
                                                     <i class="bi bi-check-circle me-1"></i> Finish
                                                 </button>
+                                                <div class="modal fade" id="finishModal_@appointment.AppointmentId" tabindex="-1" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <form method="post" asp-page-handler="Finish">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Add Medical History</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <input type="hidden" name="id" value="@appointment.AppointmentId" />
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Diagnosis</label>
+                                                                        <input class="form-control" asp-for="MedicalHistory.Diagnosis" required />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Treatment</label>
+                                                                        <input class="form-control" asp-for="MedicalHistory.Treatment" />
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Notes</label>
+                                                                        <textarea class="form-control" asp-for="MedicalHistory.Notes"></textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Record Date</label>
+                                                                        <input class="form-control" asp-for="MedicalHistory.RecordDate" type="datetime-local"
+                                                                               value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-warning">Finish Appointment</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </form>
 
                                             <button type="button" class="btn btn-sm btn-danger d-flex align-items-center"
@@ -139,19 +193,31 @@
         <nav aria-label="pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                    <a class="page-link" asp-page="/DoctorWork/Index" asp-route-num="@(Model.CurrentPage - 1)">Previous</a>
+                    <a class="page-link" asp-page="./Index"
+                       asp-route-num="@(Model.CurrentPage - 1)"
+                       asp-route-SearchTerm="@Model.SearchTerm"
+                       asp-route-SearchDate="@(Model.SearchDate?.ToString("yyyy-MM-dd"))">Previous</a>
                 </li>
+
                 @for (int i = 1; i <= Model.TotalPages; i++)
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a class="page-link" asp-page="/DoctorWork/Index" asp-route-num="@i">@i</a>
+                        <a class="page-link" asp-page="./Index"
+                           asp-route-num="@i"
+                           asp-route-SearchTerm="@Model.SearchTerm"
+                           asp-route-SearchDate="@(Model.SearchDate?.ToString("yyyy-MM-dd"))">@i</a>
                     </li>
                 }
+
                 <li class="page-item @(Model.CurrentPage >= Model.TotalPages ? "disabled" : "")">
-                    <a class="page-link" asp-page="/DoctorWork/Index" asp-route-num="@(Model.CurrentPage + 1)">Next</a>
+                    <a class="page-link" asp-page="./Index"
+                       asp-route-num="@(Model.CurrentPage + 1)"
+                       asp-route-SearchTerm="@Model.SearchTerm"
+                       asp-route-SearchDate="@(Model.SearchDate?.ToString("yyyy-MM-dd"))">Next</a>
                 </li>
             </ul>
         </nav>
+
     }
     else
     {
@@ -159,4 +225,5 @@
             No appointments found.
         </div>
     }
+
 </div>
