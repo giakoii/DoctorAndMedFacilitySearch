@@ -4,6 +4,7 @@ using BusinessLogic.Mappings;
 using BusinessLogic.Services;
 using Client.Logics.Commons.MomoLogics;
 using DataAccessObject;
+using DataAccessObject.Models;
 using DataAccessObject.Models.Helper;
 using DataAccessObject.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,6 +12,9 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<DoctorAndMedFacilitySearchContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Connection String
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -40,6 +44,7 @@ builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
 builder.Services.AddScoped<IPatientProfileService, PatientProfileService>();
 builder.Services.AddScoped<IDoctorAppointmentsService, DoctorAppointmentsService>();
 builder.Services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
+builder.Services.AddScoped<IHealthInfoService, HealthInfoService>();
 builder.Services.AddScoped<BusinessLogic.Services.Appointment.IAppointmentService, BusinessLogic.Services.Appointment.AppointmentService>();
 
 builder.Services.AddScoped<IMomoService, MomoService>();

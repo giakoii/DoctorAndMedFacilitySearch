@@ -36,4 +36,9 @@
       <Folder Include="wwwroot\dashboard\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="Pages\HealthArticles\Details.cshtml" />
+      <None Include="Pages\HealthArticles\HealthInfo.cshtml" />
+    </ItemGroup>
+
 </Project>
