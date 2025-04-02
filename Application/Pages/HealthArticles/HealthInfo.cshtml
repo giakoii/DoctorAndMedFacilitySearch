@@ -1,0 +1,99 @@
+﻿@page
+@model Application.Pages.HealthArticles.HealthInfoModel
+@{
+    ViewData["Title"] = "Health Articles and Certified Medical Facilities";
+}
+<h2>Thông tin y tế</h2>
+
+
+<div class="health-articles mb-5">
+    <h3>Danh sách bài viết y tế</h3>
+    @if (Model.Articles == null || !Model.Articles.Any())
+    {
+        <p>Chưa có bài viết y tế nào được cập nhật.</p>
+    }
+    else
+    {
+        <div class="accordion" id="healthArticlesAccordion">
+            @foreach (var article in Model.Articles)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading-@article.ArticleId">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse-@article.ArticleId" aria-expanded="false"
+                                aria-controls="collapse-@article.ArticleId">
+                            @article.Title
+                        </button>
+                    </h2>
+                    <div id="collapse-@article.ArticleId" class="accordion-collapse collapse"
+                         aria-labelledby="heading-@article.ArticleId" data-bs-parent="#healthArticlesAccordion">
+                        <div class="accordion-body">
+                            @Html.Raw(article.Content)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+<div class="certified-medical-facilities">
+    <h3>Danh sách cơ sở y tế đạt tiêu chuẩn</h3>
+    @if (Model.CertifiedMedicalFacilities == null || !Model.CertifiedMedicalFacilities.Any())
+    {
+        <p>Chưa có cơ sở y tế nào đạt tiêu chuẩn.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var facility in Model.CertifiedMedicalFacilities)
+            {
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@facility.Name</h5>
+                            <ul class="list-unstyled">
+                                <li><strong>Địa chỉ:</strong> @facility.Address</li>
+                                <li><strong>Số điện thoại:</strong> @facility.Phone</li>
+                                <li><strong>Xếp hạng:</strong> ⭐@facility.Rating</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .health-articles .accordion-item {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .health-articles .accordion-button {
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .health-articles .accordion-body {
+        padding: 20px;
+    }
+
+    .certified-medical-facilities .card {
+        border-radius: 10px;
+        transition: transform 0.2s;
+    }
+
+        .certified-medical-facilities .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .certified-medical-facilities .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #15B9D9;
+    }
+</style>

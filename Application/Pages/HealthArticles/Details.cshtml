@@ -1,0 +1,10 @@
+﻿@page "{id:int}"
+@model Application.Pages.HealthArticles.DetailsModel
+@{
+    ViewData["Title"] = "Article Details";
+}
+<h2>@Model.Article.Title</h2>
+<div class="article-content">
+    @Html.Raw(Model.Article.Content)
+</div>
+<a asp-page="/HealthArticles/HealthInfo" class="btn btn-primary mt-3">Back to Articles</a>
